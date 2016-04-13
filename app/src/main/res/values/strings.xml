@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">NavigationDrawer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <string name="landlord_log_in">Hello Landlord</string>
+    <string name="tenant_landlord_log_in">Who you are?</string>
+    <string name="tenant_log_in">Hello Tenant</string>
+
+
+
+    <string name="is_rented_button_name">Vacant</string>
+    <string name="state_of_claim_button_name">State</string>
+    <string name="add_first_claim">Add your firs claim</string>
+</resources>
