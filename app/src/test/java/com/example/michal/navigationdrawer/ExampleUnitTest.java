@@ -1,4 +1,4 @@
-package com.example.michal.navigationdrawer;
+package com.example.michal.rentmate;
 
 import org.junit.Test;
 

@@ -15,6 +15,7 @@
                   xmlns:tools="http://schemas.android.com/tools"
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:background="@drawable/ripple"
                   android:orientation="horizontal"
                   android:padding="5dp">
 
@@ -23,15 +24,15 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_weight="90"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/list_item_textview_apartment_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Name"
                 android:padding="2dp"
+                android:text="Name"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Apartment Name"
@@ -41,8 +42,8 @@
                 android:id="@+id/list_item_textview_apartment_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
                 android:padding="2dp"
+                android:text="Address"
                 android:textSize="14sp"
                 tools:text="Apartment Address"
                 />

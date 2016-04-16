@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">NavigationDrawer</string>
+    <string name="google_app_id">324762766314</string>
+    <string name="app_name">RentMate</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -16,4 +17,5 @@
     <string name="is_rented_button_name">Vacant</string>
     <string name="state_of_claim_button_name">State</string>
     <string name="add_first_claim">Add your firs claim</string>
+    <string name="add_first_apartment">Add your firs apartment</string>
 </resources>
