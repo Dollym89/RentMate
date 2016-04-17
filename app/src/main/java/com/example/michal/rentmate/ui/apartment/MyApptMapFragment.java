@@ -4,7 +4,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
-import com.example.michal.rentmate.model.Apartment;
+import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

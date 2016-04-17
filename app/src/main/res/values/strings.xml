@@ -14,6 +14,11 @@
 
 
 
+    <string name="action_search_menu">Search</string>
+
+
+
+
     <string name="is_rented_button_name">Vacant</string>
     <string name="state_of_claim_button_name">State</string>
     <string name="add_first_claim">Add your firs claim</string>

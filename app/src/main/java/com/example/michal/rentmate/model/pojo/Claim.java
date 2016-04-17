@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.model;
+package com.example.michal.rentmate.model.pojo;
 
 import java.util.Date;
 import java.util.UUID;

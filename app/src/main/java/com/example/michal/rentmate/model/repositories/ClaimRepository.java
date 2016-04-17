@@ -2,7 +2,7 @@ package com.example.michal.rentmate.model.repositories;
 
 import android.content.Context;
 
-import com.example.michal.rentmate.model.Claim;
+import com.example.michal.rentmate.model.pojo.Claim;
 
 import java.util.ArrayList;
 import java.util.List;

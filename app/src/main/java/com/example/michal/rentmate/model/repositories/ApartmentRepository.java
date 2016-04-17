@@ -1,6 +1,6 @@
 package com.example.michal.rentmate.model.repositories;
 
-import com.example.michal.rentmate.model.Apartment;
+import com.example.michal.rentmate.model.pojo.Apartment;
 
 import java.util.ArrayList;
 import java.util.List;

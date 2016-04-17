@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
-import com.example.michal.rentmate.model.Claim;
+import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
 
 import java.util.List;
@@ -45,6 +47,11 @@ public class ClaimListFragment extends Fragment {
         void onClaimSelected();
     }
 
+    public static ClaimListFragment newInstance() {
+        return new ClaimListFragment();
+
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -66,6 +73,7 @@ public class ClaimListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_claim_list, container, false);
+        setHasOptionsMenu(true);
         ButterKnife.bind(this, view);
 
         claimRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -75,6 +83,11 @@ public class ClaimListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.fragment_claim_list_menu,menu);
+    }
 
     public void updateUi() {
 
@@ -181,10 +194,7 @@ public class ClaimListFragment extends Fragment {
         }
     }
 
-    public static ClaimListFragment newInstance() {
-        return new ClaimListFragment();
 
-    }
 
 
 }
