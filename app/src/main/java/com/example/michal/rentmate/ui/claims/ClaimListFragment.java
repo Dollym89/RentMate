@@ -64,7 +64,7 @@ public class ClaimListFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.e("FRAGMENT ONCREATE", "FRAGMENT CLAIM LIST ONCREATE");
+
   }
 
   @Nullable

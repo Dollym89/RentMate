@@ -25,4 +25,9 @@
   <string name="state_of_claim_button_name">State</string>
   <string name="add_first_claim">Add your firs claim</string>
   <string name="add_first_apartment">Add your firs apartment</string>
+
+
+  <string name="new_apt_address">Address</string>
+  <string name="new_apartment_occupied">Occupied</string>
+  <string name="new_apt_save_button">Save</string>
 </resources>

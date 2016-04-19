@@ -1,18 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:gravity="bottom"
+              android:orientation="vertical"
+              android:padding="20dp">
 
-  <EditText
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="@string/new_apt_address"
-    android:id="@+id/new_apt_address"
-    />
+    android:layout_weight="1"
+    android:orientation="vertical"
+    android:gravity="bottom">
+
     <EditText
+      android:id="@+id/new_apt_address"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:hint="@string/new_apt_address"
       />
+
+    <Switch
+      android:id="@+id/new_apt_switch"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:text="@string/new_apartment_occupied"
+      android:textSize="16sp"
+      />
+  </LinearLayout>
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:gravity="bottom">
+
+    <Button
+      android:id="@+id/new_apt_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+
+      android:background="@drawable/ripple"
+      android:text="@string/new_apt_save_button"
+     />
+  </LinearLayout>
+
 
 </LinearLayout>
