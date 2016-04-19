@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+  <EditText
+    android:id="@+id/user_name_edit_text"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="70dp"
+    android:drawableLeft="@drawable/ic_action_e_mail"
+    android:ems="10"
+    android:hint="@string/user_name_edit_text"
+    android:inputType="textPassword"
+    />
+
+  <EditText
+
+    android:id="@+id/password_edittext"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:drawableLeft="@drawable/ic_action_password"
+    android:ems="10"
+    android:hint="@string/hint_password"
+    android:inputType="textPassword"
+    />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="@string/switch_tenant"/>
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:text="@string/switch_landlord"/>
+
+  </LinearLayout>
+
+  <Switch
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textColor="@color/colorAccent"
+    android:textOff="Tenant"
+    android:textOn="Landlord"
+    />
+
+  <Button
+    android:id="@+id/sign_up_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="40dp"
+    android:background="?attr/selectableItemBackground"
+    android:text="@string/sign_up_button"
+    android:textColor="#ffffff"
+    />
+
+</LinearLayout>
