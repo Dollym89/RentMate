@@ -23,7 +23,6 @@ public class MyApptTabFragment extends Fragment {
   private ViewPager pager;
 
 
-
   public static MyApptTabFragment newInstance() {
     return new MyApptTabFragment();
   }
@@ -38,25 +37,43 @@ public class MyApptTabFragment extends Fragment {
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_tab_holder, container, false);
+    View view = inflater.inflate(R.layout.frag_tab_apartment, container, false);
 
-    pager = (ViewPager)view.findViewById(R.id.view_pager);
+    pager = (ViewPager) view.findViewById(R.id.view_pager);
     tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
 
     FragmentManager manager = getFragmentManager();
 
     PagerAdapter adapter = new PagerAdapter(manager);
+    adapter.notifyDataSetChanged();
 
     pager.setAdapter(adapter);
 
     tabLayout.setupWithViewPager(pager);
 
     pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-    pager.setCurrentItem(0);
-    tabLayout.setupWithViewPager(pager);
+
+
     return view;
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+
+
+    FragmentManager manager = getFragmentManager();
+
+    PagerAdapter adapter = new PagerAdapter(manager);
+    adapter.notifyDataSetChanged();
+
+    pager.setAdapter(adapter);
+
+    tabLayout.setupWithViewPager(pager);
+
+    pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+  }
 
   public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -74,9 +91,7 @@ public class MyApptTabFragment extends Fragment {
         case 1:
           fragment = MyApptMapFragment.newInstance();
           break;
-        default:
-          fragment = MyApptListFragment.newInstance();
-          break;
+
       }
       return fragment;
     }
@@ -89,7 +104,7 @@ public class MyApptTabFragment extends Fragment {
     @Override
     public CharSequence getPageTitle(int position) {
 
-      String title;
+      String title = "";
       switch (position) {
         case 0:
           title = "My Apartments";
@@ -97,8 +112,7 @@ public class MyApptTabFragment extends Fragment {
         case 1:
           title = "Location";
           break;
-        default:
-          title = "My Apartments";
+
       }
       return title;
     }

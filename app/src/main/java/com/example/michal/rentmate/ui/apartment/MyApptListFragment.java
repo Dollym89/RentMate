@@ -7,15 +7,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
+//import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 
@@ -37,12 +37,8 @@ public class MyApptListFragment extends Fragment {
   FloatingActionButton addFirstAptFAB;
 
   private AptAdapter adapter;
-  private Callbacks callbacks;
+  private MyApptContract.Callbacks callbacks;
 
-
-  public interface Callbacks {
-    void onApartmentSelected();
-  }
 
   public static MyApptListFragment newInstance() {
     return new MyApptListFragment();
@@ -52,7 +48,7 @@ public class MyApptListFragment extends Fragment {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    callbacks = (Callbacks) context;
+    callbacks = (MyApptContract.Callbacks) context;
   }
 
   @Override
@@ -61,12 +57,21 @@ public class MyApptListFragment extends Fragment {
     callbacks = null;
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+    Log.e("ONRESUME","ONRESUME");
+//    updateUi();
+  }
+
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.fragment_my_appt_list, container, false);
+    View view = inflater.inflate(R.layout.frag_my_appt_list, container, false);
     setHasOptionsMenu(true);
     ButterKnife.bind(this, view);
+    callbacks.setApartmentActionBar();
+
 
     addFirstAptFAB.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -79,12 +84,6 @@ public class MyApptListFragment extends Fragment {
     return view;
   }
 
-  @Override
-  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    super.onCreateOptionsMenu(menu, inflater);
-    inflater.inflate(R.menu.fragment_apartment_list_menu, menu);
-  }
-
   private void updateUi() {
     ApartmentRepository repository = ApartmentRepository.getInstance();
     final List<Apartment> apartmentList = repository.getApartmentList();
@@ -95,6 +94,7 @@ public class MyApptListFragment extends Fragment {
     }
     else
       adapter.notifyDataSetChanged();
+      recyclerView.setAdapter(adapter);
 
     if (apartmentList.size() > 0) {
       addFirstAptLayout.setVisibility(View.GONE);
@@ -133,7 +133,7 @@ public class MyApptListFragment extends Fragment {
 
     public void onBind(Apartment apartment) {
       aptName.setText(apartment.getAddress());
-      aptAddress.setText(apartment.getPostalCode());
+//      aptAddress.setText(apartment.getPostalCode());
     }
 
     @Override

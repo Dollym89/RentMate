@@ -52,8 +52,12 @@ public class MyApptMapFragment extends SupportMapFragment {
     });
   }
 
-  public void initMap(){
+  public void initMap() {
+    if (ListOfAddressList.size() == 0) {
+      return;
+    }
     map.animateCamera(CameraUpdateFactory.newLatLng(((getPositions(ListOfAddressList).get(0)))));
+
     map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     map.getUiSettings().setRotateGesturesEnabled(false);
     map.getUiSettings().setZoomControlsEnabled(true);

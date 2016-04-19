@@ -1,69 +1,184 @@
+
 package com.example.michal.rentmate.model.pojo;
 
-import java.util.Date;
-import java.util.UUID;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Michal on 21/03/2016.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Generated;
+
+@Generated("org.jsonschema2pojo")
 public class Claim {
 
-    public enum State {Answer, Open, Closed}
+    @SerializedName("_id")
+    @Expose
+    private String Id;
+    @SerializedName("claim_id")
+    @Expose
+    private String claimId;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("status")
+    @Expose
+    private String status;
+    @SerializedName("__v")
+    @Expose
+    private int V;
+    @SerializedName("messages")
+    @Expose
+    private List<Message> messages = new ArrayList<Message>();
 
-
-    private UUID id;
-    private String name;
-    private Date dateOfClaim;
-    private boolean claimSolved;
-    private State stateOfClaim;
-    private int colour;
-
-
-    public Claim() {
-        this(UUID.randomUUID());
+    /**
+     * 
+     * @return
+     *     The Id
+     */
+    public String getId() {
+        return Id;
     }
 
-    public Claim(UUID id) {
-        this.id = id;
-        this.dateOfClaim = new Date();
-        this.stateOfClaim = State.Answer;
-
+    /**
+     * 
+     * @param Id
+     *     The _id
+     */
+    public void setId(String Id) {
+        this.Id = Id;
     }
 
-    public UUID getId() {
-        return id;
+    /**
+     * 
+     * @return
+     *     The claimId
+     */
+    public String getClaimId() {
+        return claimId;
     }
 
-
-    public String getName() {
-        return name;
+    /**
+     * 
+     * @param claimId
+     *     The claim_id
+     */
+    public void setClaimId(String claimId) {
+        this.claimId = claimId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * 
+     * @return
+     *     The createdAt
+     */
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public Date getDateOfClaim() {
-        return dateOfClaim;
+    /**
+     * 
+     * @param createdAt
+     *     The created_at
+     */
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setDateOfClaim(Date dateOfClaim) {
-        this.dateOfClaim = dateOfClaim;
+    /**
+     * 
+     * @return
+     *     The updatedAt
+     */
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public boolean isClaimSolved() {
-        return claimSolved;
+    /**
+     * 
+     * @param updatedAt
+     *     The updated_at
+     */
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
-    public void setClaimSolved(boolean claimSolved) {
-        this.claimSolved = claimSolved;
+    /**
+     * 
+     * @return
+     *     The title
+     */
+    public String getTitle() {
+        return title;
     }
 
-    public State getStateOfClaim() {
-        return stateOfClaim;
+    /**
+     * 
+     * @param title
+     *     The title
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setStateOfClaim(State stateOfClaim) {
-        this.stateOfClaim = stateOfClaim;
+    /**
+     * 
+     * @return
+     *     The status
+     */
+    public String getStatus() {
+        return status;
     }
+
+    /**
+     * 
+     * @param status
+     *     The status
+     */
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    /**
+     * 
+     * @return
+     *     The V
+     */
+    public int getV() {
+        return V;
+    }
+
+    /**
+     * 
+     * @param V
+     *     The __v
+     */
+    public void setV(int V) {
+        this.V = V;
+    }
+
+    /**
+     * 
+     * @return
+     *     The messages
+     */
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    /**
+     * 
+     * @param messages
+     *     The messages
+     */
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
 }

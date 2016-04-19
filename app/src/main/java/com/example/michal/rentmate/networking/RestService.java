@@ -10,20 +10,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RestService {
     private static String url = "http://blooming-tundra-81185.herokuapp.com";
 
-    private static UserApi service;
+    private static RentMateApi service;
 
     private RestService() {
 
     }
 
-    public static UserApi getInstance() {
+    public static RentMateApi getInstance() {
         if (service == null) {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            service = retrofit.create(UserApi.class);
+            service = retrofit.create(RentMateApi.class);
             return service;
         }
         else {

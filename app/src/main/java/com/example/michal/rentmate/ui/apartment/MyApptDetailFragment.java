@@ -21,7 +21,7 @@ public class MyApptDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_appt_detail, container, false);
+        View view = inflater.inflate(R.layout.frag_my_appt_detail, container, false);
         return view;
     }
 }
