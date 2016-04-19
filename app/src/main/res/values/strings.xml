@@ -15,6 +15,10 @@
 
   <string name="navigation_drawer_open">Open navigation drawer</string>
   <string name="navigation_drawer_close">Close navigation drawer</string>
+  <string name="nav_my_apartments">My Apartments</string>
+  <string name="nav_claims">Claims</string>
+  <string name="nav_profile">Profile</string>
+  <string name="nav_settings">Settings</string>
 
 
   <string name="is_rented_button_name">Vacant</string>

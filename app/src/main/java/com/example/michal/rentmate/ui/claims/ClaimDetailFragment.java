@@ -13,8 +13,12 @@ import com.example.michal.rentmate.R;
 /**
  * Created by Michal on 05/04/2016.
  */
-public class CalimDetailFragment extends Fragment {
+public class ClaimDetailFragment extends Fragment {
 
+
+    public static ClaimDetailFragment newInstance(){
+        return new ClaimDetailFragment();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

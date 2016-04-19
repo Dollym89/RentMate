@@ -33,7 +33,7 @@ public class ClaimListFragment extends Fragment {
   @Bind(R.id.add_first_crime_layout)
   RelativeLayout addFirstClaimLayout;
   @Bind(R.id.add_first_crime_button)
-  FloatingActionButton addClaimButton;
+  FloatingActionButton addClaimButtonFAB;
   @Bind(R.id.recyclerView_claim_list)
   RecyclerView claimRecyclerView;
 
@@ -57,7 +57,7 @@ public class ClaimListFragment extends Fragment {
   @Override
   public void onDetach() {
     super.onDetach();
-    Log.e("FRAGMENT DETACHED","FRAGMENT CLAIM LIST DETACHED");
+    Log.e("FRAGMENT DETACHED", "FRAGMENT CLAIM LIST DETACHED");
     callbacks = null;
   }
 
@@ -75,6 +75,13 @@ public class ClaimListFragment extends Fragment {
     ButterKnife.bind(this, view);
     callbacks.setClaimActionBar();
 
+
+    addClaimButtonFAB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        callbacks.addNewClaim();
+      }
+    });
     claimRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
 
@@ -100,10 +107,10 @@ public class ClaimListFragment extends Fragment {
     }
     else {
       addFirstClaimLayout.setVisibility(View.VISIBLE);
-      addClaimButton.setOnClickListener(new View.OnClickListener() {
+      addClaimButtonFAB.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          callbacks.onClaimSelected();
+          callbacks.addNewClaim();
         }
       });
     }

@@ -76,7 +76,7 @@ public class MyApptListFragment extends Fragment {
     addFirstAptFAB.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        callbacks.onApartmentSelected();
+        callbacks.addNewApartment();
       }
     });
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -105,9 +105,9 @@ public class MyApptListFragment extends Fragment {
       addFirstAptFAB.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-          Apartment apartment = new Apartment();
-          ApartmentRepository.getInstance().getApartmentList().add(apartment);
-          callbacks.onApartmentSelected();
+//          Apartment apartment = new Apartment();
+//          ApartmentRepository.getInstance().getApartmentList().add(apartment);
+          callbacks.addNewApartment();
 
         }
       });

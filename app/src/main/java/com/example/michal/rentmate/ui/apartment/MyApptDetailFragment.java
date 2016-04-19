@@ -17,7 +17,9 @@ public class MyApptDetailFragment extends Fragment {
 
 
 
-
+public static MyApptDetailFragment newInstance(){
+    return new MyApptDetailFragment();
+}
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

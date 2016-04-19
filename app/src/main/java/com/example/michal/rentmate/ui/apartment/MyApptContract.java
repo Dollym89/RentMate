@@ -8,5 +8,6 @@ public interface MyApptContract {
   interface Callbacks {
     void onApartmentSelected();
     void setApartmentActionBar();
+    void addNewApartment();
   }
 }

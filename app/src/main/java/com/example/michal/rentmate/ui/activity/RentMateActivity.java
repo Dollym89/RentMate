@@ -27,11 +27,14 @@ import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.ui.apartment.MyApptDetailFragment;
-import com.example.michal.rentmate.ui.apartment.MyApptListFragment;
+import com.example.michal.rentmate.ui.apartment.MyApptNew;
 import com.example.michal.rentmate.ui.apartment.MyApptTabFragment;
-import com.example.michal.rentmate.ui.claims.CalimDetailFragment;
+import com.example.michal.rentmate.ui.claims.ClaimDetailFragment;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
 import com.example.michal.rentmate.ui.claims.ClaimListFragment;
+import com.example.michal.rentmate.ui.claims.ClaimNew;
+import com.example.michal.rentmate.ui.profile.Profile;
+import com.example.michal.rentmate.ui.settings.Settings;
 
 import java.util.List;
 
@@ -216,8 +219,14 @@ public class RentMateActivity extends AppCompatActivity
         fragment = ClaimListFragment.newInstance();
         TAG = "CLAIM_LIST_FRAGMENT";
         break;
-      default:
-        fragment = MyApptListFragment.newInstance();
+      case R.id.nav_profile:
+        fragment = Profile.newInstance();
+        TAG = "PROFILE";
+        break;
+      case R.id.nav_settings:
+        fragment = Settings.newInstance();
+        TAG = "SETTINGS";
+        break;
     }
 
     FragmentManager fm = getSupportFragmentManager();
@@ -238,7 +247,7 @@ public class RentMateActivity extends AppCompatActivity
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentByTag("CLAIM_DETAIL");
     if (fragment == null) {
-      fragment = new CalimDetailFragment();
+      fragment = ClaimDetailFragment.newInstance();
     }
     isDrawerEnable(false);
     fm.beginTransaction()
@@ -256,11 +265,25 @@ public class RentMateActivity extends AppCompatActivity
   }
 
   @Override
+  public void addNewClaim() {
+    FragmentManager fm = getSupportFragmentManager();
+    Fragment fragment = fm.findFragmentByTag("CLAIM_NEW");
+    if (fragment == null) {
+      fragment = ClaimNew.newInstance();
+    }
+    isDrawerEnable(false);
+    fm.beginTransaction()
+        .addToBackStack("CLAIM_NEW")
+        .replace(R.id.fragment_container, fragment, "CLAIM_NEW")
+        .commit();
+  }
+
+  @Override
   public void onApartmentSelected() {
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentByTag("APARTMENT_DETAIL");
     if (fragment == null) {
-      fragment = new MyApptDetailFragment();
+      fragment = MyApptDetailFragment.newInstance();
     }
     isDrawerEnable(false);
     fm.beginTransaction()
@@ -274,6 +297,21 @@ public class RentMateActivity extends AppCompatActivity
     if (getSupportActionBar() != null) {
       getSupportActionBar().setTitle("My Apartments");
     }
+  }
+
+  @Override
+  public void addNewApartment() {
+
+    FragmentManager fm = getSupportFragmentManager();
+    Fragment fragment = fm.findFragmentByTag("APARTMENT_NEW");
+    if (fragment == null) {
+      fragment = MyApptNew.newInstance();
+    }
+    isDrawerEnable(false);
+    fm.beginTransaction()
+        .addToBackStack("APARTMENT_NEW")
+        .replace(R.id.fragment_container, fragment, "APARTMENT_NEW")
+        .commit();
   }
 
   /**

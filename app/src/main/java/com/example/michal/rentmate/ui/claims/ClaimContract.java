@@ -8,5 +8,6 @@ public interface ClaimContract {
   interface Callbacks {
     void onClaimSelected();
     void setClaimActionBar();
+    void addNewClaim();
   }
 }
