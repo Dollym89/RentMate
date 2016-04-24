@@ -19,6 +19,7 @@
   <string name="nav_claims">Claims</string>
   <string name="nav_profile">Profile</string>
   <string name="nav_settings">Settings</string>
+  <string name="nav_home">Home</string>
 
 
   <string name="is_rented_button_name">Vacant</string>
@@ -35,4 +36,17 @@
   <string name="claim_detail_title">Claim detail Title</string>
   <string name="claim_detail_date">Claim detail date</string>
   <string name="claim_detail_description">Description</string>
+
+  <string name="claims_need_your_attention">Claims need your attention</string>
+  <string name="xy_people_are_waiting_for_your_answer">XY people are waiting for your answer</string>
+  <string name="apartments_are_free">Apartments are free</string>
+  <string name="invite_tenants_to_your_apartments">Invite tenants to your apartments</string>
+
+
+  <string name="welcome_new_tenant">Welcome new Tenant!</string>
+  <string name="use_the_ID">Please find attached apartment ID and log in to your new Apartment</string>
+  <string name="new_ID">Your new ID: </string>
+
+
+
 </resources>

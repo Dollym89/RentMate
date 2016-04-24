@@ -23,6 +23,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Michal on 05/04/2016.
@@ -84,17 +85,19 @@ public class ClaimListFragment extends Fragment {
     ButterKnife.bind(this, view);
     callbacks.setClaimActionBar();
 
-
-    addClaimButtonFAB.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        callbacks.addNewClaim();
-      }
-    });
     claimRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
 
     return view;
+  }
+
+
+  /**
+   * Listeners
+   */
+  @OnClick(R.id.add_first_crime_button)
+  public void addNewClaim(){
+    callbacks.addNewClaim();
   }
 
 

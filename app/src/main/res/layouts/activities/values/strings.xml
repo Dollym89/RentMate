@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <string name="claims_need_your_attention">Claims need your attention</string>
-  <string name="xy_people_are_waiting_for_your_answer">XY people are waiting for your answer</string>
-  <string name="apartments_are_free">Apartments are free</string>
-  <string name="invite_tenants_to_your_apartments">Invite tenants to your apartments</string>
-  <string name="nav_home">Home</string>
-</resources>

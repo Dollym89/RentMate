@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
-//import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 
@@ -23,6 +22,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+//import com.example.michal.rentmate.model.pojo.Apartment;
 
 /**
  * Created by Michal on 05/04/2016.
@@ -60,7 +62,7 @@ public class MyApptListFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    Log.e("ONRESUME","ONRESUME");
+    Log.e("ONRESUME", "ONRESUME");
 //    updateUi();
   }
 
@@ -73,15 +75,18 @@ public class MyApptListFragment extends Fragment {
     callbacks.setApartmentActionBar();
 
 
-    addFirstAptFAB.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        callbacks.addNewApartment();
-      }
-    });
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
     return view;
+  }
+
+  /**
+   * Listeners
+   */
+
+  @OnClick(R.id.add_first_apartment_button)
+  public void newApartment() {
+    callbacks.addNewApartment();
   }
 
   private void updateUi() {
@@ -94,7 +99,7 @@ public class MyApptListFragment extends Fragment {
     }
     else
       adapter.notifyDataSetChanged();
-      recyclerView.setAdapter(adapter);
+    recyclerView.setAdapter(adapter);
 
     if (apartmentList.size() > 0) {
       addFirstAptLayout.setVisibility(View.GONE);
@@ -138,6 +143,7 @@ public class MyApptListFragment extends Fragment {
       aptName.setText(apartment.getAddress());
 //      aptAddress.setText(apartment.getPostalCode());
     }
+
 
     @Override
     public void onClick(View v) {

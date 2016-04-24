@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
@@ -15,6 +17,7 @@ import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Michal on 23/04/2016.
@@ -29,6 +32,8 @@ public class MyApptDetailFragment extends Fragment {
   TextView detailAccesKey;
   @Bind(R.id.apartment_detail_occupied_textview)
   TextView detailOccupied;
+  @Bind(R.id.apartment_ID_layout)
+  LinearLayout idLayout;
 
   private static final String ARG_APT = "apartment_id";
 
@@ -49,8 +54,6 @@ public class MyApptDetailFragment extends Fragment {
     String apartmentId = (String) getArguments().getSerializable(ARG_APT);
     apartment = ApartmentRepository.getInstance().getApartment(apartmentId);
 
-
-
   }
 
   @Nullable
@@ -63,6 +66,28 @@ public class MyApptDetailFragment extends Fragment {
     return view;
   }
 
+  /**
+   * Listeners
+   */
+
+  @OnClick(R.id.apartment_ID_layout)
+  public void sendApartmetID() {
+    ShareCompat.IntentBuilder.from(getActivity())
+        .setType("text/plain")
+        .setText(getEmailText())
+        .setSubject("New Apartment ID")
+        .setChooserTitle("Send ID via: ")
+        .startChooser();
+  }
+
+  private String getEmailText() {
+    String email = "";
+    email = getString(R.string.welcome_new_tenant)+"\n"+
+        getString(R.string.use_the_ID) + "\n" +
+        getString(R.string.new_ID)+
+        apartment.getApartmentId();
+    return email;
+  }
 
   private void setMapFragment(Apartment apartment) {
     FragmentManager manager = getChildFragmentManager();
@@ -83,7 +108,7 @@ public class MyApptDetailFragment extends Fragment {
 
     detailAddress.setText(apartment.getName());
 //    detailPostalCode.setText(apartment.getPostalCode);
-      detailAccesKey.setText(apartment.getApartmentId());
+    detailAccesKey.setText(apartment.getApartmentId());
 //    detailOccupied.setText(apartment.isOccupied);
   }
 
