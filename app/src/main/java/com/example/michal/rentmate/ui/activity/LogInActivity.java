@@ -35,6 +35,9 @@ public class LogInActivity extends AppCompatActivity {
     ButterKnife.bind(this);
     setFancyText(welcomeText);
 
+//    DataLoader.loadAptData();
+//    DataLoader.loadClaimData();
+
     updateUI();
   }
 

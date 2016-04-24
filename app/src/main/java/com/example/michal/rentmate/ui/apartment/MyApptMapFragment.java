@@ -10,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -56,7 +57,12 @@ public class MyApptMapFragment extends SupportMapFragment {
     if (ListOfAddressList.size() == 0) {
       return;
     }
-    map.animateCamera(CameraUpdateFactory.newLatLng(((getPositions(ListOfAddressList).get(0)))));
+
+    CameraPosition cameraPosition = new CameraPosition.Builder()
+        .target(((getPositions(ListOfAddressList).get(0))))
+        .zoom(10)
+        .build();
+    map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
     map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     map.getUiSettings().setRotateGesturesEnabled(false);

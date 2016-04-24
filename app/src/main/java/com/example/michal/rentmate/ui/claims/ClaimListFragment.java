@@ -40,9 +40,11 @@ public class ClaimListFragment extends Fragment {
 
   private ClaimAdapter adapter;
   private ClaimContract.Callbacks callbacks;
+  private List<Claim> claimList;
 
 
   public static ClaimListFragment newInstance() {
+
     return new ClaimListFragment();
 
   }
@@ -52,6 +54,7 @@ public class ClaimListFragment extends Fragment {
     super.onAttach(context);
     Log.e("FRAGMENT ATTACHED", "FRAGMENT CLAIM LIST ATTACHED");
     callbacks = (ClaimContract.Callbacks) context;
+
   }
 
   @Override
@@ -64,6 +67,10 @@ public class ClaimListFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    ClaimRepository repository = ClaimRepository.getInstance();
+    claimList = repository.getClaimList();
+//    new FetchClaims().execute();
+
 
   }
 
@@ -71,6 +78,8 @@ public class ClaimListFragment extends Fragment {
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_claim_list, container, false);
+
+
     setHasOptionsMenu(true);
     ButterKnife.bind(this, view);
     callbacks.setClaimActionBar();
@@ -88,18 +97,22 @@ public class ClaimListFragment extends Fragment {
     return view;
   }
 
+
   public void updateUi() {
 
-    ClaimRepository repository = ClaimRepository.getInstance();
-    List<Claim> claimList = repository.getClaimList();
 
+    if (isAdded()) {
+      claimRecyclerView.setAdapter(new ClaimAdapter(claimList));
+    }
     if (adapter == null) {
       adapter = new ClaimAdapter(claimList);
       claimRecyclerView.setAdapter(adapter);
     }
     else {
+      adapter.setClaimList(claimList);
       adapter.notifyDataSetChanged();
       claimRecyclerView.setAdapter(adapter);
+
     }
 
     if (claimList.size() > 0) {
@@ -126,7 +139,7 @@ public class ClaimListFragment extends Fragment {
     TextView dateTextView;
     @Bind(R.id.state_claim_button)
     Button statusButton;
-
+    public Claim claim;
 
     public ClaimHolder(View itemView) {
       super(itemView);
@@ -136,10 +149,11 @@ public class ClaimListFragment extends Fragment {
 
     @Override
     public void onClick(View v) {
-      callbacks.onClaimSelected();
+      callbacks.onClaimSelected(claim);
     }
 
     public void bindClaim(Claim claim) {
+      this.claim = claim;
 
       int color = setButtonColor(claim.getStatus());
       titleTextView.setText(claim.getTitle());
@@ -185,6 +199,8 @@ public class ClaimListFragment extends Fragment {
 
       LayoutInflater inflater = LayoutInflater.from(getActivity());
       View view = inflater.inflate(R.layout.claim_view_in_recyclerview, parent, false);
+
+
       return new ClaimHolder(view);
     }
 
@@ -198,7 +214,30 @@ public class ClaimListFragment extends Fragment {
     public int getItemCount() {
       return claimList.size();
     }
+
+
+    public void setClaimList(List<Claim> claimList) {
+      this.claimList = claimList;
+    }
   }
 
+
+//  private class FetchClaims extends AsyncTask<Void, Void, Void> {
+//
+//
+//    @Override
+//    protected Void doInBackground(Void... params) {
+//
+//      DataLoader.loadClaimData();
+//      DataLoader.updateClaimRepository();
+//      return null;
+//    }
+//
+//    @Override
+//    protected void onPostExecute(Void aVoid) {
+//      super.onPostExecute(aVoid);
+//      updateUi();
+//    }
+//  }
 
 }

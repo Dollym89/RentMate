@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+  >
 
   <EditText
     android:id="@+id/user_name_edit_text"
@@ -35,27 +36,33 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
     android:orientation="horizontal">
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:text="@string/switch_tenant"/>
+      android:text="@string/switch_tenant"
+      android:layout_gravity="start"/>
+
+    <Switch
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:checked="false"
+
+      android:textColor="@color/colorAccent"
+      android:textOff="Tenant"
+      android:textOn="Landlord"/>
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:text="@string/switch_landlord"/>
+      android:text="@string/switch_landlord"
+      android:layout_gravity="end"/>
 
   </LinearLayout>
 
-  <Switch
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="@color/colorAccent"
-    android:textOff="Tenant"
-    android:textOn="Landlord"
-    />
 
   <Button
     android:id="@+id/sign_up_button"
@@ -67,6 +74,8 @@
     android:background="?attr/selectableItemBackground"
     android:text="@string/sign_up_button"
     android:textColor="#ffffff"
+
+
     />
 
 </LinearLayout>

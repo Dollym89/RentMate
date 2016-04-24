@@ -30,4 +30,9 @@
   <string name="new_apt_address">Address</string>
   <string name="new_apartment_occupied">Occupied</string>
   <string name="new_apt_save_button">Save</string>
+
+
+  <string name="claim_detail_title">Claim detail Title</string>
+  <string name="claim_detail_date">Claim detail date</string>
+  <string name="claim_detail_description">Description</string>
 </resources>

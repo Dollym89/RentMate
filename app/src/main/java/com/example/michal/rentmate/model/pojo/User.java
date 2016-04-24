@@ -46,6 +46,11 @@ public class User {
     @Expose
     private List<Object> apartments = new ArrayList<Object>();
 
+
+    @SerializedName("token")
+    @Expose
+    private String token;
+
     /**
      * 
      * @return

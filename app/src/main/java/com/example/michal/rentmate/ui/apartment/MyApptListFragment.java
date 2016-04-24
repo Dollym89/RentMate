@@ -118,6 +118,8 @@ public class MyApptListFragment extends Fragment {
 
   public class ApartmentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    public Apartment apartment;
+
     @Bind(R.id.list_item_textview_apartment_name)
     TextView aptName;
     @Bind(R.id.list_item_textview_apartment_address)
@@ -132,13 +134,14 @@ public class MyApptListFragment extends Fragment {
     }
 
     public void onBind(Apartment apartment) {
+      this.apartment = apartment;
       aptName.setText(apartment.getAddress());
 //      aptAddress.setText(apartment.getPostalCode());
     }
 
     @Override
     public void onClick(View v) {
-      callbacks.onApartmentSelected();
+      callbacks.onApartmentSelected(apartment);
     }
   }
 

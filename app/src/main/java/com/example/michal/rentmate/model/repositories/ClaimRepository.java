@@ -10,28 +10,28 @@ import java.util.List;
  */
 public class ClaimRepository {
 
-    private static ClaimRepository claimSingleton = null;
+  private static ClaimRepository claimSingleton = null;
 
-    private List<Claim> claimList;
+  private List<Claim> claimList;
 
 
-    public static ClaimRepository getInstance() {
-        if (claimSingleton == null) {
-            claimSingleton = new ClaimRepository();
-        }
-        return claimSingleton;
+  public static ClaimRepository getInstance() {
+    if (claimSingleton == null) {
+      claimSingleton = new ClaimRepository();
     }
+    return claimSingleton;
+  }
 
 
-    private ClaimRepository() {
-        this.claimList = new ArrayList<>();
+  private ClaimRepository() {
+    this.claimList = new ArrayList<>();
 //        for (int i = 0; i < 100; i++) {
 //            Claim claim = new Claim();
 //            claim.setName("Claim #" + i);
 //            claim.setStateOfClaim(getState(i));
 //            claimList.add(claim);
 //        }
-    }
+  }
 
 //    private Claim.State getState(int i) {
 //        Claim.State state;
@@ -46,16 +46,20 @@ public class ClaimRepository {
 //        return state;
 //    }
 
-    public List<Claim> getClaimList() {
-        return claimList;
-    }
+  public List<Claim> getClaimList() {
+    return claimList;
+  }
 
-    public Claim getClaim(String id) {
-        for (Claim claim : claimList) {
-            if (claim.getId().equals(id)) {
-                return claim;
-            }
-        }
-        return null;
+  public void setClaimList(List<Claim> claimList) {
+    this.claimList = claimList;
+  }
+
+  public Claim getClaim(String id) {
+    for (Claim claim : claimList) {
+      if (claim.getClaimId().equals(id)) {
+        return claim;
+      }
     }
+    return null;
+  }
 }

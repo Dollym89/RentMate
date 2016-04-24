@@ -37,23 +37,23 @@ public class Claim {
     @Expose
     private List<Message> messages = new ArrayList<Message>();
 
-    /**
-     * 
-     * @return
-     *     The Id
-     */
-    public String getId() {
-        return Id;
-    }
-
-    /**
-     * 
-     * @param Id
-     *     The _id
-     */
-    public void setId(String Id) {
-        this.Id = Id;
-    }
+//    /**
+//     *
+//     * @return
+//     *     The Id
+//     */
+//    public String getId() {
+//        return Id;
+//    }
+//
+//    /**
+//     *
+//     * @param Id
+//     *     The _id
+//     */
+//    public void setId(String Id) {
+//        this.Id = Id;
+//    }
 
     /**
      * 

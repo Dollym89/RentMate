@@ -34,7 +34,17 @@ public class ApartmentRepository {
     return apartmentList;
   }
 
+  public void setApartmentList(List<Apartment> apartmentList) {
+    this.apartmentList = apartmentList;
+  }
 
-
+  public Apartment getApartment(String id) {
+    for (Apartment apartment : apartmentList) {
+      if (apartment.getApartmentId().equals(id)) {
+        return apartment;
+      }
+    }
+    return null;
+  }
 }
 

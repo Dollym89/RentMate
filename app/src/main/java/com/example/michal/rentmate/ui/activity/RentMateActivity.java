@@ -2,8 +2,8 @@ package com.example.michal.rentmate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,25 +24,23 @@ import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
-import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.ui.apartment.MyApptDetailFragment;
 import com.example.michal.rentmate.ui.apartment.MyApptNew;
 import com.example.michal.rentmate.ui.apartment.MyApptTabFragment;
-import com.example.michal.rentmate.ui.claims.ClaimDetailFragment;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
 import com.example.michal.rentmate.ui.claims.ClaimListFragment;
 import com.example.michal.rentmate.ui.claims.ClaimNew;
+import com.example.michal.rentmate.ui.claims.ClaimTabFragment;
 import com.example.michal.rentmate.ui.profile.Profile;
 import com.example.michal.rentmate.ui.settings.Settings;
+import com.example.michal.rentmate.util.DataLoader;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class RentMateActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
@@ -54,13 +52,15 @@ public class RentMateActivity extends AppCompatActivity
   private DrawerLayout drawer;
   private ActionBarDrawerToggle toggle;
   private UserRepository userRepo;
+  private ClaimRepository claimRepo;
+  private ApartmentRepository aptRepo;
   private RentMateApi service;
+  private List<Claim> claims;
+  private List<Apartment> apartments;
 
 
-
-
-  public static Intent newIntent(Context packageContext){
-    Intent intent = new Intent(packageContext,RentMateActivity.class);
+  public static Intent newIntent(Context packageContext) {
+    Intent intent = new Intent(packageContext, RentMateActivity.class);
     return intent;
   }
 
@@ -75,16 +75,13 @@ public class RentMateActivity extends AppCompatActivity
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    loadAptData();
-    loadClaimData();
+    new DataFetcher().execute();
 
-    new Handler().postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        setFirstFragment();
-      }
-    }, 1000);
 
+//    TODO set dataloader for apt as asynktask
+
+    apartments = DataLoader.loadAptData();
+    DataLoader.updateApartmentRepository(apartments);
 
     drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     toggle = new ActionBarDrawerToggle(
@@ -104,67 +101,14 @@ public class RentMateActivity extends AppCompatActivity
 
   }
 
-  private void loadUserData() {
 
-  }
-
-  private void loadAptData() {
-    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
-    final List<Apartment> apartmentList = aptRepo.getApartmentList();
-
-    service = RestService.getInstance();
-
-    Call<List<Apartment>> call = service.getApartments();
-
-    call.enqueue(new Callback<List<Apartment>>() {
-      @Override
-      public void onResponse(Call<List<Apartment>> call, Response<List<Apartment>> response) {
-        List<Apartment> apartments = response.body();
-        Log.e("LOADING DATA", "LOADING APARTMENTS");
-        for (int i = 0; i < apartments.size(); i++) {
-          apartmentList.add(apartments.get(i));
-        }
-      }
-
-      @Override
-      public void onFailure(Call<List<Apartment>> call, Throwable t) {
-        Log.e("LOADING DATA FAILURE", "LOADING CLAIMS UNSUCCESSFUL");
-      }
-    });
-
-  }
-
-  private void loadClaimData() {
-    ClaimRepository claimRepo = ClaimRepository.getInstance();
-    final List<Claim> claimList = claimRepo.getClaimList();
-
-    service = RestService.getInstance();
-    Call<List<Claim>> call = service.getClaims();
-
-    call.enqueue(new Callback<List<Claim>>() {
-      @Override
-      public void onResponse(Call<List<Claim>> call, Response<List<Claim>> response) {
-        List<Claim> claims = response.body();
-        Log.e("LOADING DATA", "LOADING CLAIMS");
-        for (int i = 0; i < claims.size(); i++) {
-          claimList.add(claims.get(i));
-        }
-      }
-
-      @Override
-      public void onFailure(Call<List<Claim>> call, Throwable t) {
-        Log.e("LOADING DATA FAILURE", "LOADING CLAIMS UNSUCCESSFUL");
-      }
-    });
-
-  }
-
-  private void setFirstFragment() {
+  public void setFirstFragment() {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentById(R.id.recyclerView_claim_list);
+    Fragment fragment = fm.findFragmentByTag("LIST_CLAIM");
 
     if (fragment == null) {
-      fragment = new ClaimListFragment();
+
+      fragment = ClaimListFragment.newInstance();
     }
 
     fm.beginTransaction()
@@ -243,16 +187,16 @@ public class RentMateActivity extends AppCompatActivity
 
 
   @Override
-  public void onClaimSelected() {
+  public void onClaimSelected(Claim claim) {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag("CLAIM_DETAIL");
+    Fragment fragment = fm.findFragmentByTag("CLAIM_TAB");
     if (fragment == null) {
-      fragment = ClaimDetailFragment.newInstance();
+      fragment = ClaimTabFragment.newInstance(claim.getClaimId());
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .replace(R.id.fragment_container, fragment, "CLAIM_DETAIL")
-        .addToBackStack("CLAIM_DETAIL")
+        .addToBackStack("CLAIM_TAB")
+        .replace(R.id.fragment_container, fragment, "CLAIM_TAB")
         .commit();
   }
 
@@ -279,11 +223,11 @@ public class RentMateActivity extends AppCompatActivity
   }
 
   @Override
-  public void onApartmentSelected() {
+  public void onApartmentSelected(Apartment apartment) {
     FragmentManager fm = getSupportFragmentManager();
     Fragment fragment = fm.findFragmentByTag("APARTMENT_DETAIL");
     if (fragment == null) {
-      fragment = MyApptDetailFragment.newInstance();
+      fragment = MyApptDetailFragment.newInstance(apartment.getApartmentId());
     }
     isDrawerEnable(false);
     fm.beginTransaction()
@@ -335,6 +279,36 @@ public class RentMateActivity extends AppCompatActivity
       });
       toggle.syncState();
     }
+  }
+
+
+  private class DataFetcher extends AsyncTask<Void, Void, List<Claim>> {
+
+
+    @Override
+    protected List<Claim> doInBackground(Void... params) {
+
+      Log.e("BACKGROUND ", "doInBackground is running");
+      List<Claim> claimList = null;
+      try {
+        claimList = DataLoader.loadClaimSynch();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+
+      return claimList;
+
+    }
+
+
+    @Override
+    protected void onPostExecute(List<Claim> claimList) {
+      Log.e("BACKGROUND ", "onPostExecuted is running");
+      DataLoader.updateClaimRepository(claimList);
+      setFirstFragment();
+    }
+
+
   }
 
 

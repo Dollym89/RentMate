@@ -23,16 +23,16 @@ public class Apartment {
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
-    private String updatedAt;
+    private String updatedAt; // plus we want time when it happend user will be able to choose date
     @SerializedName("name")
     @Expose
-    private String name;
+    private String name; // do we need name of the appt, ist not a pet :D
     @SerializedName("address")
     @Expose
-    private String address;
+    private String address; // address is good plus we need another atribute POSTAL CODE
     @SerializedName("owner")
     @Expose
-    private Owner owner;
+    private Owner owner; // do we need owner? or just a user with two possible values(Landlord/Tenant)
     @SerializedName("__v")
     @Expose
     private int V;
@@ -40,23 +40,23 @@ public class Apartment {
     @Expose
     private List<Claim> claims = new ArrayList<Claim>();
 
-    /**
-     * 
-     * @return
-     *     The Id
-     */
-    public String getId() {
-        return Id;
-    }
-
-    /**
-     * 
-     * @param Id
-     *     The _id
-     */
-    public void setId(String Id) {
-        this.Id = Id;
-    }
+//    /**
+//     *
+//     * @return
+//     *     The Id
+//     */
+//    public String getId() {
+//        return Id;
+//    }
+//
+//    /**
+//     *
+//     * @param Id
+//     *     The _id
+//     */
+//    public void setId(String Id) {
+//        this.Id = Id;
+//    }
 
     /**
      * 

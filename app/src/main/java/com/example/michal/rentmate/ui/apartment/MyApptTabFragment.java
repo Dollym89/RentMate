@@ -13,14 +13,19 @@ import android.view.ViewGroup;
 
 import com.example.michal.rentmate.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by Michal on 15/04/2016.
  */
 public class MyApptTabFragment extends Fragment {
 
-  private TabLayout tabLayout;
-  private ViewPager pager;
+  @Bind(R.id.apartment_tab_layout)
+  TabLayout tabLayout;
+  @Bind(R.id.apartment_tab_view_pager)
+  ViewPager pager;
 
 
   public static MyApptTabFragment newInstance() {
@@ -28,31 +33,13 @@ public class MyApptTabFragment extends Fragment {
   }
 
 
-  @Override
-  public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-  }
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_tab_apartment, container, false);
+    ButterKnife.bind(this, view);
 
-    pager = (ViewPager) view.findViewById(R.id.view_pager);
-    tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
-
-    FragmentManager manager = getFragmentManager();
-
-    PagerAdapter adapter = new PagerAdapter(manager);
-    adapter.notifyDataSetChanged();
-
-    pager.setAdapter(adapter);
-
-    tabLayout.setupWithViewPager(pager);
-
-    pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
+    initLayout();
 
     return view;
   }
@@ -60,11 +47,14 @@ public class MyApptTabFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
+    initLayout();
+  }
 
 
+  private void initLayout() {
     FragmentManager manager = getFragmentManager();
 
-    PagerAdapter adapter = new PagerAdapter(manager);
+    ApartmentPagerAdapter adapter = new ApartmentPagerAdapter(manager);
     adapter.notifyDataSetChanged();
 
     pager.setAdapter(adapter);
@@ -72,13 +62,14 @@ public class MyApptTabFragment extends Fragment {
     tabLayout.setupWithViewPager(pager);
 
     pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
   }
 
-  public class PagerAdapter extends FragmentStatePagerAdapter {
+  public class ApartmentPagerAdapter extends FragmentStatePagerAdapter {
 
-    public PagerAdapter(FragmentManager fm) {
+
+    public ApartmentPagerAdapter(FragmentManager fm) {
       super(fm);
+
     }
 
     @Override
