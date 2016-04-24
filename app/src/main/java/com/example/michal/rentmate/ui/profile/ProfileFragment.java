@@ -12,10 +12,10 @@ import com.example.michal.rentmate.R;
 /**
  * Created by Michal on 19/04/2016.
  */
-public class Profile extends Fragment {
+public class ProfileFragment extends Fragment {
 
-  public static Profile newInstance() {
-    return new Profile();
+  public static ProfileFragment newInstance() {
+    return new ProfileFragment();
   }
 
   @Nullable
