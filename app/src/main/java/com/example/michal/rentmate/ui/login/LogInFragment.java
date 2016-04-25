@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,7 @@ public class LogInFragment extends Fragment {
       @Override
       public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
         token = response.body().getToken();
-//        Log.e("TOKEN",token);
+        Log.e("TOKEN",token);
         getUser();
       }
 
@@ -114,7 +115,7 @@ public class LogInFragment extends Fragment {
         }
         for (int i = 0; i < userList.size(); i++) {
           users.add(userList.get(i));
-//          Log.e("USERS", users.get(i).getFirstName());
+          Log.e("USERS", users.get(i).getFirstName());
         }
 
 

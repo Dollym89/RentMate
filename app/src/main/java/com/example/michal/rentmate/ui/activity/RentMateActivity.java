@@ -20,6 +20,10 @@ import android.view.View;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.model.repositories.ClaimRepository;
+import com.example.michal.rentmate.model.repositories.UserRepository;
+import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.ui.apartment.MyApptDetailFragment;
 import com.example.michal.rentmate.ui.apartment.MyApptNew;
@@ -50,11 +54,11 @@ public class RentMateActivity extends AppCompatActivity
   Toolbar toolbar;
   private DrawerLayout drawer;
   private ActionBarDrawerToggle toggle;
-  //  private UserRepository userRepo;
-//  private ClaimRepository claimRepo;
-//  private ApartmentRepository aptRepo;
-//  private RentMateApi service;
-//  private List<Claim> claims;
+    private UserRepository userRepo;
+  private ClaimRepository claimRepo;
+  private ApartmentRepository aptRepo;
+  private RentMateApi service;
+
   private List<Apartment> apartments;
   private List<Claim> claims;
 
@@ -70,8 +74,11 @@ public class RentMateActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     setToolbar();
-    //    new DataFetcher().execute();
+//        new DataFetcher().execute();
+//    TODO decide what to use Asynk or Retrofit asynk
+
     loadData();
+    setFirstFragment();
     setDrawer();
   }
 
@@ -104,7 +111,7 @@ public class RentMateActivity extends AppCompatActivity
 
   public void setFirstFragment() {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag("LIST_CLAIM");
+    Fragment fragment = fm.findFragmentByTag("NOTICE");
 
     if (fragment == null) {
 
@@ -112,8 +119,8 @@ public class RentMateActivity extends AppCompatActivity
     }
 
     fm.beginTransaction()
-        .add(R.id.fragment_container, fragment, "LIST_CLAIM")
-        .addToBackStack("CLAIM_LIST_FRAGMENT")
+        .add(R.id.fragment_container, fragment, "NOTICE")
+        .addToBackStack("NOTICE")
         .commit();
   }
 

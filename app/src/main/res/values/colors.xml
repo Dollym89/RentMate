@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4caf50</color>
-    <color name="colorPrimaryDark">#38843b</color>
-    <color name="colorAccent">#FF4081</color>
+  <!--App colours-->
+  <color name="colorPrimary">#4caf50</color>
+  <color name="colorPrimaryDark">#38843b</color>
+  <color name="colorAccent">#FF4081</color>
 
 
-
-    <color name="colorOk">#417505</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorOpen">#f5a623</color>
-    <color name="colorProblem">#d0021b</color>
+  <!--State of Claim-->
+  <color name="colorOk">#417505</color>
+  <color name="colorWhite">#ffffff</color>
+  <color name="colorOpen">#f5a623</color>
+  <color name="colorProblem">#d0021b</color>
 </resources>

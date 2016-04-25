@@ -38,10 +38,12 @@ public class DataLoader {
     call.enqueue(new Callback<List<Apartment>>() {
       @Override
       public void onResponse(Call<List<Apartment>> call, Response<List<Apartment>> response) {
-        List<Apartment> apartments = response.body();
+
         Log.e("LOADING DATA", "LOADING APARTMENTS");
-        for (int i = 0; i < apartments.size(); i++) {
-          apartmentList.add(apartments.get(i));
+
+        List<Apartment> aptList = response.body();
+        for (int i = 0; i < aptList.size(); i++) {
+          apartmentList.add(aptList.get(i));
         }
       }
 
@@ -64,8 +66,11 @@ public class DataLoader {
       @Override
       public void onResponse(Call<List<Claim>> call, Response<List<Claim>> response) {
 
-        claimList = response.body();
         Log.e("LOADING DATA", "LOADING CLAIMS");
+        List<Claim> claims = response.body();
+        for (int i = 0; i < claims.size(); i++) {
+          claimList.add(claims.get(i));
+        }
       }
 
       @Override
@@ -82,7 +87,6 @@ public class DataLoader {
     Call<List<Claim>> call = service.getClaims();
     Log.e("LOADING DATA", "LOADING CLAIMS");
     claimList = call.execute().body();
-
 
 
     return claimList;
