@@ -14,6 +14,8 @@
   <string name="sign_up_button">Sign up</string>
   <string name="switch_tenant">Tenant</string>
   <string name="switch_landlord">Landlord</string>
+  <string name="login_tab_sign_up">Log In</string>
+  <string name="login_tab_login">Sign up</string>
 
   <!--Navigation-->
   <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -31,6 +33,9 @@
   <string name="claim_detail_title">Claim detail Title</string>
   <string name="claim_detail_date">Claim detail date</string>
   <string name="claim_detail_description">Description</string>
+  <string name="claim_tab_detail">DETAILS</string>
+  <string name="claim_tab_message">MESSAGE</string>
+  <string name="claim_action_bar">Claims</string>
 
   <!--Apartments-->
   <string name="add_first_apartment">Add your firs apartment</string>
@@ -38,6 +43,8 @@
   <string name="new_apartment_occupied">Occupied</string>
   <string name="new_apt_save_button">Save</string>
   <string name="check_location_button">Check Location</string>
+  <string name="apartment_tab_my_apt">MY APARTMENTS</string>
+  <string name="apartment_tab_location">LOCATION</string>
 
   <!--Notice view-->
   <string name="claims_need_your_attention">Claims need your attention</string>
@@ -50,5 +57,7 @@
   <string name="use_the_ID">Please find attached apartment ID and log in to your new Apartment</string>
   <string name="new_ID">Your new ID: </string>
 
+  <!--Fonts-->
+  <string name="font_roboto_thin">fonts/Roboto-Thin.ttf </string>
 
 </resources>

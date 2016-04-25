@@ -24,27 +24,18 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//import com.example.michal.rentmate.model.pojo.Apartment;
 
-/**
- * Created by Michal on 05/04/2016.
- */
 public class MyApptListFragment extends Fragment {
 
-  @Bind(R.id.recyclerView_apartment_list)
-  RecyclerView recyclerView;
-  @Bind(R.id.add_first_apartment_layout)
-  RelativeLayout addFirstAptLayout;
-  @Bind(R.id.add_first_apartment_button)
-  FloatingActionButton addFirstAptFAB;
+  @Bind(R.id.recyclerView_apartment_list) RecyclerView recyclerView;
+  @Bind(R.id.add_first_apartment_layout) RelativeLayout addFirstAptLayout;
+  @Bind(R.id.add_first_apartment_button) FloatingActionButton addFirstAptFAB;
 
   private AptAdapter adapter;
   private MyApptContract.Callbacks callbacks;
 
-
   public static MyApptListFragment newInstance() {
     return new MyApptListFragment();
-
   }
 
   @Override
@@ -73,17 +64,13 @@ public class MyApptListFragment extends Fragment {
     setHasOptionsMenu(true);
     ButterKnife.bind(this, view);
     callbacks.setApartmentActionBar();
-
-
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
     return view;
   }
 
-  /**
-   * Listeners
-   */
 
+  //  Listeners
   @OnClick(R.id.add_first_apartment_button)
   public void newApartment() {
     callbacks.addNewApartment();
@@ -97,13 +84,12 @@ public class MyApptListFragment extends Fragment {
       adapter = new AptAdapter(apartmentList);
       recyclerView.setAdapter(adapter);
     }
-    else
+    else {
       adapter.notifyDataSetChanged();
-    recyclerView.setAdapter(adapter);
-
+      recyclerView.setAdapter(adapter);
+    }
     if (apartmentList.size() > 0) {
       addFirstAptLayout.setVisibility(View.GONE);
-
     }
     else {
       addFirstAptLayout.setVisibility(View.VISIBLE);
@@ -113,29 +99,21 @@ public class MyApptListFragment extends Fragment {
 //          Apartment apartment = new Apartment();
 //          ApartmentRepository.getInstance().getApartmentList().add(apartment);
           callbacks.addNewApartment();
-
         }
       });
-
     }
   }
-
 
   public class ApartmentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public Apartment apartment;
-
-    @Bind(R.id.list_item_textview_apartment_name)
-    TextView aptName;
-    @Bind(R.id.list_item_textview_apartment_address)
-    TextView aptAddress;
-
+    @Bind(R.id.list_item_textview_apartment_name) TextView aptName;
+    @Bind(R.id.list_item_textview_apartment_address) TextView aptAddress;
 
     public ApartmentHolder(View itemView) {
       super(itemView);
       itemView.setOnClickListener(this);
       ButterKnife.bind(this, itemView);
-
     }
 
     public void onBind(Apartment apartment) {
@@ -143,7 +121,6 @@ public class MyApptListFragment extends Fragment {
       aptName.setText(apartment.getAddress());
 //      aptAddress.setText(apartment.getPostalCode());
     }
-
 
     @Override
     public void onClick(View v) {
@@ -157,9 +134,7 @@ public class MyApptListFragment extends Fragment {
 
     public AptAdapter(List<Apartment> aptList) {
       this.aptList = aptList;
-
     }
-
 
     @Override
     public ApartmentHolder onCreateViewHolder(ViewGroup parent, int viewType) {

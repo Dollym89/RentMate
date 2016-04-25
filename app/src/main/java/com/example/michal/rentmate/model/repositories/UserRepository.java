@@ -2,10 +2,9 @@ package com.example.michal.rentmate.model.repositories;
 
 import java.net.PasswordAuthentication;
 
-/**
- * Created by Michal on 12/04/2016.
- */
 public class UserRepository {
+
+//    TODO set user repo
 
     String firstName;
     String secondName;

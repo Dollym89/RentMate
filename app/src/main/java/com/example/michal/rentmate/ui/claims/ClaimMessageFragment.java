@@ -13,15 +13,12 @@ import com.example.michal.rentmate.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Michal on 23/04/2016.
- */
 public class ClaimMessageFragment extends Fragment {
 
   private static final String ARG_CLAIM_ID = "claim_ID_message";
-
-
   @Bind(R.id.detail_claim_message_textview)TextView detailMessage;
+
+
   public static ClaimMessageFragment newInstance(){
     return new ClaimMessageFragment();
   }
@@ -34,7 +31,6 @@ public class ClaimMessageFragment extends Fragment {
     messageFragment.setArguments(arg);
     return messageFragment;
   }
-
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +38,6 @@ public class ClaimMessageFragment extends Fragment {
     ButterKnife.bind(this,view);
 
     detailMessage.setText("DETAIL MESSAGE");
-
     return view;
   }
 }

@@ -1,7 +1,6 @@
 
 package com.example.michal.rentmate.model.pojo;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -12,173 +11,77 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class Claim {
 
-    @SerializedName("_id")
-    @Expose
-    private String Id;
-    @SerializedName("claim_id")
-    @Expose
-    private String claimId;
-    @SerializedName("created_at")
-    @Expose
-    private String createdAt;
-    @SerializedName("updated_at")
-    @Expose
-    private String updatedAt;
-    @SerializedName("title")
-    @Expose
-    private String title;
-    @SerializedName("status")
-    @Expose
-    private String status;
-    @SerializedName("__v")
-    @Expose
-    private int V;
-    @SerializedName("messages")
-    @Expose
-    private List<Message> messages = new ArrayList<Message>();
+  @SerializedName("_id")
+  private String Id;
+  @SerializedName("claim_id")
+  private String claimId;
+  @SerializedName("created_at")
+  private String createdAt;
+  @SerializedName("updated_at")
+  private String updatedAt;
+  @SerializedName("title")
+  private String title;
+  @SerializedName("status")
+  private String status;
+  @SerializedName("__v")
+  private int V;
+  @SerializedName("messages")
+  private List<Message> messages = new ArrayList<Message>();
 
-//    /**
-//     *
-//     * @return
-//     *     The Id
-//     */
-//    public String getId() {
-//        return Id;
-//    }
-//
-//    /**
-//     *
-//     * @param Id
-//     *     The _id
-//     */
-//    public void setId(String Id) {
-//        this.Id = Id;
-//    }
+  public String getClaimId() {
+    return claimId;
+  }
 
-    /**
-     * 
-     * @return
-     *     The claimId
-     */
-    public String getClaimId() {
-        return claimId;
-    }
+  public void setClaimId(String claimId) {
+    this.claimId = claimId;
+  }
 
-    /**
-     * 
-     * @param claimId
-     *     The claim_id
-     */
-    public void setClaimId(String claimId) {
-        this.claimId = claimId;
-    }
+  public String getCreatedAt() {
+    return createdAt;
+  }
 
-    /**
-     * 
-     * @return
-     *     The createdAt
-     */
-    public String getCreatedAt() {
-        return createdAt;
-    }
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
+  }
 
-    /**
-     * 
-     * @param createdAt
-     *     The created_at
-     */
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
 
-    /**
-     * 
-     * @return
-     *     The updatedAt
-     */
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
+  }
 
-    /**
-     * 
-     * @param updatedAt
-     *     The updated_at
-     */
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+  public String getTitle() {
+    return title;
+  }
 
-    /**
-     * 
-     * @return
-     *     The title
-     */
-    public String getTitle() {
-        return title;
-    }
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
-    /**
-     * 
-     * @param title
-     *     The title
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
+  public String getStatus() {
+    return status;
+  }
 
-    /**
-     * 
-     * @return
-     *     The status
-     */
-    public String getStatus() {
-        return status;
-    }
+  public void setStatus(String status) {
+    this.status = status;
+  }
 
-    /**
-     * 
-     * @param status
-     *     The status
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
+  public int getV() {
+    return V;
+  }
 
-    /**
-     * 
-     * @return
-     *     The V
-     */
-    public int getV() {
-        return V;
-    }
+  public void setV(int V) {
+    this.V = V;
+  }
 
-    /**
-     * 
-     * @param V
-     *     The __v
-     */
-    public void setV(int V) {
-        this.V = V;
-    }
+  public List<Message> getMessages() {
+    return messages;
+  }
 
-    /**
-     * 
-     * @return
-     *     The messages
-     */
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    /**
-     * 
-     * @param messages
-     *     The messages
-     */
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
+  public void setMessages(List<Message> messages) {
+    this.messages = messages;
+  }
 
 }

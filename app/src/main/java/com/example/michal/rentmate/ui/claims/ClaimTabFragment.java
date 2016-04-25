@@ -24,20 +24,16 @@ import butterknife.ButterKnife;
 public class ClaimTabFragment extends Fragment {
 
   private static final String ARG_CLAIM_ID = "claim_ID";
+  private static final int NUMBER_OF_TABS = 2;
 
-  @Bind(R.id.claim_detail_view_pager)
-  ViewPager pager;
-  @Bind(R.id.claim_detail_tab_layout)
-  TabLayout tabLayout;
-
+  @Bind(R.id.claim_detail_view_pager) ViewPager pager;
+  @Bind(R.id.claim_detail_tab_layout) TabLayout tabLayout;
 
   private Claim claim;
-
 
   public static ClaimTabFragment newInstance(String claimID) {
     Bundle arg = new Bundle();
     arg.putSerializable(ARG_CLAIM_ID, claimID);
-
     ClaimTabFragment tabFragment = new ClaimTabFragment();
     tabFragment.setArguments(arg);
     return tabFragment;
@@ -56,8 +52,6 @@ public class ClaimTabFragment extends Fragment {
     View view = inflater.inflate(R.layout.frag_tab_claim, container, false);
     ButterKnife.bind(this, view);
     initLayout();
-
-
     return view;
   }
 
@@ -79,22 +73,12 @@ public class ClaimTabFragment extends Fragment {
     @Override
     public Fragment getItem(int position) {
 
-      Fragment fragment = null;
-
-      switch (position) {
-        case 0:
-          fragment = ClaimDetailFragment.newInstance();
-          break;
-        case 1:
-          fragment = ClaimMessageFragment.newInstance();
-          break;
-      }
-      return fragment;
+      return position == 0 ? ClaimDetailFragment.newInstance() : ClaimMessageFragment.newInstance();
     }
 
     @Override
     public int getCount() {
-      return 2;
+      return NUMBER_OF_TABS;
     }
 
     @Override
@@ -102,14 +86,13 @@ public class ClaimTabFragment extends Fragment {
       String title = "";
       switch (position) {
         case 0:
-          title = "DETAILS";
+          title = getString(R.string.claim_tab_detail);
           break;
         case 1:
-          title = "MESSAGES";
+          title = getString(R.string.claim_tab_message);
           break;
       }
       return title;
     }
   }
-
 }

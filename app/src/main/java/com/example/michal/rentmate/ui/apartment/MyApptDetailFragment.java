@@ -24,21 +24,15 @@ import butterknife.OnClick;
  */
 public class MyApptDetailFragment extends Fragment {
 
-  @Bind(R.id.apartment_detail_address_textview)
-  TextView detailAddress;
-  @Bind(R.id.apartment_detail_postalcode_textview)
-  TextView detailPostalCode;
-  @Bind(R.id.apartment_detail_access_Key_textview)
-  TextView detailAccesKey;
-  @Bind(R.id.apartment_detail_occupied_textview)
-  TextView detailOccupied;
-  @Bind(R.id.apartment_ID_layout)
-  LinearLayout idLayout;
+  @Bind(R.id.apartment_detail_address_textview) TextView detailAddress;
+  @Bind(R.id.apartment_detail_postalcode_textview) TextView detailPostalCode;
+  @Bind(R.id.apartment_detail_access_Key_textview) TextView detailAccesKey;
+  @Bind(R.id.apartment_detail_occupied_textview) TextView detailOccupied;
+  @Bind(R.id.apartment_ID_layout) LinearLayout idLayout;
 
   private static final String ARG_APT = "apartment_id";
 
   private Apartment apartment;
-
 
   public static MyApptDetailFragment newInstance(String apartmentID) {
     Bundle arg = new Bundle();
@@ -66,9 +60,7 @@ public class MyApptDetailFragment extends Fragment {
     return view;
   }
 
-  /**
-   * Listeners
-   */
+//  Listeners
 
   @OnClick(R.id.apartment_ID_layout)
   public void sendApartmetID() {
@@ -82,18 +74,16 @@ public class MyApptDetailFragment extends Fragment {
 
   private String getEmailText() {
     String email = "";
-    email = getString(R.string.welcome_new_tenant)+"\n"+
+    email = getString(R.string.welcome_new_tenant) + "\n" +
         getString(R.string.use_the_ID) + "\n" +
-        getString(R.string.new_ID)+
+        getString(R.string.new_ID) +
         apartment.getApartmentId();
     return email;
   }
 
   private void setMapFragment(Apartment apartment) {
     FragmentManager manager = getChildFragmentManager();
-
     Fragment fragment = manager.findFragmentByTag("MAP_DETAIL_FRAGMENT");
-
     if (fragment == null) {
       fragment = MyApptMapDetailFragment.newInstance(apartment.getApartmentId());
     }
@@ -101,7 +91,6 @@ public class MyApptDetailFragment extends Fragment {
         .add(R.id.frag_detail_map_container, fragment, "MAP_DETAIL_FRAGMENT")
         .addToBackStack("MAP_DETAIL_FRAGMENT")
         .commit();
-
   }
 
   private void populateUI(Apartment apartment) {

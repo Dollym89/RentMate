@@ -18,9 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Michal on 15/04/2016.
- */
 public class MyApptMapFragment extends SupportMapFragment {
 
   private GoogleMap map;
@@ -29,11 +26,9 @@ public class MyApptMapFragment extends SupportMapFragment {
   private List<Apartment> apartmentList;
   private List<List<Address>> ListOfAddressList;
 
-
   public static MyApptMapFragment newInstance() {
     return new MyApptMapFragment();
   }
-
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -41,7 +36,6 @@ public class MyApptMapFragment extends SupportMapFragment {
     geocoder = new Geocoder(getActivity());
     repoAprt = ApartmentRepository.getInstance();
     apartmentList = repoAprt.getApartmentList();
-
 
     getMapAsync(new OnMapReadyCallback() {
       @Override
@@ -57,20 +51,16 @@ public class MyApptMapFragment extends SupportMapFragment {
     if (ListOfAddressList.size() == 0) {
       return;
     }
-
     CameraPosition cameraPosition = new CameraPosition.Builder()
         .target(((getPositions(ListOfAddressList).get(0))))
         .zoom(10)
         .build();
     map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
     map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     map.getUiSettings().setRotateGesturesEnabled(false);
     map.getUiSettings().setZoomControlsEnabled(true);
     map.getUiSettings().isMyLocationButtonEnabled();
-
   }
-
 
   public void drawApartments(List<Apartment> apartmentList, Geocoder geocoder) {
     ListOfAddressList = new ArrayList<List<Address>>();
@@ -87,12 +77,10 @@ public class MyApptMapFragment extends SupportMapFragment {
     List<LatLng> positions = getPositions(ListOfAddressList);
     for (int i = 0; i < positions.size(); i++)
       drawMarker(positions.get(i));
-
   }
 
   public List<LatLng> getPositions(List<List<Address>> addressList) {
     List<LatLng> positions = new ArrayList<>();
-
     for (int i = 0; i < addressList.size(); i++) {
       Address address = addressList.get(i).get(0);
       LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
@@ -106,6 +94,4 @@ public class MyApptMapFragment extends SupportMapFragment {
     mo.position(position);
     map.addMarker(mo);
   }
-
-
 }

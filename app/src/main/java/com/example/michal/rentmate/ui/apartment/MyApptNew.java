@@ -34,11 +34,8 @@ public class MyApptNew extends Fragment {
 
   private static final int REQUEST_ADDRESS = 0;
   private static final String DIALOG_ADDRESS = "apartment_address";
-
-  @Bind(R.id.new_apt_check_location_button)
-  Button checkLocation;
-  @Bind(R.id.new_apt_address_edit_text)
-  EditText aptAddress;
+  @Bind(R.id.new_apt_check_location_button) Button checkLocation;
+  @Bind(R.id.new_apt_address_edit_text) EditText aptAddress;
 
   private GoogleMap map;
   private Apartment apartment;
@@ -53,15 +50,12 @@ public class MyApptNew extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_new_apartment, container, false);
     ButterKnife.bind(this, view);
-
-
     return view;
   }
 
   @OnClick(R.id.new_apt_check_location_button)
   public void onChecAptLocation() {
     openMapDialog();
-
   }
 
   private Address getAddress(EditText aptAddress) {
@@ -81,7 +75,6 @@ public class MyApptNew extends Fragment {
       MarkerOptions marker = new MarkerOptions().position(position);
       map.addMarker(marker);
     }
-
     return address;
 
   }
@@ -97,13 +90,10 @@ public class MyApptNew extends Fragment {
     map.addMarker(mo);
   }
 
-
   private void openMapDialog() {
     FragmentManager manager = getFragmentManager();
     MyApptNewCheckAddress dialog = MyApptNewCheckAddress.newInstance();
     dialog.setTargetFragment(MyApptNew.this, REQUEST_ADDRESS);
     dialog.show(manager, DIALOG_ADDRESS);
   }
-
-
 }

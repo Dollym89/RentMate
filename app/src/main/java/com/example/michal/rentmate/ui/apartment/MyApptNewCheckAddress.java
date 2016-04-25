@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.example.michal.rentmate.R;
 import com.google.android.gms.maps.SupportMapFragment;
 
-/**
- * Created by Michal on 24/04/2016.
- */
+
 public class MyApptNewCheckAddress extends DialogFragment {
 
   public static MyApptNewCheckAddress newInstance() {
@@ -31,13 +29,9 @@ public class MyApptNewCheckAddress extends DialogFragment {
     getDialog().setTitle("");
     FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
     transaction.add(R.id.mapView, fragment).commit();
-
     return view;
   }
-
-
 //  private void initFragment();
-
 
   public SupportMapFragment getFragment() {
     return fragment;

@@ -30,24 +30,16 @@ import butterknife.OnClick;
  */
 public class ClaimListFragment extends Fragment {
 
-
-  @Bind(R.id.add_first_crime_layout)
-  RelativeLayout addFirstClaimLayout;
-  @Bind(R.id.add_first_crime_button)
-  FloatingActionButton addClaimButtonFAB;
-  @Bind(R.id.recyclerView_claim_list)
-  RecyclerView claimRecyclerView;
-
+  @Bind(R.id.add_first_crime_layout) RelativeLayout addFirstClaimLayout;
+  @Bind(R.id.add_first_crime_button) FloatingActionButton addClaimButtonFAB;
+  @Bind(R.id.recyclerView_claim_list) RecyclerView claimRecyclerView;
 
   private ClaimAdapter adapter;
   private ClaimContract.Callbacks callbacks;
   private List<Claim> claimList;
 
-
   public static ClaimListFragment newInstance() {
-
     return new ClaimListFragment();
-
   }
 
   @Override
@@ -55,7 +47,6 @@ public class ClaimListFragment extends Fragment {
     super.onAttach(context);
     Log.e("FRAGMENT ATTACHED", "FRAGMENT CLAIM LIST ATTACHED");
     callbacks = (ClaimContract.Callbacks) context;
-
   }
 
   @Override
@@ -71,39 +62,28 @@ public class ClaimListFragment extends Fragment {
     ClaimRepository repository = ClaimRepository.getInstance();
     claimList = repository.getClaimList();
 //    new FetchClaims().execute();
-
-
   }
 
   @Nullable
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_claim_list, container, false);
-
-
     setHasOptionsMenu(true);
     ButterKnife.bind(this, view);
     callbacks.setClaimActionBar();
-
     claimRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
 
     return view;
   }
 
-
-  /**
-   * Listeners
-   */
+  //  Listeners
   @OnClick(R.id.add_first_crime_button)
-  public void addNewClaim(){
+  public void addNewClaim() {
     callbacks.addNewClaim();
   }
 
-
   public void updateUi() {
-
-
     if (isAdded()) {
       claimRecyclerView.setAdapter(new ClaimAdapter(claimList));
     }
@@ -115,9 +95,7 @@ public class ClaimListFragment extends Fragment {
       adapter.setClaimList(claimList);
       adapter.notifyDataSetChanged();
       claimRecyclerView.setAdapter(adapter);
-
     }
-
     if (claimList.size() > 0) {
       addFirstClaimLayout.setVisibility(View.GONE);
     }
@@ -130,18 +108,13 @@ public class ClaimListFragment extends Fragment {
         }
       });
     }
-
   }
 
   public class ClaimHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-
-    @Bind(R.id.list_item_textview_claim_name)
-    TextView titleTextView;
-    @Bind(R.id.list_item_claim_date)
-    TextView dateTextView;
-    @Bind(R.id.state_claim_button)
-    Button statusButton;
+    @Bind(R.id.list_item_textview_claim_name) TextView titleTextView;
+    @Bind(R.id.list_item_claim_date) TextView dateTextView;
+    @Bind(R.id.state_claim_button) Button statusButton;
     public Claim claim;
 
     public ClaimHolder(View itemView) {
@@ -163,12 +136,10 @@ public class ClaimListFragment extends Fragment {
       dateTextView.setText(claim.getCreatedAt());
       statusButton.setBackgroundColor(getResources().getColor(color));
       statusButton.setText(claim.getStatus());
-
     }
 
     public int setButtonColor(String status) {
       int color;
-
 //      TODO set statuses!!!!!!!
       switch (status) {
         case "OPEN":
@@ -194,7 +165,6 @@ public class ClaimListFragment extends Fragment {
 
     public ClaimAdapter(List<Claim> claimList) {
       this.claimList = claimList;
-
     }
 
     @Override
@@ -202,8 +172,6 @@ public class ClaimListFragment extends Fragment {
 
       LayoutInflater inflater = LayoutInflater.from(getActivity());
       View view = inflater.inflate(R.layout.claim_view_in_recyclerview, parent, false);
-
-
       return new ClaimHolder(view);
     }
 
@@ -223,24 +191,4 @@ public class ClaimListFragment extends Fragment {
       this.claimList = claimList;
     }
   }
-
-
-//  private class FetchClaims extends AsyncTask<Void, Void, Void> {
-//
-//
-//    @Override
-//    protected Void doInBackground(Void... params) {
-//
-//      DataLoader.loadClaimData();
-//      DataLoader.updateClaimRepository();
-//      return null;
-//    }
-//
-//    @Override
-//    protected void onPostExecute(Void aVoid) {
-//      super.onPostExecute(aVoid);
-//      updateUi();
-//    }
-//  }
-
 }

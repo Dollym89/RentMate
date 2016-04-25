@@ -22,8 +22,6 @@ public class ClaimDetailFragment extends Fragment {
   public static final String ARG_CLAIM_ID = "claim_id_detail";
   private Claim claim;
 
-
-
   public static ClaimDetailFragment newInstance() {
     return new ClaimDetailFragment();
   }
@@ -31,12 +29,10 @@ public class ClaimDetailFragment extends Fragment {
   public static ClaimDetailFragment newInstance(String crimeID) {
     Bundle arg = new Bundle();
     arg.putSerializable(ARG_CLAIM_ID, crimeID);
-
     ClaimDetailFragment claimDetailFragment = new ClaimDetailFragment();
     claimDetailFragment.setArguments(arg);
     return claimDetailFragment;
   }
-
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +41,6 @@ public class ClaimDetailFragment extends Fragment {
       String claimID = (String) getArguments().getSerializable(ARG_CLAIM_ID);
       claim = ClaimRepository.getInstance().getClaim(claimID);
     }
-
   }
 
   @Nullable
@@ -53,8 +48,6 @@ public class ClaimDetailFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_claim_detail, container, false);
     ButterKnife.bind(this, view);
-
-
     return view;
   }
 
