@@ -59,10 +59,10 @@ public class LogInFragment extends Fragment {
       public void onClick(View v) {
 
         TokenRequest request = new TokenRequest();
-//        request.setUsername(String.valueOf(userName.getText()));
-//        request.setPassword(String.valueOf(password.getText()));
-        request.setUsername("user");
-        request.setPassword("test");
+        request.setUsername(String.valueOf(userName.getText()));
+        request.setPassword(String.valueOf(password.getText()));
+//        request.setUsername("user");
+//        request.setPassword("test");
 
         getToken(request);
 
