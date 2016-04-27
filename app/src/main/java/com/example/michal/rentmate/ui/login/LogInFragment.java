@@ -18,6 +18,7 @@ import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.activity.RentMateActivity;
+import com.example.michal.rentmate.util.ValidUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,8 @@ import retrofit2.Response;
 public class LogInFragment extends Fragment {
 
   @Bind(R.id.log_in_button) Button logInButton;
-  @Bind(R.id.user_name_edit_text) EditText userName;
-  @Bind(R.id.password_edittext) EditText password;
+  @Bind(R.id.user_email_edit_text) EditText emailEditText;
+  @Bind(R.id.password_edit_text) EditText passwordEditText;
 
   private RentMateApi service;
   private String token;
@@ -53,14 +54,27 @@ public class LogInFragment extends Fragment {
   //  Listener
   @OnClick(R.id.log_in_button)
   public void onLogInPressed() {
-    TokenRequest request = new TokenRequest();
-    request.setUsername(String.valueOf(userName.getText()));
-    request.setPassword(String.valueOf(password.getText()));
-//        request.setUsername("user");
-//        request.setPassword("test");
-    getToken(request);
-    Intent intent = RentMateActivity.newIntent(getActivity());
-    startActivity(intent);
+
+    final String email = emailEditText.getText().toString();
+    final String pass = passwordEditText.getText().toString();
+
+    if (!ValidUtil.isValidEmail(email)) {
+      emailEditText.setError("Invalid Email");
+    }
+    if (!ValidUtil.isValidPassword(pass)) {
+      passwordEditText.setError("Insert at least 6 characters");
+    }
+    else {
+
+      TokenRequest request = new TokenRequest();
+//    request.setUsername(String.valueOf(emailEditText.getText()));
+//    request.setPassword(String.valueOf(password.getText()));
+      request.setUsername("user");
+      request.setPassword("test");
+      getToken(request);
+      Intent intent = RentMateActivity.newIntent(getActivity());
+      startActivity(intent);
+    }
   }
 
   public void getToken(TokenRequest request) {

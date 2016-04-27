@@ -6,32 +6,38 @@
   >
 
   <EditText
-    android:id="@+id/user_name_edit_text"
+    android:id="@+id/user_email_edit_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:layout_marginTop="70dp"
+    android:backgroundTint="@color/colorWhite"
     android:drawableLeft="@drawable/ic_action_e_mail"
     android:ems="10"
-    android:hint="@string/user_name_edit_text"
-    android:inputType="textPassword"
-    />
+    android:hint="@string/user_email_edit_text"
+    android:inputType="textEmailAddress"
+    android:textColor="#ffffff"
+    android:textColorHint="#ffffff"
+    android:imeOptions="actionDone"/>
 
   <EditText
 
-    android:id="@+id/password_edittext"
+    android:id="@+id/password_edit_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
+    android:backgroundTint="@color/colorWhite"
     android:drawableLeft="@drawable/ic_action_password"
     android:ems="10"
     android:hint="@string/hint_password"
     android:inputType="textPassword"
-    />
+    android:textColor="#ffffff"
+    android:textColorHint="#ffffff"
+    android:imeOptions="actionDone"/>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -42,27 +48,26 @@
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
+      android:layout_gravity="start"
       android:text="@string/switch_tenant"
-      android:layout_gravity="start"/>
+      android:textColor="#ffffff"/>
 
     <Switch
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:checked="false"
-
-      android:textColor="@color/colorAccent"
       android:textOff="Tenant"
       android:textOn="Landlord"/>
 
     <TextView
       android:layout_width="wrap_content"
-      android:layout_height="match_parent"
+      android:layout_height="30dp"
+      android:layout_gravity="end"
       android:text="@string/switch_landlord"
-      android:layout_gravity="end"/>
+      android:textColor="#ffffff"/>
 
   </LinearLayout>
-
 
   <Button
     android:id="@+id/sign_up_button"
@@ -71,11 +76,9 @@
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:layout_marginTop="40dp"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple_button"
     android:text="@string/sign_up_button"
     android:textColor="#ffffff"
-
-
     />
 
 </LinearLayout>

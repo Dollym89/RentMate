@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment;
+package com.example.michal.rentmate.ui.apartment.my_apartment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
+import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.ui.apartment.MyApptContract;
 
 import java.util.List;
 
@@ -32,6 +34,7 @@ public class MyApptListFragment extends Fragment {
   @Bind(R.id.add_first_apartment_button) FloatingActionButton addFirstAptFAB;
 
   private AptAdapter adapter;
+  private User user;
   private MyApptContract.Callbacks callbacks;
 
   public static MyApptListFragment newInstance() {
@@ -69,11 +72,18 @@ public class MyApptListFragment extends Fragment {
     return view;
   }
 
-
   //  Listeners
   @OnClick(R.id.add_first_apartment_button)
   public void newApartment() {
+    //    TODO Decide to Join apartment or to Create apartment based on Used (tenant/landlord)
     callbacks.addNewApartment();
+
+//    if (user.getGroupId().equals("tenant")) {
+//      callbacks.joinApartment();
+//    }
+//    else {
+//      callbacks.addNewApartment();
+//    }
   }
 
   private void updateUi() {

@@ -6,32 +6,45 @@
 
 
   <EditText
-    android:id="@+id/user_name_edit_text"
+    android:id="@+id/user_email_edit_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:layout_marginTop="70dp"
+    android:backgroundTint="@color/colorWhite"
     android:drawableLeft="@drawable/ic_action_e_mail"
     android:ems="10"
-    android:hint="@string/user_name_edit_text"
-    android:inputType="textPassword"
-    />
+    android:hint="@string/user_email_edit_text"
+    android:inputType="textEmailAddress"
+    android:textColor="#ffffff"
+    android:textColorHint="#ffffff"
+    android:imeOptions="actionDone"/>
 
   <EditText
 
-    android:id="@+id/password_edittext"
+    android:id="@+id/password_edit_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
+    android:backgroundTint="@color/colorWhite"
     android:drawableLeft="@drawable/ic_action_password"
     android:ems="10"
     android:hint="@string/hint_password"
     android:inputType="textPassword"
-    />
+    android:textColor="#ffffff"
+    android:textColorHint="#ffffff"
+    android:imeOptions="actionDone"/>
+
+  <TextView
+    android:id="@+id/textView2"
+    android:layout_width="wrap_content"
+    android:layout_height="30dp"
+    android:layout_gravity="center_horizontal"
+    android:text=""/>
 
   <Button
     android:id="@+id/log_in_button"
@@ -40,8 +53,9 @@
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
     android:layout_marginTop="40dp"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/ripple_button"
     android:text="@string/log_in_button"
     android:textColor="#ffffff"
+    android:textColorHint="#ffffff"
     />
 </LinearLayout>

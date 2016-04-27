@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment;
+package com.example.michal.rentmate.ui.apartment.my_apartment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,10 +20,8 @@ public class MyApptTabFragment extends Fragment {
 
   private static final int NUMBER_OF_TABS = 2;
 
-  @Bind(R.id.apartment_tab_layout)
-  TabLayout tabLayout;
-  @Bind(R.id.apartment_tab_view_pager)
-  ViewPager pager;
+  @Bind(R.id.apartment_tab_layout) TabLayout tabLayout;
+  @Bind(R.id.apartment_tab_view_pager) ViewPager pager;
 
   public static MyApptTabFragment newInstance() {
     return new MyApptTabFragment();
@@ -71,16 +69,8 @@ public class MyApptTabFragment extends Fragment {
 
     @Override
     public CharSequence getPageTitle(int position) {
-      String title = "";
-      switch (position) {
-        case 0:
-          title = getString(R.string.apartment_tab_my_apt);
-          break;
-        case 1:
-          title = getString(R.string.apartment_tab_location);
-          break;
-      }
-      return title;
+
+      return position == 0 ? getString(R.string.apartment_tab_my_apt) : getString(R.string.apartment_tab_location);
     }
   }
 }

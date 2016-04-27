@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.ui.login.LogInFragment;
 import com.example.michal.rentmate.ui.login.SignUpFragment;
-import com.example.michal.rentmate.util.FontSetter;
+import com.example.michal.rentmate.util.FontUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,7 +32,7 @@ public class LogInActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_log_in);
     ButterKnife.bind(this);
-    FontSetter.setFancyText(getApplicationContext(),getString(R.string.font_roboto_thin),welcomeText);
+    FontUtil.setFancyText(getApplicationContext(), getString(R.string.font_roboto_thin), welcomeText);
 //    DataLoader.loadAptData();
 //    DataLoader.loadClaimData();
     updateUI();
@@ -67,16 +67,10 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     public CharSequence getPageTitle(int position) {
-      String title = "";
-      switch (position) {
-        case 0:
-          title = getString(R.string.login_tab_login);
-          break;
-        case 1:
-          title = getString(R.string.login_tab_sign_up);
-          break;
-      }
-      return title;
+
+      return position == 0 ? getString(R.string.login_tab_login) : getString(R.string.login_tab_sign_up);
+
     }
+
   }
 }

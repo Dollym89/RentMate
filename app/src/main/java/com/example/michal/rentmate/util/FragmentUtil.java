@@ -3,7 +3,7 @@ package com.example.michal.rentmate.util;
 /**
  * Created by Michal on 25/04/2016.
  */
-public class FragTag {
+public class FragmentUtil {
 //  Home fragments
   public static final String HOME_NOTICE_FRAG = "HOME_NOTICE_FRAGMENT";
 
@@ -11,6 +11,7 @@ public class FragTag {
   public static final String APARTMENT_TAB_FRAG = "APARTMENT_TAB_FRAGMENT";
   public static final String APARTMENT_DETAIL_FRAG = "APARTMENT_DETAIL_FRAGMENT";
   public static final String APARTMENT_NEW_FRAG = "APARTMENT_NEW_FRAGMENT";
+  public static final String APARTMENT_JOIN_FRAG = "APARTMENT_JOIN_FRAG";
 
 //  Profile fragments
   public static final String PROFILE_FRAG = "PROFILE_FRAG";
@@ -22,4 +23,6 @@ public class FragTag {
   public static final String CLAIM_LIST_FRAG = "CLAIM_LIST_FRAGMENT";
   public static final String CLAIM_TAB_FRAG = "CLAIM_TAB_FRAG";
   public static final String CLAIM_NEW_FRAG = "CLAIM_NEW_FRAG";
+//  MAP
+public static final String MAP_DETAIL_FRAGMENT = "MAP_DETAIL_FRAGMENT";
 }

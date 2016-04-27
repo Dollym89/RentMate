@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment;
+package com.example.michal.rentmate.ui.apartment.my_apartment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.util.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -83,13 +84,13 @@ public class MyApptDetailFragment extends Fragment {
 
   private void setMapFragment(Apartment apartment) {
     FragmentManager manager = getChildFragmentManager();
-    Fragment fragment = manager.findFragmentByTag("MAP_DETAIL_FRAGMENT");
+    Fragment fragment = manager.findFragmentByTag(FragmentUtil.MAP_DETAIL_FRAGMENT);
     if (fragment == null) {
       fragment = MyApptMapDetailFragment.newInstance(apartment.getApartmentId());
     }
     manager.beginTransaction()
-        .add(R.id.frag_detail_map_container, fragment, "MAP_DETAIL_FRAGMENT")
-        .addToBackStack("MAP_DETAIL_FRAGMENT")
+        .add(R.id.frag_detail_map_container, fragment, FragmentUtil.MAP_DETAIL_FRAGMENT)
+        .addToBackStack(FragmentUtil.MAP_DETAIL_FRAGMENT)
         .commit();
   }
 

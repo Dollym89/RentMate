@@ -11,5 +11,6 @@ public interface MyApptContract {
     void onApartmentSelected(Apartment apartment);
     void setApartmentActionBar();
     void addNewApartment();
+    void joinApartment();
   }
 }

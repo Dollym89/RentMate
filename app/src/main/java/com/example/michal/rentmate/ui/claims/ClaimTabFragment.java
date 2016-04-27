@@ -83,16 +83,8 @@ public class ClaimTabFragment extends Fragment {
 
     @Override
     public CharSequence getPageTitle(int position) {
-      String title = "";
-      switch (position) {
-        case 0:
-          title = getString(R.string.claim_tab_detail);
-          break;
-        case 1:
-          title = getString(R.string.claim_tab_message);
-          break;
-      }
-      return title;
+
+      return position == 0 ? getString(R.string.claim_tab_detail) : getString(R.string.claim_tab_message);
     }
   }
 }

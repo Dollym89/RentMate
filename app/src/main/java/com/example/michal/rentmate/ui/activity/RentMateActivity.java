@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,9 +22,10 @@ import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
-import com.example.michal.rentmate.ui.apartment.MyApptDetailFragment;
-import com.example.michal.rentmate.ui.apartment.MyApptNew;
-import com.example.michal.rentmate.ui.apartment.MyApptTabFragment;
+import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptDetailFragment;
+import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptJoin;
+import com.example.michal.rentmate.ui.apartment.new_apartments.MyApptNew;
+import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptTabFragment;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
 import com.example.michal.rentmate.ui.claims.ClaimListFragment;
 import com.example.michal.rentmate.ui.claims.ClaimNew;
@@ -31,9 +33,8 @@ import com.example.michal.rentmate.ui.claims.ClaimTabFragment;
 import com.example.michal.rentmate.ui.homescreen.HomeScreenContract;
 import com.example.michal.rentmate.ui.homescreen.NoticeFragment;
 import com.example.michal.rentmate.ui.profile.ProfileFragment;
-import com.example.michal.rentmate.ui.settings.Settings;
 import com.example.michal.rentmate.util.DataLoader;
-import com.example.michal.rentmate.util.FragTag;
+import com.example.michal.rentmate.util.FragmentUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,15 +48,16 @@ public class RentMateActivity extends AppCompatActivity
     MyApptContract.Callbacks,
     HomeScreenContract.Callbacks {
 
-  @Bind(R.id.toolbar)
-  Toolbar toolbar;
-  private DrawerLayout drawer;
+  @Bind(R.id.toolbar) Toolbar toolbar;
+  @Bind(R.id.drawer_layout) DrawerLayout drawer;
+  @Bind(R.id.nav_view) NavigationView navigationView;
+
   private ActionBarDrawerToggle toggle;
 
   private List<Apartment> apartments;
   private List<Claim> claims;
 
-
+//TODO download data in Log in activity and send them in bundle
   public static Intent newIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, RentMateActivity.class);
     return intent;
@@ -69,7 +71,7 @@ public class RentMateActivity extends AppCompatActivity
     setToolbar();
 //        new DataFetcher().execute();
 //    TODO decide what to use Asynk or Retrofit asynk
-    loadData();
+//    loadData();
     setFirstFragment();
     setDrawer();
   }
@@ -90,31 +92,24 @@ public class RentMateActivity extends AppCompatActivity
   }
 
   private void setDrawer() {
-    drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
     toggle.syncState();
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
     navigationView.setNavigationItemSelectedListener(this);
   }
 
   public void setFirstFragment() {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(FragTag.HOME_NOTICE_FRAG);
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.HOME_NOTICE_FRAG);
 
     if (fragment == null) {
       fragment = NoticeFragment.newInstance();
     }
     fm.beginTransaction()
-        .add(R.id.fragment_container, fragment, FragTag.HOME_NOTICE_FRAG)
-        .addToBackStack(FragTag.HOME_NOTICE_FRAG)
+        .add(R.id.fragment_container, fragment, FragmentUtil.HOME_NOTICE_FRAG)
+        .addToBackStack(FragmentUtil.HOME_NOTICE_FRAG)
         .commit();
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
   }
 
   @Override
@@ -138,11 +133,6 @@ public class RentMateActivity extends AppCompatActivity
   }
 
   @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    return true;
-  }
-
-  @Override
   public boolean onNavigationItemSelected(MenuItem item) {
 
     int id = item.getItemId();
@@ -152,24 +142,26 @@ public class RentMateActivity extends AppCompatActivity
     switch (id) {
       case R.id.nav_home:
         fragment = NoticeFragment.newInstance();
-        TAG = FragTag.HOME_NOTICE_FRAG;
+        TAG = FragmentUtil.HOME_NOTICE_FRAG;
         break;
       case R.id.nav_my_appartments:
         fragment = MyApptTabFragment.newInstance();
-        TAG = FragTag.APARTMENT_TAB_FRAG;
+        TAG = FragmentUtil.APARTMENT_TAB_FRAG;
         break;
       case R.id.nav_claims:
         fragment = ClaimListFragment.newInstance();
-        TAG = FragTag.CLAIM_LIST_FRAG;
+        TAG = FragmentUtil.CLAIM_LIST_FRAG;
         break;
       case R.id.nav_profile:
         fragment = ProfileFragment.newInstance();
-        TAG = FragTag.PROFILE_FRAG;
+        TAG = FragmentUtil.PROFILE_FRAG;
         break;
-      case R.id.nav_settings:
-        fragment = Settings.newInstance();
-        TAG = FragTag.SETTINGS_FRAG;
-        break;
+
+//      TODO set log out
+//      case R.id.nav_log_out:
+//        fragment = Settings.newInstance();
+//        TAG = FragmentUtil.SETTINGS_FRAG;
+//        break;
     }
 
     FragmentManager fm = getSupportFragmentManager();
@@ -178,8 +170,12 @@ public class RentMateActivity extends AppCompatActivity
         .replace(R.id.fragment_container, fragment, TAG)
         .commit();
 
-    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-    drawer.closeDrawer(GravityCompat.START);
+    new Handler().postDelayed(new Runnable() {
+      @Override
+      public void run() {
+        drawer.closeDrawer(GravityCompat.START);
+      }
+    }, 100);
     return true;
   }
 
@@ -189,14 +185,14 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void onClaimSelected(Claim claim) {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(FragTag.CLAIM_TAB_FRAG);
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.CLAIM_TAB_FRAG);
     if (fragment == null) {
       fragment = ClaimTabFragment.newInstance(claim.getClaimId());
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(FragTag.CLAIM_TAB_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.CLAIM_TAB_FRAG)
+        .addToBackStack(FragmentUtil.CLAIM_TAB_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.CLAIM_TAB_FRAG)
         .commit();
   }
 
@@ -210,14 +206,14 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void addNewClaim() {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(FragTag.CLAIM_NEW_FRAG);
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.CLAIM_NEW_FRAG);
     if (fragment == null) {
       fragment = ClaimNew.newInstance();
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(FragTag.CLAIM_NEW_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.CLAIM_NEW_FRAG)
+        .addToBackStack(FragmentUtil.CLAIM_NEW_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.CLAIM_NEW_FRAG)
         .commit();
   }
 
@@ -227,14 +223,14 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void onApartmentSelected(Apartment apartment) {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(FragTag.APARTMENT_DETAIL_FRAG);
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.APARTMENT_DETAIL_FRAG);
     if (fragment == null) {
       fragment = MyApptDetailFragment.newInstance(apartment.getApartmentId());
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(FragTag.APARTMENT_DETAIL_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.APARTMENT_DETAIL_FRAG)
+        .addToBackStack(FragmentUtil.APARTMENT_DETAIL_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.APARTMENT_DETAIL_FRAG)
         .commit();
   }
 
@@ -249,14 +245,28 @@ public class RentMateActivity extends AppCompatActivity
   public void addNewApartment() {
 
     FragmentManager fm = getSupportFragmentManager();
-    Fragment fragment = fm.findFragmentByTag(FragTag.APARTMENT_NEW_FRAG);
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.APARTMENT_NEW_FRAG);
     if (fragment == null) {
       fragment = MyApptNew.newInstance();
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(FragTag.APARTMENT_NEW_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.APARTMENT_NEW_FRAG)
+        .addToBackStack(FragmentUtil.APARTMENT_NEW_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.APARTMENT_NEW_FRAG)
+        .commit();
+  }
+
+  @Override
+  public void joinApartment() {
+    FragmentManager fm = getSupportFragmentManager();
+    Fragment fragment = fm.findFragmentByTag(FragmentUtil.APARTMENT_JOIN_FRAG);
+    if (fragment == null) {
+      fragment = MyApptJoin.newInstance();
+    }
+    isDrawerEnable(false);
+    fm.beginTransaction()
+        .addToBackStack(FragmentUtil.APARTMENT_JOIN_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.APARTMENT_JOIN_FRAG)
         .commit();
   }
 
@@ -266,30 +276,30 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void openClaimList() {
     FragmentManager manager = getSupportFragmentManager();
-    Fragment fragment = manager.findFragmentByTag(FragTag.CLAIM_LIST_FRAG);
+    Fragment fragment = manager.findFragmentByTag(FragmentUtil.CLAIM_LIST_FRAG);
 
     if (fragment == null) {
       fragment = ClaimListFragment.newInstance();
     }
 
     manager.beginTransaction()
-        .addToBackStack(FragTag.CLAIM_LIST_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.CLAIM_LIST_FRAG)
+        .addToBackStack(FragmentUtil.CLAIM_LIST_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.CLAIM_LIST_FRAG)
         .commit();
   }
 
   @Override
   public void openApartmentList() {
     FragmentManager manager = getSupportFragmentManager();
-    Fragment fragment = manager.findFragmentByTag(FragTag.APARTMENT_TAB_FRAG);
+    Fragment fragment = manager.findFragmentByTag(FragmentUtil.APARTMENT_TAB_FRAG);
 
     if (fragment == null) {
       fragment = MyApptTabFragment.newInstance();
     }
 
     manager.beginTransaction()
-        .addToBackStack(FragTag.APARTMENT_TAB_FRAG)
-        .replace(R.id.fragment_container, fragment, FragTag.APARTMENT_TAB_FRAG)
+        .addToBackStack(FragmentUtil.APARTMENT_TAB_FRAG)
+        .replace(R.id.fragment_container, fragment, FragmentUtil.APARTMENT_TAB_FRAG)
         .commit();
   }
 
