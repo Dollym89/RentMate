@@ -1,19 +1,18 @@
 
 package com.example.michal.rentmate.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 import javax.annotation.Generated;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
 public class Message {
 
-  @SerializedName("msg")
-  private String msg;
-  @SerializedName("posted_at")
-  private String postedAt;
-  @SerializedName("_id")
-  private String Id;
+  @SerializedName("msg") private String msg;
+  @SerializedName("posted_at") private String postedAt;
+  @SerializedName("posted_by") private String postedBy;
+  @SerializedName("_id") private String Id;
 
   public String getMsg() {
     return msg;
@@ -31,6 +30,14 @@ public class Message {
     this.postedAt = postedAt;
   }
 
+  public String getPostedBy() {
+    return postedBy;
+  }
+
+  public void setPostedBy(String postedBy) {
+    this.postedBy = postedBy;
+  }
+
   public String getId() {
     return Id;
   }
@@ -38,5 +45,4 @@ public class Message {
   public void setId(String Id) {
     this.Id = Id;
   }
-
 }

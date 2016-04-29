@@ -1,42 +1,37 @@
 
 package com.example.michal.rentmate.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @Generated("org.jsonschema2pojo")
 public class Apartment {
 
-  @SerializedName("_id")
-  private String Id;
-  @SerializedName("apartment_id")
-  private String apartmentId;
-  @SerializedName("created_at")
-  private String createdAt;
-  @SerializedName("updated_at")
-  private String updatedAt; // plus we want time when it happend user will be able to choose date
-  @SerializedName("name")
-  private String name; // do we need name of the appt, ist not a pet :D
-  @SerializedName("address")
-  private String address; // address is good plus we need another atribute POSTAL CODE
-  @SerializedName("owner")
-  private Owner owner; // do we need owner? or just a user with two possible values(Landlord/Tenant)
-  @SerializedName("__v")
-  private int V;
-  @SerializedName("claims")
+  @SerializedName("_id") private String Id;
+  @SerializedName("created_at") private String createdAt;
+  @SerializedName("updated_at") private String updatedAt;
+  @SerializedName("apartment_id") private String apartmentId;
+  @SerializedName("name") private String name;
+  @SerializedName("address") private String address;
+  @SerializedName("postcode") private String postcode;
+  @SerializedName("city") private String city;
+  @SerializedName("country") private String country;
+  @SerializedName("__v") private Integer V;
+  @SerializedName("isOccupied") private Boolean isOccupied;
+  @SerializedName("tenant") private String tenant;
+  @SerializedName("claims") private List<String> claims = new ArrayList<String>();
 
-  private List<Claim> claims = new ArrayList<Claim>();
-
-  public String getApartmentId() {
-    return apartmentId;
+  public String getId() {
+    return Id;
   }
 
-  public void setApartmentId(String apartmentId) {
-    this.apartmentId = apartmentId;
+  public void setId(String id) {
+    Id = id;
   }
 
   public String getCreatedAt() {
@@ -55,6 +50,14 @@ public class Apartment {
     this.updatedAt = updatedAt;
   }
 
+  public String getApartmentId() {
+    return apartmentId;
+  }
+
+  public void setApartmentId(String apartmentId) {
+    this.apartmentId = apartmentId;
+  }
+
   public String getName() {
     return name;
   }
@@ -71,28 +74,59 @@ public class Apartment {
     this.address = address;
   }
 
-  public Owner getOwner() {
-    return owner;
+  public String getPostcode() {
+    return postcode;
   }
 
-  public void setOwner(Owner owner) {
-    this.owner = owner;
+  public void setPostcode(String postcode) {
+    this.postcode = postcode;
   }
 
-  public int getV() {
+  public String getCity() {
+    return city;
+  }
+
+  public void setCity(String city) {
+    this.city = city;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public Integer getV() {
     return V;
   }
 
-  public void setV(int V) {
-    this.V = V;
+  public void setV(Integer v) {
+    V = v;
   }
 
-  public List<Claim> getClaims() {
+  public Boolean getOccupied() {
+    return isOccupied;
+  }
+
+  public void setOccupied(Boolean occupied) {
+    isOccupied = occupied;
+  }
+
+  public String getTenant() {
+    return tenant;
+  }
+
+  public void setTenant(String tenant) {
+    this.tenant = tenant;
+  }
+
+  public List<String> getClaims() {
     return claims;
   }
 
-  public void setClaims(List<Claim> claims) {
+  public void setClaims(List<String> claims) {
     this.claims = claims;
   }
-
 }

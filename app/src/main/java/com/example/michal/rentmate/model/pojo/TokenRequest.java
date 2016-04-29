@@ -1,7 +1,7 @@
 
 package com.example.michal.rentmate.model.pojo;
 
-import com.google.gson.annotations.Expose;
+
 import com.google.gson.annotations.SerializedName;
 
 import javax.annotation.Generated;
@@ -9,47 +9,24 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class TokenRequest {
 
-    @SerializedName("username")
-    @Expose
-    private String username;
-    @SerializedName("password")
-    @Expose
-    private String password;
+  @SerializedName("email")
+  private String email;
+  @SerializedName("password")
+  private String password;
 
-    /**
-     * 
-     * @return
-     *     The username
-     */
-    public String getUsername() {
-        return username;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    /**
-     * 
-     * @param username
-     *     The username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    /**
-     * 
-     * @return
-     *     The password
-     */
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    /**
-     * 
-     * @param password
-     *     The password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

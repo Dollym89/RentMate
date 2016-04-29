@@ -61,11 +61,11 @@ public class MyApptNew extends Fragment {
   @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (resultCode == Activity.RESULT_OK) {
-     switch (requestCode){
-       case REQUEST_ADDRESS:
-         boolean isAddressCorrect = (boolean)data.getSerializableExtra(MyApptNewDialog.EXTRA_ADDRESS);
-         saveButton.setEnabled(isAddressCorrect);
-     }
+      switch (requestCode) {
+        case REQUEST_ADDRESS:
+          boolean isAddressCorrect = (boolean) data.getSerializableExtra(MyApptNewDialog.EXTRA_ADDRESS);
+          saveButton.setEnabled(isAddressCorrect);
+      }
     }
   }
 
@@ -75,8 +75,7 @@ public class MyApptNew extends Fragment {
     if (getFullAddress().toCharArray().length > 10 && getAddress(getFullAddress()) != null) {
       getPosition(getAddress(getFullAddress()));
       openMapDialog();
-    }
-    else {
+    } else {
       Toast.makeText(getActivity(), "Fill correct address", Toast.LENGTH_LONG).show();
     }
   }
@@ -100,8 +99,7 @@ public class MyApptNew extends Fragment {
     }
     if (addressList != null && addressList.size() != 0) {
       address = addressList.get(0);
-    }
-    else {
+    } else {
       Toast.makeText(getActivity(), "We can not find your location", Toast.LENGTH_SHORT).show();
     }
     return address;

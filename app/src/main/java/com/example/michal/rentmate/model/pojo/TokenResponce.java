@@ -8,17 +8,13 @@ import javax.annotation.Generated;
 @Generated("org.jsonschema2pojo")
 public class TokenResponce {
 
-    @SerializedName("token")
+  @SerializedName("token") private String token;
 
-    private String token;
+  public String getToken() {
+    return token;
+  }
 
-    public String getToken() {
-        return token;
-    }
-
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
+  public void setToken(String token) {
+    this.token = token;
+  }
 }

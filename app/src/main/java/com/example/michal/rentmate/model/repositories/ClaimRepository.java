@@ -10,16 +10,15 @@ public class ClaimRepository {
   private static ClaimRepository claimSingleton = null;
   private List<Claim> claimList;
 
+  private ClaimRepository() {
+    this.claimList = new ArrayList<>();
+  }
+
   public static ClaimRepository getInstance() {
     if (claimSingleton == null) {
       claimSingleton = new ClaimRepository();
     }
     return claimSingleton;
-  }
-
-  private ClaimRepository() {
-    this.claimList = new ArrayList<>();
-
   }
 
   public List<Claim> getClaimList() {

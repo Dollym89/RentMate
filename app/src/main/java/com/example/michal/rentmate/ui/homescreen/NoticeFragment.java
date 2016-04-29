@@ -47,7 +47,7 @@ public class NoticeFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_notice, container, false);
     ButterKnife.bind(this, view);
-    FontUtil.setFancyText(getContext(), getString(R.string.font_roboto_thin), welcomText);
+    FontUtil.setFont(getContext(), getString(R.string.font_roboto_thin), welcomText);
     return view;
   }
 

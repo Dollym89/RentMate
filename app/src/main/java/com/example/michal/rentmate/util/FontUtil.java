@@ -20,8 +20,7 @@ public class FontUtil {
     return oneInstance;
   }
 
-  //set the different type of
-  public static void setFancyText(Context context, String fontName,TextView text) {
+  public static void setFont(Context context, String fontName,TextView text) {
     Typeface fancyOne = Typeface.createFromAsset(context.getAssets(), fontName);
     text.setTypeface(fancyOne);
   }

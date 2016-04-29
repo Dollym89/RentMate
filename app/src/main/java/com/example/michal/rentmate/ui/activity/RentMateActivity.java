@@ -24,8 +24,8 @@ import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptDetailFragment;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptJoin;
-import com.example.michal.rentmate.ui.apartment.new_apartments.MyApptNew;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptTabFragment;
+import com.example.michal.rentmate.ui.apartment.new_apartments.MyApptNew;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
 import com.example.michal.rentmate.ui.claims.ClaimListFragment;
 import com.example.michal.rentmate.ui.claims.ClaimNew;
@@ -323,28 +323,6 @@ public class RentMateActivity extends AppCompatActivity
         }
       });
       toggle.syncState();
-    }
-  }
-
-  private class DataFetcher extends AsyncTask<Void, Void, List<Claim>> {
-
-    @Override
-    protected List<Claim> doInBackground(Void... params) {
-      Log.e("BACKGROUND ", "doInBackground is running");
-      List<Claim> claimList = null;
-      try {
-        claimList = DataLoader.loadClaimSynch();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      return claimList;
-    }
-
-    @Override
-    protected void onPostExecute(List<Claim> claimList) {
-      Log.e("BACKGROUND ", "onPostExecuted is running");
-      DataLoader.updateClaimRepository(claimList);
-      setFirstFragment();
     }
   }
 }

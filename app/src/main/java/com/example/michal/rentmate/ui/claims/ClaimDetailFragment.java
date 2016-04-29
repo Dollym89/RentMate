@@ -14,10 +14,9 @@ import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import butterknife.ButterKnife;
 
 
-/**
- * Created by Michal on 05/04/2016.
- */
 public class ClaimDetailFragment extends Fragment {
+
+
 
   public static final String ARG_CLAIM_ID = "claim_id_detail";
   private Claim claim;

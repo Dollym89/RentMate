@@ -1,39 +1,33 @@
 
 package com.example.michal.rentmate.model.pojo;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 @Generated("org.jsonschema2pojo")
 public class Claim {
 
-  @SerializedName("_id")
-  private String Id;
-  @SerializedName("claim_id")
-  private String claimId;
-  @SerializedName("created_at")
-  private String createdAt;
-  @SerializedName("updated_at")
-  private String updatedAt;
-  @SerializedName("title")
-  private String title;
-  @SerializedName("status")
-  private String status;
-  @SerializedName("__v")
-  private int V;
-  @SerializedName("messages")
-  private List<Message> messages = new ArrayList<Message>();
+  @SerializedName("_id") private String Id;
+  @SerializedName("created_at") private String createdAt;
+  @SerializedName("updated_at") private String updatedAt;
+  @SerializedName("claim_id") private String claimId;
+  @SerializedName("title") private String title;
+  @SerializedName("description") private String description;
+  @SerializedName("__v") private int V;
+  @SerializedName("messages") private List<Message> messages = new ArrayList<Message>();
+  @SerializedName("status") private String status;
 
-  public String getClaimId() {
-    return claimId;
+  public String getId() {
+    return Id;
   }
 
-  public void setClaimId(String claimId) {
-    this.claimId = claimId;
+  public void setId(String Id) {
+    this.Id = Id;
   }
 
   public String getCreatedAt() {
@@ -52,6 +46,14 @@ public class Claim {
     this.updatedAt = updatedAt;
   }
 
+  public String getClaimId() {
+    return claimId;
+  }
+
+  public void setClaimId(String claimId) {
+    this.claimId = claimId;
+  }
+
   public String getTitle() {
     return title;
   }
@@ -60,12 +62,12 @@ public class Claim {
     this.title = title;
   }
 
-  public String getStatus() {
-    return status;
+  public String getDescription() {
+    return description;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public int getV() {
@@ -84,4 +86,11 @@ public class Claim {
     this.messages = messages;
   }
 
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
 }

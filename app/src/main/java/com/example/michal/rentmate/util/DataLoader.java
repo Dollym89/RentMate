@@ -4,8 +4,12 @@ import android.util.Log;
 
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.pojo.TokenRequest;
+import com.example.michal.rentmate.model.pojo.TokenResponce;
+import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
+import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 
@@ -17,22 +21,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Michal on 21/04/2016.
- */
 public class DataLoader {
 
-  private static RentMateApi service;
 
+  private static final String TAG_TOKEN = "TOKEN";
+  private static final String TAG_USER = "USER";
+
+  private static RentMateApi service;
   private static List<Claim> claimList;
   private static List<Apartment> apartmentList;
+  private static User user;
+  private static String token;
 
   public static List<Apartment> loadAptData() {
 
     apartmentList = new ArrayList<>();
     service = RestService.getInstance();
 
-    Call<List<Apartment>> call = service.getApartments();
+    Call<List<Apartment>> call = service.getApartments(token);
     call.enqueue(new Callback<List<Apartment>>() {
 
       @Override
@@ -52,11 +58,12 @@ public class DataLoader {
     return apartmentList;
   }
 
+
   public static List<Claim> loadClaimData() {
 
     claimList = new ArrayList<>();
     service = RestService.getInstance();
-    Call<List<Claim>> call = service.getClaims();
+    Call<List<Claim>> call = service.getClaims(token);
     call.enqueue(new Callback<List<Claim>>() {
 
       @Override
@@ -76,15 +83,49 @@ public class DataLoader {
     return claimList;
   }
 
-  public static List<Claim> loadClaimSynch() throws IOException {
-    claimList = new ArrayList<>();
+  public static String logIn(TokenRequest request) {
     service = RestService.getInstance();
-    Call<List<Claim>> call = service.getClaims();
-    Log.e("LOADING DATA", "LOADING CLAIMS");
-    claimList = call.execute().body();
-    return claimList;
+    Call<TokenResponce> call = service.getToken(request);
+    call.enqueue(new Callback<TokenResponce>() {
+      @Override
+      public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
+        token = response.body().getToken();
+        Log.e(TAG_TOKEN, token);
+        getUser(token);
+      }
+
+      @Override
+      public void onFailure(Call<TokenResponce> call, Throwable t) {
+        Log.e(TAG_TOKEN, "Token is not recived");
+      }
+    });
+    return token;
   }
 
+  public static User getUser(final String token) {
+    String header = "Bearer " + token;
+    service = RestService.getInstance();
+    Log.e("TOKEN - HEADER", header);
+    Call<User> call = service.getUser(header);
+    call.enqueue(new Callback<User>() {
+      @Override
+      public void onResponse(Call<User> call, Response<User> response) {
+        user = response.body();
+        user.setToken(token);
+        Log.e(TAG_USER, user.getFirstName());
+
+        UserRepository userRepo = UserRepository.getInstance();
+        userRepo.setUser(user);
+        setUsersApt();
+      }
+
+      @Override
+      public void onFailure(Call<User> call, Throwable t) {
+        Log.e(TAG_USER, "FAILURE no users downloaded");
+      }
+    });
+    return user;
+  }
 
   public static void updateClaimRepository(List<Claim> claims) {
     ClaimRepository claimRepository = ClaimRepository.getInstance();
@@ -92,11 +133,15 @@ public class DataLoader {
     claimRepository.setClaimList(claims);
   }
 
+  public static void setUsersApt(){
+    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
+    aptRepo.setApartmentList(user.getApartments());
+  }
+
   public static void updateApartmentRepository(List<Apartment> apartments) {
+    UserRepository userRepo = UserRepository.getInstance();
     ApartmentRepository apartmentRepository = ApartmentRepository.getInstance();
     apartmentRepository.getApartmentList().clear();
     apartmentRepository.setApartmentList(apartments);
   }
-
-
 }

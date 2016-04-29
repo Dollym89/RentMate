@@ -31,14 +31,18 @@
   <!--Claims-->
   <string name="is_rented_button_name">Vacant</string>
   <string name="state_of_claim_button_name">State</string>
+  <string name="create_claim_button">Create Claim</string>
   <string name="add_first_claim">Add your firs claim</string>
   <string name="claim_detail_title">Claim detail Title</string>
   <string name="claim_detail_date">Claim detail date</string>
   <string name="claim_detail_description">Description</string>
-  <string name="claim_tab_detail">DETAILS</string>
+   <string name="claim_tab_detail">DETAILS</string>
   <string name="claim_tab_message">MESSAGE</string>
   <string name="claim_action_bar">Claims</string>
-
+  <string name="new_claim_select_apt">Select Apartment</string>
+  <string name="new_claim_title">Title</string>
+  <string name="new_claim_description">Describe your issue</string>
+  <string name="new_claim_description_edit_text">Please describe your issue here</string>
 
   <!--Apartments-->
   <string name="add_first_apartment">Add your firs apartment</string>
@@ -46,6 +50,7 @@
   <string name="new_apartment_occupied">Occupied</string>
   <string name="new_apt_save_button">Save</string>
   <string name="check_location_button">Check Location</string>
+  <string name="join_apartment_button">Join Apartment</string>
   <string name="apartment_tab_my_apt">MY APARTMENTS</string>
   <string name="apartment_tab_location">LOCATION</string>
   <string name="new_apartment_country_edit_text">Please enter your Country</string>
@@ -57,7 +62,7 @@
   <string name="new_apartment_zip_edit_text">Please enter your Zip code</string>
   <string name="new_apartment_zip_text_view">Zip code</string>
   <string name="new_apartment_dialog_title">Check Address</string>
-
+  <string name="join_apartment_text_view">Please enter apartment code</string>
 
   <!--Notice view-->
   <string name="claims_need_your_attention">Claims need your attention</string>
@@ -72,5 +77,6 @@
 
   <!--Fonts-->
   <string name="font_roboto_thin">fonts/Roboto-Thin.ttf </string>
+  <string name="font_roboto_regular">fonts/Roboto-Thin.ttf </string>
 
 </resources>

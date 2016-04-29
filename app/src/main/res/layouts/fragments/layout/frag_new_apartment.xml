@@ -37,9 +37,9 @@
           android:layout_height="wrap_content"
           android:backgroundTint="@color/colorPrimary"
           android:hint="@string/new_apartment_country_edit_text"
-          android:textSize="16sp"
           android:imeOptions="actionDone"
-          android:inputType="textPostalAddress"/>
+          android:inputType="textPostalAddress"
+          android:textSize="16sp"/>
       </LinearLayout>
 
       <LinearLayout
@@ -61,9 +61,9 @@
           android:layout_height="wrap_content"
           android:backgroundTint="@color/colorPrimary"
           android:hint="@string/new_apartment_city_edit_text"
-          android:textSize="16sp"
           android:imeOptions="actionDone"
-          android:inputType="textPostalAddress"/>
+          android:inputType="textPostalAddress"
+          android:textSize="16sp"/>
       </LinearLayout>
 
       <LinearLayout
@@ -85,9 +85,9 @@
           android:layout_height="wrap_content"
           android:backgroundTint="@color/colorPrimary"
           android:hint="@string/new_apartment_street_edit_text"
-          android:textSize="16sp"
           android:imeOptions="actionDone"
-          android:inputType="textPostalAddress"/>
+          android:inputType="textPostalAddress"
+          android:textSize="16sp"/>
       </LinearLayout>
 
       <LinearLayout
@@ -108,11 +108,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:backgroundTint="@color/colorPrimary"
+          android:ems="4"
           android:hint="@string/new_apartment_zip_edit_text"
-          android:textSize="16sp"
           android:imeOptions="actionDone"
           android:inputType="number"
-          android:ems="4"/>
+          android:textSize="16sp"/>
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
@@ -131,7 +131,8 @@
       android:layout_height="wrap_content"
       android:layout_margin="5dp"
       android:background="@drawable/ripple_button"
-      android:text="@string/check_location_button"/>
+      android:text="@string/check_location_button"
+      android:textColor="#ffffff"/>
 
     <Button
       android:id="@+id/new_apt_save_button"
@@ -139,8 +140,9 @@
       android:layout_height="wrap_content"
       android:layout_margin="5dp"
       android:background="@drawable/ripple_button"
-      android:text="@string/new_apt_save_button"
       android:enabled="false"
+      android:text="@string/new_apt_save_button"
+      android:textColor="#ffffff"
       />
 
   </LinearLayout>

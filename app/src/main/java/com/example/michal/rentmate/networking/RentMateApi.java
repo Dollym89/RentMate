@@ -18,13 +18,13 @@ public interface RentMateApi {
 
   //GET
   @GET("/api/apartments/")
-  Call<List<Apartment>> getApartments();
+  Call<List<Apartment>> getApartments(@Header("Authorization") String token);
 
   @GET("/api/claims")
-  Call<List<Claim>> getClaims();
+  Call<List<Claim>> getClaims(@Header("Authorization") String token);
 
-  @GET("api/users")
-  Call<List<User>> logInUser(@Header("Authorization") String token);
+  @GET("api/users/me")
+  Call<User> getUser(@Header("Authorization") String token);
 
   //POST
   @POST("auth/signin")
