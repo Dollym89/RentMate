@@ -1,6 +1,7 @@
 package com.example.michal.rentmate.util;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
@@ -89,16 +90,24 @@ public class DataLoader {
     call.enqueue(new Callback<TokenResponce>() {
       @Override
       public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
-        token = response.body().getToken();
-        Log.e(TAG_TOKEN, token);
-        getUser(token);
+        if (response.body() != null) {
+          token = response.body().getToken();
+          Log.e(TAG_TOKEN, token);
+          getUser(token);
+        }
+        else {
+          token = null;
+        }
+
       }
 
       @Override
       public void onFailure(Call<TokenResponce> call, Throwable t) {
         Log.e(TAG_TOKEN, "Token is not recived");
+
       }
     });
+
     return token;
   }
 
@@ -133,7 +142,7 @@ public class DataLoader {
     claimRepository.setClaimList(claims);
   }
 
-  public static void setUsersApt(){
+  public static void setUsersApt() {
     ApartmentRepository aptRepo = ApartmentRepository.getInstance();
     aptRepo.setApartmentList(user.getApartments());
   }

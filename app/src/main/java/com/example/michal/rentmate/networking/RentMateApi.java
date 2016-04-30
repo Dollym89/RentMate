@@ -17,20 +17,26 @@ import retrofit2.http.POST;
 public interface RentMateApi {
 
   //GET
-  @GET("/api/apartments/")
+  @GET("/api/apartments")
   Call<List<Apartment>> getApartments(@Header("Authorization") String token);
 
   @GET("/api/claims")
   Call<List<Claim>> getClaims(@Header("Authorization") String token);
 
-  @GET("api/users/me")
+  @GET("/api/users/me")
   Call<User> getUser(@Header("Authorization") String token);
 
   //POST
-  @POST("auth/signin")
+  @POST("/auth/signin")
   Call<TokenResponce> getToken(@Body TokenRequest tokenRequest);
 
-  @POST("users/new")
+  @POST("/api/users")
   Call<User> createUser(@Body User user);
+
+  @POST("/api/apartments")
+  Call<Apartment> createApartment(@Header("Authorization") String token,@Body Apartment apartment);
+
+  @POST("/api/claims")
+  Call<Claim> createClaim(@Body Claim claim);
 
 }

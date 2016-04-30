@@ -18,6 +18,7 @@ import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 
 import java.util.List;
@@ -57,7 +58,14 @@ public class MyApptListFragment extends Fragment {
   public void onResume() {
     super.onResume();
     Log.e("ONRESUME", "ONRESUME");
-//    updateUi();
+    updateUi();
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    UserRepository userRepo = UserRepository.getInstance();
+    user = userRepo.getUser();
   }
 
   @Nullable
@@ -75,15 +83,11 @@ public class MyApptListFragment extends Fragment {
   //  Listeners
   @OnClick(R.id.add_first_apartment_button)
   public void newApartment() {
-    //    TODO Decide to Join apartment or to Create apartment based on Used (tenant/landlord)
-    callbacks.addNewApartment();
-
-//    if (user.getGroupId().equals("tenant")) {
-//      callbacks.joinApartment();
-//    }
-//    else {
-//      callbacks.addNewApartment();
-//    }
+    if (user.getGroupId().equals("Tenant")) {
+      callbacks.joinApartment();
+    } else {
+      callbacks.addNewApartment();
+    }
   }
 
   private void updateUi() {
@@ -93,21 +97,19 @@ public class MyApptListFragment extends Fragment {
     if (adapter == null) {
       adapter = new AptAdapter(apartmentList);
       recyclerView.setAdapter(adapter);
-    }
-    else {
+    } else {
+
       adapter.notifyDataSetChanged();
       recyclerView.setAdapter(adapter);
     }
     if (apartmentList.size() > 0) {
       addFirstAptLayout.setVisibility(View.GONE);
-    }
-    else {
+    } else {
       addFirstAptLayout.setVisibility(View.VISIBLE);
       addFirstAptFAB.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-//          Apartment apartment = new Apartment();
-//          ApartmentRepository.getInstance().getApartmentList().add(apartment);
+
           callbacks.addNewApartment();
         }
       });
@@ -128,7 +130,7 @@ public class MyApptListFragment extends Fragment {
 
     public void onBind(Apartment apartment) {
       this.apartment = apartment;
-      aptName.setText(apartment.getAddress());
+      aptName.setText(apartment.getStreet());
 //      aptAddress.setText(apartment.getPostalCode());
     }
 
@@ -164,6 +166,4 @@ public class MyApptListFragment extends Fragment {
       return aptList.size();
     }
   }
-
-
 }

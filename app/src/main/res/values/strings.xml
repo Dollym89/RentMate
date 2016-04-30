@@ -5,6 +5,8 @@
   <string name="app_name">RentMate</string>
   <string name="action_settings">Settings</string>
   <string name="action_search_menu">Search</string>
+  <string name="splash_screen_text_view">RentMate</string>
+
 
   <!--Log In -->
   <string name="welcome_textview_rentmate">Welcome to RentMate</string>

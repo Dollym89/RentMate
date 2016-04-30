@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.TokenRequest;
@@ -25,9 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LogInFragment extends Fragment {
-
-  private static final String TAG_TOKEN = "TOKEN";
-  private static final String TAG_USER = "USER";
 
   @Bind(R.id.log_in_button) Button logInButton;
   @Bind(R.id.user_email_edit_text) EditText emailEditText;
@@ -66,21 +64,24 @@ public class LogInFragment extends Fragment {
       TokenRequest request = createTokenRequest();
       DataLoader.logIn(request);
 
+      if (DataLoader.logIn(request) == null) {
+        Toast.makeText(getContext(), "Wrong password or email", Toast.LENGTH_LONG).show();
+      } else {
 
 //      TODO set to sleep?
-      Intent intent = RentMateActivity.newIntent(getActivity());
-      startActivity(intent);
+        Intent intent = RentMateActivity.newIntent(getActivity());
+        startActivity(intent);
+      }
     }
   }
 
 
-
   public TokenRequest createTokenRequest() {
     TokenRequest request = new TokenRequest();
-//    request.setUsername(String.valueOf(emailEditText.getText()));
-//    request.setPassword(String.valueOf(password.getText()));
-    request.setEmail("admin@gmail.com");
-    request.setPassword("test");
+    request.setEmail(String.valueOf(emailEditText.getText()));
+    request.setPassword(String.valueOf(passwordEditText.getText()));
+//    request.setEmail("admin@gmail.com");
+//    request.setPassword("test");
     return request;
   }
 

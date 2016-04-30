@@ -12,13 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.michal.rentmate.R;
+import com.example.michal.rentmate.util.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MyApptTabFragment extends Fragment {
-
-  private static final int NUMBER_OF_TABS = 2;
 
   @Bind(R.id.apartment_tab_layout) TabLayout tabLayout;
   @Bind(R.id.apartment_tab_view_pager) ViewPager pager;
@@ -64,7 +63,7 @@ public class MyApptTabFragment extends Fragment {
 
     @Override
     public int getCount() {
-      return NUMBER_OF_TABS;
+      return Constants.NUMBER_OF_TABS;
     }
 
     @Override

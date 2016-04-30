@@ -18,10 +18,8 @@ public class RestService {
           .addConverterFactory(GsonConverterFactory.create())
           .build();
 
-      service = retrofit.create(RentMateApi.class);
-      return service;
-    }
-    else {
+      return service = retrofit.create(RentMateApi.class);
+       } else {
       return service;
     }
   }

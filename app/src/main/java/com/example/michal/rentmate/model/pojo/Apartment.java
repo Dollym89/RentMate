@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
@@ -17,8 +16,8 @@ public class Apartment {
   @SerializedName("updated_at") private String updatedAt;
   @SerializedName("apartment_id") private String apartmentId;
   @SerializedName("name") private String name;
-  @SerializedName("address") private String address;
-  @SerializedName("postcode") private String postcode;
+  @SerializedName("address") private String street;
+  @SerializedName("postcode") private String zip;
   @SerializedName("city") private String city;
   @SerializedName("country") private String country;
   @SerializedName("__v") private Integer V;
@@ -66,20 +65,20 @@ public class Apartment {
     this.name = name;
   }
 
-  public String getAddress() {
-    return address;
+  public String getStreet() {
+    return street;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setStreet(String street) {
+    this.street = street;
   }
 
-  public String getPostcode() {
-    return postcode;
+  public String getZip() {
+    return zip;
   }
 
-  public void setPostcode(String postcode) {
-    this.postcode = postcode;
+  public void setZip(String zip) {
+    this.zip = zip;
   }
 
   public String getCity() {

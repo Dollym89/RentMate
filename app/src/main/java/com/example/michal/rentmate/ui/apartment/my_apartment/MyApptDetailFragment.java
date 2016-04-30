@@ -14,15 +14,13 @@ import android.widget.TextView;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Michal on 23/04/2016.
- */
 public class MyApptDetailFragment extends Fragment {
 
   @Bind(R.id.apartment_detail_address_textview) TextView detailAddress;
@@ -31,13 +29,11 @@ public class MyApptDetailFragment extends Fragment {
   @Bind(R.id.apartment_detail_occupied_textview) TextView detailOccupied;
   @Bind(R.id.apartment_ID_layout) LinearLayout idLayout;
 
-  private static final String ARG_APT = "apartment_id";
-
   private Apartment apartment;
 
   public static MyApptDetailFragment newInstance(String apartmentID) {
     Bundle arg = new Bundle();
-    arg.putSerializable(ARG_APT, apartmentID);
+    arg.putSerializable(Constants.ARG_APT, apartmentID);
     MyApptDetailFragment detailFragment = new MyApptDetailFragment();
     detailFragment.setArguments(arg);
     return detailFragment;
@@ -46,7 +42,7 @@ public class MyApptDetailFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    String apartmentId = (String) getArguments().getSerializable(ARG_APT);
+    String apartmentId = (String) getArguments().getSerializable(Constants.ARG_APT);
     apartment = ApartmentRepository.getInstance().getApartment(apartmentId);
 
   }

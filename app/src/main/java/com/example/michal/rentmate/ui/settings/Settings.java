@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.michal.rentmate.R;
 
-/**
- * Created by Michal on 19/04/2016.
- */
+
 public class Settings extends Fragment {
 
 

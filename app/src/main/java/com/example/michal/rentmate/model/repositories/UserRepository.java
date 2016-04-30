@@ -1,14 +1,8 @@
 package com.example.michal.rentmate.model.repositories;
 
-
-import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.User;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserRepository {
-
 
   private static UserRepository repository = null;
   private User user;

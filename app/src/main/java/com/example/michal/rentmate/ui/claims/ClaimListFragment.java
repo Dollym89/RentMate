@@ -25,9 +25,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by Michal on 05/04/2016.
- */
 public class ClaimListFragment extends Fragment {
 
   @Bind(R.id.add_first_crime_layout) RelativeLayout addFirstClaimLayout;

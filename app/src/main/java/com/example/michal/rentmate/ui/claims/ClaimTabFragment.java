@@ -14,17 +14,13 @@ import android.view.ViewGroup;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
+import com.example.michal.rentmate.util.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * Created by Michal on 23/04/2016.
- */
-public class ClaimTabFragment extends Fragment {
 
-  private static final String ARG_CLAIM_ID = "claim_ID";
-  private static final int NUMBER_OF_TABS = 2;
+public class ClaimTabFragment extends Fragment {
 
   @Bind(R.id.claim_detail_view_pager) ViewPager pager;
   @Bind(R.id.claim_detail_tab_layout) TabLayout tabLayout;
@@ -33,7 +29,7 @@ public class ClaimTabFragment extends Fragment {
 
   public static ClaimTabFragment newInstance(String claimID) {
     Bundle arg = new Bundle();
-    arg.putSerializable(ARG_CLAIM_ID, claimID);
+    arg.putSerializable(Constants.ARG_CLAIM_DETAIL_ID, claimID);
     ClaimTabFragment tabFragment = new ClaimTabFragment();
     tabFragment.setArguments(arg);
     return tabFragment;
@@ -42,7 +38,7 @@ public class ClaimTabFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    String claimID = (String) getArguments().getSerializable(ARG_CLAIM_ID);
+    String claimID = (String) getArguments().getSerializable(Constants.ARG_CLAIM_DETAIL_ID);
     claim = ClaimRepository.getInstance().getClaim(claimID);
   }
 
@@ -78,7 +74,7 @@ public class ClaimTabFragment extends Fragment {
 
     @Override
     public int getCount() {
-      return NUMBER_OF_TABS;
+      return Constants.NUMBER_OF_TABS;
     }
 
     @Override

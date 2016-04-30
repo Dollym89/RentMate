@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
+import com.example.michal.rentmate.util.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,8 +27,6 @@ import butterknife.OnClick;
 
 
 public class MyApptNewDialog extends DialogFragment {
-
-  public static final String EXTRA_ADDRESS = "extra_address";
 
   @Bind(R.id.wrong_address_text_view) TextView wrongAddress;
   @Bind(R.id.correct_address_button) Button correctButton;
@@ -100,7 +99,7 @@ public class MyApptNewDialog extends DialogFragment {
       return;
     }
     Intent intent = new Intent();
-    intent.putExtra(EXTRA_ADDRESS, isAddressCorrect);
+    intent.putExtra(Constants.EXTRA_ADDRESS, isAddressCorrect);
     getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
   }
 }

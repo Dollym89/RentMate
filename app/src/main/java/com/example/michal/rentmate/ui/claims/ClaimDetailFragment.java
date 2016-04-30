@@ -10,15 +10,13 @@ import android.view.ViewGroup;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
+import com.example.michal.rentmate.util.Constants;
 
 import butterknife.ButterKnife;
 
 
 public class ClaimDetailFragment extends Fragment {
 
-
-
-  public static final String ARG_CLAIM_ID = "claim_id_detail";
   private Claim claim;
 
   public static ClaimDetailFragment newInstance() {
@@ -27,7 +25,7 @@ public class ClaimDetailFragment extends Fragment {
 
   public static ClaimDetailFragment newInstance(String crimeID) {
     Bundle arg = new Bundle();
-    arg.putSerializable(ARG_CLAIM_ID, crimeID);
+    arg.putSerializable(Constants.ARG_CLAIM_DETAIL_ID, crimeID);
     ClaimDetailFragment claimDetailFragment = new ClaimDetailFragment();
     claimDetailFragment.setArguments(arg);
     return claimDetailFragment;
@@ -37,7 +35,7 @@ public class ClaimDetailFragment extends Fragment {
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (getArguments() != null) {
-      String claimID = (String) getArguments().getSerializable(ARG_CLAIM_ID);
+      String claimID = (String) getArguments().getSerializable(Constants.ARG_CLAIM_DETAIL_ID);
       claim = ClaimRepository.getInstance().getClaim(claimID);
     }
   }

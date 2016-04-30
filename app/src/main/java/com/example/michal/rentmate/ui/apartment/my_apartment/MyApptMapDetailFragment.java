@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.util.Constants;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,14 +20,13 @@ import java.util.List;
 
 public class MyApptMapDetailFragment extends SupportMapFragment {
 
-  private static final String ARG_APT_ID = "apartment_ID";
   private GoogleMap map;
   private Apartment apartment;
   private LatLng position;
 
   public static MyApptMapDetailFragment newInstance(String apartmentID) {
     Bundle arg = new Bundle();
-    arg.putSerializable(ARG_APT_ID, apartmentID);
+    arg.putSerializable(Constants.ARG_APT_ID, apartmentID);
     MyApptMapDetailFragment detailMapFragment = new MyApptMapDetailFragment();
     detailMapFragment.setArguments(arg);
     return detailMapFragment;
@@ -35,7 +35,7 @@ public class MyApptMapDetailFragment extends SupportMapFragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    String apartmentID = (String) getArguments().getSerializable(ARG_APT_ID);
+    String apartmentID = (String) getArguments().getSerializable(Constants.ARG_APT_ID);
     apartment = ApartmentRepository.getInstance().getApartment(apartmentID);
 
     getMapAsync(new OnMapReadyCallback() {
@@ -51,7 +51,7 @@ public class MyApptMapDetailFragment extends SupportMapFragment {
     Geocoder geocoder = new Geocoder(getActivity());
     Address address = null;
 
-    String adrs = apartment.getAddress();
+    String adrs = apartment.getStreet();
     List<Address> addressList = null;
     try {
       addressList = geocoder.getFromLocationName(adrs, 1);

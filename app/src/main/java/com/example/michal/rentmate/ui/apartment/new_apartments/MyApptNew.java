@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
+import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.model.repositories.UserRepository;
+import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.util.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -27,12 +32,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyApptNew extends Fragment {
-
-  private static final int REQUEST_ADDRESS = 0;
-  private static final String DIALOG_ADDRESS = "apartment_address";
-
 
   @Bind(R.id.new_apt_check_location_button) Button checkLocationButton;
   @Bind(R.id.new_apt_save_button) Button saveButton;
@@ -45,6 +49,8 @@ public class MyApptNew extends Fragment {
   private GoogleMap map;
   private Apartment apartment;
   private LatLng position;
+  private RentMateApi service;
+  private UserRepository userRepo;
 
   public static MyApptNew newInstance() {
     return new MyApptNew();
@@ -62,7 +68,7 @@ public class MyApptNew extends Fragment {
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (resultCode == Activity.RESULT_OK) {
       switch (requestCode) {
-        case REQUEST_ADDRESS:
+        case Constants.REQUEST_ADDRESS:
           boolean isAddressCorrect = (boolean) data.getSerializableExtra(MyApptNewDialog.EXTRA_ADDRESS);
           saveButton.setEnabled(isAddressCorrect);
       }
@@ -82,7 +88,47 @@ public class MyApptNew extends Fragment {
 
   @OnClick(R.id.new_apt_save_button)
   public void onApartmentSaved() {
+    Apartment apartment = setApartmantProp();
+
+    String header = setHeader();
+    service = RestService.getInstance();
+    Call<Apartment> call = service.createApartment(header, apartment);
+    call.enqueue(new Callback<Apartment>() {
+      @Override
+      public void onResponse(Call<Apartment> call, Response<Apartment> response) {
+
+      }
+
+      @Override
+      public void onFailure(Call<Apartment> call, Throwable t) {
+
+      }
+    });
+
+
     Toast.makeText(getActivity(), "HA you just saved apt", Toast.LENGTH_LONG).show();
+
+  }
+
+  private String setHeader() {
+    userRepo = UserRepository.getInstance();
+    String token = userRepo.getUser().getToken();
+    return Constants.AUTHENTIFICATION + token;
+  }
+
+  private Apartment setApartmantProp() {
+    Apartment apartment = new Apartment();
+    String country = String.valueOf(countryEditText.getText());
+    String street = String.valueOf(streetEditText.getText());
+    String zip = String.valueOf(zipEditText.getText());
+    String city = String.valueOf(cityEditText.getText());
+    apartment.setStreet(street);
+    apartment.setZip(zip);
+    apartment.setCity(city);
+    apartment.setCountry(country);
+    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
+    aptRepo.getApartmentList().add(apartment);
+    return apartment;
   }
 
   private Address getAddress(String longAddress) {
@@ -123,7 +169,7 @@ public class MyApptNew extends Fragment {
     if (TextUtils.isEmpty(zipCode)) {
       zipEditText.setError("ZIP code must be specified");
     }
-    longAddress = street + "," + zipCode + city + "," + country;
+    longAddress = street + ", " + zipCode + " " + city + ", " + country;
     return longAddress;
   }
 
@@ -139,8 +185,8 @@ public class MyApptNew extends Fragment {
   private void openMapDialog() {
     FragmentManager manager = getFragmentManager();
     MyApptNewDialog dialog = MyApptNewDialog.newInstance(position);
-    dialog.setTargetFragment(MyApptNew.this, REQUEST_ADDRESS);
-    dialog.show(manager, DIALOG_ADDRESS);
+    dialog.setTargetFragment(MyApptNew.this, Constants.REQUEST_ADDRESS);
+    dialog.show(manager, Constants.DIALOG_ADDRESS);
   }
 
 

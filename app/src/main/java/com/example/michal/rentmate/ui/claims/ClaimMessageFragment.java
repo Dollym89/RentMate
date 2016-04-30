@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
+import com.example.michal.rentmate.util.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ClaimMessageFragment extends Fragment {
 
-  private static final String ARG_CLAIM_ID = "claim_ID_message";
+
   @Bind(R.id.detail_claim_message_textview)TextView detailMessage;
 
 
@@ -25,7 +26,7 @@ public class ClaimMessageFragment extends Fragment {
 
   public static ClaimMessageFragment newInstance(String claimID){
     Bundle arg = new Bundle();
-    arg.putSerializable(ARG_CLAIM_ID,claimID);
+    arg.putSerializable(Constants.ARG_CLAIM_MESSAGE_ID,claimID);
 
     ClaimMessageFragment messageFragment = new ClaimMessageFragment();
     messageFragment.setArguments(arg);

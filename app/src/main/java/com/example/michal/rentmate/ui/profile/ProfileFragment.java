@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 
 import com.example.michal.rentmate.R;
 
-/**
- * Created by Michal on 19/04/2016.
- */
 public class ProfileFragment extends Fragment {
 
   public static ProfileFragment newInstance() {

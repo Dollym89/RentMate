@@ -3,82 +3,83 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-  >
+    >
 
   <EditText
-    android:id="@+id/user_email_edit_text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="70dp"
-    android:backgroundTint="@color/colorWhite"
-    android:drawableLeft="@drawable/ic_action_e_mail"
-    android:ems="10"
-    android:hint="@string/user_email_edit_text"
-    android:inputType="textEmailAddress"
-    android:textColor="#ffffff"
-    android:textColorHint="#ffffff"
-    android:imeOptions="actionDone"/>
+      android:id="@+id/new_user_email_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
+      android:layout_marginTop="70dp"
+      android:backgroundTint="@color/colorWhite"
+      android:drawableLeft="@drawable/ic_action_e_mail"
+      android:ems="10"
+      android:hint="@string/user_email_edit_text"
+      android:imeOptions="actionDone"
+      android:inputType="textEmailAddress"
+      android:textColor="#ffffff"
+      android:textColorHint="#ffffff"/>
 
   <EditText
 
-    android:id="@+id/password_edit_text"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:backgroundTint="@color/colorWhite"
-    android:drawableLeft="@drawable/ic_action_password"
-    android:ems="10"
-    android:hint="@string/hint_password"
-    android:inputType="textPassword"
-    android:textColor="#ffffff"
-    android:textColorHint="#ffffff"
-    android:imeOptions="actionDone"/>
+      android:id="@+id/new_user_password_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
+      android:backgroundTint="@color/colorWhite"
+      android:drawableLeft="@drawable/ic_action_password"
+      android:ems="10"
+      android:hint="@string/hint_password"
+      android:imeOptions="actionDone"
+      android:inputType="textPassword"
+      android:textColor="#ffffff"
+      android:textColorHint="#ffffff"/>
 
   <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="horizontal">
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
+      android:orientation="horizontal">
 
     <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:layout_gravity="start"
-      android:text="@string/switch_tenant"
-      android:textColor="#ffffff"/>
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:text="@string/switch_tenant"
+        android:textColor="#ffffff"/>
 
     <Switch
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
-      android:checked="false"
-      android:textOff="Tenant"
-      android:textOn="Landlord"/>
+        android:id="@+id/new_user_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:checked="false"
+        android:textOff="Tenant"
+        android:textOn="Landlord"/>
 
     <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="30dp"
-      android:layout_gravity="end"
-      android:text="@string/switch_landlord"
-      android:textColor="#ffffff"/>
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:text="@string/switch_landlord"
+        android:textColor="#ffffff"/>
 
   </LinearLayout>
 
   <Button
-    android:id="@+id/sign_up_button"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="40dp"
-    android:background="@drawable/ripple_button"
-    android:text="@string/sign_up_button"
-    android:textColor="#ffffff"
-    />
+      android:id="@+id/sign_up_button"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="30dp"
+      android:layout_marginRight="30dp"
+      android:layout_marginTop="40dp"
+      android:background="@drawable/ripple_button"
+      android:text="@string/sign_up_button"
+      android:textColor="#ffffff"
+      />
 
 </LinearLayout>

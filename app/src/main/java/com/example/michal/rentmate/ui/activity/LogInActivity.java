@@ -33,8 +33,6 @@ public class LogInActivity extends AppCompatActivity {
     setContentView(R.layout.activity_log_in);
     ButterKnife.bind(this);
     FontUtil.setFont(getApplicationContext(),getString(R.string.font_roboto_thin),welcomeText);
-//    DataLoader.loadAptData();
-//    DataLoader.loadClaimData();
     updateUI();
   }
 

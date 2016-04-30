@@ -3,31 +3,44 @@ package com.example.michal.rentmate.ui.login;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
+import com.example.michal.rentmate.model.pojo.TokenResponce;
+import com.example.michal.rentmate.model.pojo.User;
+import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.ValidUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class SignUpFragment extends Fragment {
 
+
+  @Bind(R.id.new_user_email_edit_text) EditText emailEditText;
+  @Bind(R.id.new_user_password_edit_text) EditText passwordEditText;
+  @Bind(R.id.new_user_switch) Switch userSwitch;
+  @Bind(R.id.sign_up_button) Button signUpButton;
+
+  private RentMateApi service;
+
   public static SignUpFragment newInstance() {
     return new SignUpFragment();
   }
-
-  @Bind(R.id.user_email_edit_text) EditText emailEditText;
-  @Bind(R.id.password_edit_text) EditText passwordEditText;
-  @Bind(R.id.sign_up_button) Button signUpButton;
-
 
   @Nullable
   @Override
@@ -39,19 +52,42 @@ public class SignUpFragment extends Fragment {
 
   //  Listener
   @OnClick(R.id.sign_up_button)
-  public void onLogInPressed() {
+  public void onSignUpressed() {
 
-    final String email = emailEditText.getText().toString();
-    final String pass = passwordEditText.getText().toString();
-    if (!ValidUtil.isValidEmail(email)) {
-      emailEditText.setError("Invalid Email");
-    }
-    if (!ValidUtil.isValidPassword(pass)) {
-      passwordEditText.setError("Insert at least 6 characters");
-    }
-    else {
+//    final String email = emailEditText.getText().toString();
+//    final String pass = passwordEditText.getText().toString();
+   String email = "Dolly@gmail.com";
+   String pass = "test";
 
-      Toast.makeText(getActivity(), "YOU HAVE NEW ACCOUNT", Toast.LENGTH_SHORT).show();
-    }
+    User user = setUserProperties(email, pass);
+    service = RestService.getInstance();
+    Call<User> call = service.createUser(user);
+    call.enqueue(new Callback<User>() {
+      @Override
+      public void onResponse(Call<User> call, Response<User> response) {
+        Log.e("NEW USER", "SUCCESS");
+      }
+
+      @Override
+      public void onFailure(Call<User> call, Throwable t) {
+        Log.e("NEW USER", "FAILED");
+      }
+    });
+
+
   }
+
+
+  private User setUserProperties(String email, String pass) {
+    User user = new User();
+    if (userSwitch.isActivated()) {
+      user.setGroupId(Constants.GROUP_ID_LANDLORD);
+    } else {
+      user.setGroupId(Constants.GROUP_ID_TENANT);
+    }
+    user.setEmail(email);
+    user.setPassword(pass);
+    return user;
+  }
+
 }
