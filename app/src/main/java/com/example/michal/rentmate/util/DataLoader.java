@@ -1,5 +1,6 @@
 package com.example.michal.rentmate.util;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +25,12 @@ import retrofit2.Response;
 
 public class DataLoader {
 
+  public DataLoader() {
+  }
+
+  public DataLoader(Context context) {
+    this.context = context.getApplicationContext();
+  }
 
   private static final String TAG_TOKEN = "TOKEN";
   private static final String TAG_USER = "USER";
@@ -31,10 +38,10 @@ public class DataLoader {
   private static RentMateApi service;
   private static List<Claim> claimList;
   private static List<Apartment> apartmentList;
-  private static User user;
   private static String token;
+  private Context context;
 
-  public static List<Apartment> loadAptData() {
+  public static void loadAptData() {
 
     apartmentList = new ArrayList<>();
     service = RestService.getInstance();
@@ -46,9 +53,7 @@ public class DataLoader {
       public void onResponse(Call<List<Apartment>> call, Response<List<Apartment>> response) {
         Log.e("LOADING DATA", "LOADING APARTMENTS");
         List<Apartment> aptList = response.body();
-        for (int i = 0; i < aptList.size(); i++) {
-          apartmentList.add(aptList.get(i));
-        }
+        updateApartmentRepository(apartmentList);
       }
 
       @Override
@@ -56,9 +61,7 @@ public class DataLoader {
         Log.e("LOADING DATA FAILURE", "LOADING CLAIMS UNSUCCESSFUL");
       }
     });
-    return apartmentList;
   }
-
 
   public static List<Claim> loadClaimData() {
 
@@ -84,57 +87,6 @@ public class DataLoader {
     return claimList;
   }
 
-  public static String logIn(TokenRequest request) {
-    service = RestService.getInstance();
-    Call<TokenResponce> call = service.getToken(request);
-    call.enqueue(new Callback<TokenResponce>() {
-      @Override
-      public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
-        if (response.body() != null) {
-          token = response.body().getToken();
-          Log.e(TAG_TOKEN, token);
-          getUser(token);
-        }
-        else {
-          token = null;
-        }
-
-      }
-
-      @Override
-      public void onFailure(Call<TokenResponce> call, Throwable t) {
-        Log.e(TAG_TOKEN, "Token is not recived");
-
-      }
-    });
-
-    return token;
-  }
-
-  public static User getUser(final String token) {
-    String header = "Bearer " + token;
-    service = RestService.getInstance();
-    Log.e("TOKEN - HEADER", header);
-    Call<User> call = service.getUser(header);
-    call.enqueue(new Callback<User>() {
-      @Override
-      public void onResponse(Call<User> call, Response<User> response) {
-        user = response.body();
-        user.setToken(token);
-        Log.e(TAG_USER, user.getFirstName());
-
-        UserRepository userRepo = UserRepository.getInstance();
-        userRepo.setUser(user);
-        setUsersApt();
-      }
-
-      @Override
-      public void onFailure(Call<User> call, Throwable t) {
-        Log.e(TAG_USER, "FAILURE no users downloaded");
-      }
-    });
-    return user;
-  }
 
   public static void updateClaimRepository(List<Claim> claims) {
     ClaimRepository claimRepository = ClaimRepository.getInstance();
@@ -142,13 +94,8 @@ public class DataLoader {
     claimRepository.setClaimList(claims);
   }
 
-  public static void setUsersApt() {
-    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
-    aptRepo.setApartmentList(user.getApartments());
-  }
-
   public static void updateApartmentRepository(List<Apartment> apartments) {
-    UserRepository userRepo = UserRepository.getInstance();
+
     ApartmentRepository apartmentRepository = ApartmentRepository.getInstance();
     apartmentRepository.getApartmentList().clear();
     apartmentRepository.setApartmentList(apartments);

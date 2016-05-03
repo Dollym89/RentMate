@@ -1,6 +1,10 @@
 package com.example.michal.rentmate.model.repositories;
 
+import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.model.pojo.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepository {
 
@@ -10,6 +14,7 @@ public class UserRepository {
 
   private UserRepository() {
     this.user = new User();
+
   }
 
   public static UserRepository getInstance() {

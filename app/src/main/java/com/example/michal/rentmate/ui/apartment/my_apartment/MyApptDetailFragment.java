@@ -15,7 +15,6 @@ import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.util.Constants;
-import com.example.michal.rentmate.util.FragmentUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -56,20 +55,19 @@ public class MyApptDetailFragment extends Fragment {
     setMapFragment(apartment);
     return view;
   }
-
 //  Listeners
 
   @OnClick(R.id.apartment_ID_layout)
   public void sendApartmetID() {
     ShareCompat.IntentBuilder.from(getActivity())
         .setType("text/plain")
-        .setText(getEmailText())
+        .setText(setEmailText())
         .setSubject("New Apartment ID")
         .setChooserTitle("Send ID via: ")
         .startChooser();
   }
 
-  private String getEmailText() {
+  private String setEmailText() {
     String email = "";
     email = getString(R.string.welcome_new_tenant) + "\n" +
         getString(R.string.use_the_ID) + "\n" +
@@ -80,22 +78,24 @@ public class MyApptDetailFragment extends Fragment {
 
   private void setMapFragment(Apartment apartment) {
     FragmentManager manager = getChildFragmentManager();
-    Fragment fragment = manager.findFragmentByTag(FragmentUtil.MAP_DETAIL_FRAGMENT);
+    Fragment fragment = manager.findFragmentByTag(Constants.MAP_DETAIL_FRAGMENT);
     if (fragment == null) {
       fragment = MyApptMapDetailFragment.newInstance(apartment.getApartmentId());
     }
     manager.beginTransaction()
-        .add(R.id.frag_detail_map_container, fragment, FragmentUtil.MAP_DETAIL_FRAGMENT)
-        .addToBackStack(FragmentUtil.MAP_DETAIL_FRAGMENT)
+        .add(R.id.frag_detail_map_container, fragment, Constants.MAP_DETAIL_FRAGMENT)
+        .addToBackStack(Constants.MAP_DETAIL_FRAGMENT)
         .commit();
   }
 
   private void populateUI(Apartment apartment) {
-
     detailAddress.setText(apartment.getName());
 //    detailPostalCode.setText(apartment.getPostalCode);
     detailAccesKey.setText(apartment.getApartmentId());
-//    detailOccupied.setText(apartment.isOccupied);
+    if (apartment.isOccupied()) {
+      detailOccupied.setText(getString(R.string.apartment_occupied));
+    } else {
+      detailOccupied.setText(getString(R.string.apartment_vacant));
+    }
   }
-
 }

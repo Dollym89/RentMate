@@ -19,13 +19,20 @@ import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
+import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
+import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.DataLoader;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MyApptListFragment extends Fragment {
@@ -37,6 +44,9 @@ public class MyApptListFragment extends Fragment {
   private AptAdapter adapter;
   private User user;
   private MyApptContract.Callbacks callbacks;
+  private RentMateApi service;
+  private boolean isApartmentAdded;
+
 
   public static MyApptListFragment newInstance() {
     return new MyApptListFragment();
@@ -52,13 +62,6 @@ public class MyApptListFragment extends Fragment {
   public void onDetach() {
     super.onDetach();
     callbacks = null;
-  }
-
-  @Override
-  public void onResume() {
-    super.onResume();
-    Log.e("ONRESUME", "ONRESUME");
-    updateUi();
   }
 
   @Override
@@ -78,6 +81,44 @@ public class MyApptListFragment extends Fragment {
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     updateUi();
     return view;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    Log.e("ONRESUME", "ONRESUME");
+    updateUi();
+  }
+
+
+  private void reloadUserApartments() {
+    service = RestService.getInstance();
+
+    Call<User> call = service.getUser(Constants.AUTHENTICATION + user.getToken());
+    call.enqueue(new Callback<User>() {
+      @Override
+      public void onResponse(Call<User> call, Response<User> response) {
+
+        if (response.isSuccessful()) {
+          isApartmentAdded = false;
+          Log.e(Constants.TAG_USER, "LOADING USER'S APARTMENTS");
+          user = response.body();
+          updateApartmentRepository(user.getApartments());
+          updateUi();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<User> call, Throwable t) {
+
+      }
+    });
+  }
+
+  public static void updateApartmentRepository(List<Apartment> apartments) {
+    ApartmentRepository apartmentRepository = ApartmentRepository.getInstance();
+    apartmentRepository.getApartmentList().clear();
+    apartmentRepository.setApartmentList(apartments);
   }
 
   //  Listeners

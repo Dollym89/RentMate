@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +52,7 @@ public class MyApptNew extends Fragment {
   private LatLng position;
   private RentMateApi service;
   private UserRepository userRepo;
+  private boolean isApartmentAdded = false;
 
   public static MyApptNew newInstance() {
     return new MyApptNew();
@@ -69,7 +71,7 @@ public class MyApptNew extends Fragment {
     if (resultCode == Activity.RESULT_OK) {
       switch (requestCode) {
         case Constants.REQUEST_ADDRESS:
-          boolean isAddressCorrect = (boolean) data.getSerializableExtra(MyApptNewDialog.EXTRA_ADDRESS);
+          boolean isAddressCorrect = (boolean) data.getSerializableExtra(Constants.EXTRA_ADDRESS);
           saveButton.setEnabled(isAddressCorrect);
       }
     }
@@ -97,6 +99,13 @@ public class MyApptNew extends Fragment {
       @Override
       public void onResponse(Call<Apartment> call, Response<Apartment> response) {
 
+        if (response.isSuccessful()) {
+          userRepo.getUser().getApartments().add(response.body());
+          Log.e(Constants.TAG_ON_CREATED, String.valueOf(response.isSuccessful()));
+          sendResult(Activity.RESULT_OK,true);
+        } else {
+          Log.e(Constants.TAG_ON_CREATED, "APARTMENT IS NOT CREATED");
+        }
       }
 
       @Override
@@ -104,16 +113,13 @@ public class MyApptNew extends Fragment {
 
       }
     });
-
-
     Toast.makeText(getActivity(), "HA you just saved apt", Toast.LENGTH_LONG).show();
-
   }
 
   private String setHeader() {
     userRepo = UserRepository.getInstance();
     String token = userRepo.getUser().getToken();
-    return Constants.AUTHENTIFICATION + token;
+    return Constants.AUTHENTICATION + token;
   }
 
   private Apartment setApartmantProp() {
@@ -122,12 +128,13 @@ public class MyApptNew extends Fragment {
     String street = String.valueOf(streetEditText.getText());
     String zip = String.valueOf(zipEditText.getText());
     String city = String.valueOf(cityEditText.getText());
+//    TODO set the name of apartment
+    apartment.setName("STATIC_NAME");
     apartment.setStreet(street);
     apartment.setZip(zip);
     apartment.setCity(city);
     apartment.setCountry(country);
-    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
-    aptRepo.getApartmentList().add(apartment);
+
     return apartment;
   }
 
@@ -188,6 +195,12 @@ public class MyApptNew extends Fragment {
     dialog.setTargetFragment(MyApptNew.this, Constants.REQUEST_ADDRESS);
     dialog.show(manager, Constants.DIALOG_ADDRESS);
   }
-
-
+  private void sendResult(int resultCode, Boolean isApartmentAdded) {
+    if (getTargetFragment() == null) {
+      return;
+    }
+    Intent intent = new Intent();
+    intent.putExtra(Constants.EXTRA_NEW_APARTMENT, isApartmentAdded);
+    getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
+  }
 }

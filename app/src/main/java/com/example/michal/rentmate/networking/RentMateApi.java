@@ -12,12 +12,13 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
 public interface RentMateApi {
 
   //GET
-  @GET("/api/apartments")
+  @GET("/api/apartments/")
   Call<List<Apartment>> getApartments(@Header("Authorization") String token);
 
   @GET("/api/claims")
@@ -27,12 +28,15 @@ public interface RentMateApi {
   Call<User> getUser(@Header("Authorization") String token);
 
   //POST
+  @Headers("Content-Type:application/json")
   @POST("/auth/signin")
   Call<TokenResponce> getToken(@Body TokenRequest tokenRequest);
 
+  @Headers("Content-Type:application/json")
   @POST("/api/users")
-  Call<User> createUser(@Body User user);
+  Call<TokenResponce> createUser(@Body User user);
 
+  @Headers("Content-Type:application/json")
   @POST("/api/apartments")
   Call<Apartment> createApartment(@Header("Authorization") String token,@Body Apartment apartment);
 

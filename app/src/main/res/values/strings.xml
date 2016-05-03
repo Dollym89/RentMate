@@ -48,6 +48,8 @@
 
   <!--Apartments-->
   <string name="add_first_apartment">Add your firs apartment</string>
+  <string name="apartment_occupied">Occupied</string>
+  <string name="apartment_vacant">Vacant</string>
   <string name="new_apt_address">Address</string>
   <string name="new_apartment_occupied">Occupied</string>
   <string name="new_apt_save_button">Save</string>

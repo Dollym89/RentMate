@@ -1,6 +1,7 @@
 package com.example.michal.rentmate.model.repositories;
 
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.pojo.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +38,8 @@ public class ClaimRepository {
     }
     return null;
   }
+
+
+
 }
+

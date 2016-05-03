@@ -27,6 +27,7 @@ public class User {
 
   private String password;
   private String token;
+  private List<Claim>userClaims = new ArrayList<>();
 
   public String getPassword() {
     return password;
@@ -138,5 +139,13 @@ public class User {
 
   public void setApartments(List<Apartment> apartments) {
     this.apartments = apartments;
+  }
+
+  public List<Claim> getUserClaims() {
+    return userClaims;
+  }
+
+  public void setUserClaims(List<Claim> userClaims) {
+    this.userClaims = userClaims;
   }
 }

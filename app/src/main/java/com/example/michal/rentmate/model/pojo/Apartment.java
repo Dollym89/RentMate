@@ -105,7 +105,7 @@ public class Apartment {
     V = v;
   }
 
-  public Boolean getOccupied() {
+  public Boolean isOccupied() {
     return isOccupied;
   }
 

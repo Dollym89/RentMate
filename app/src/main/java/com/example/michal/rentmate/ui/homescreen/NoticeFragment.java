@@ -24,7 +24,7 @@ public class NoticeFragment extends Fragment {
     return new NoticeFragment();
   }
 
-  private HomeScreenContract.Callbacks callbacks;
+  private DashBoardContract.Callbacks callbacks;
 
   @Bind(R.id.notice_home_welcome_text) TextView welcomText;
   @Bind(R.id.claims_to_solve_carview) CardView claimsCardView;
@@ -33,7 +33,7 @@ public class NoticeFragment extends Fragment {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    callbacks = (HomeScreenContract.Callbacks) context;
+    callbacks = (DashBoardContract.Callbacks) context;
   }
 
   @Override

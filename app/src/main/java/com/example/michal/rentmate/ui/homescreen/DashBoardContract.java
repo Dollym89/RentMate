@@ -1,7 +1,7 @@
 package com.example.michal.rentmate.ui.homescreen;
 
 
-public interface HomeScreenContract {
+public interface DashBoardContract {
 
   interface Callbacks {
     void openClaimList();

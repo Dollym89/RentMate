@@ -1,5 +1,6 @@
 package com.example.michal.rentmate.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,8 +16,10 @@ import android.widget.Toast;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.TokenResponce;
 import com.example.michal.rentmate.model.pojo.User;
+import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.ui.activity.RentMateActivity;
 import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.ValidUtil;
 
@@ -30,16 +33,25 @@ import retrofit2.Response;
 
 public class SignUpFragment extends Fragment {
 
-
   @Bind(R.id.new_user_email_edit_text) EditText emailEditText;
   @Bind(R.id.new_user_password_edit_text) EditText passwordEditText;
   @Bind(R.id.new_user_switch) Switch userSwitch;
   @Bind(R.id.sign_up_button) Button signUpButton;
 
+  private String token;
+  private UserRepository userRepo;
   private RentMateApi service;
+  private boolean isSuccess;
 
   public static SignUpFragment newInstance() {
     return new SignUpFragment();
+  }
+
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    userRepo = UserRepository.getInstance();
   }
 
   @Nullable
@@ -53,30 +65,31 @@ public class SignUpFragment extends Fragment {
   //  Listener
   @OnClick(R.id.sign_up_button)
   public void onSignUpressed() {
-
-//    final String email = emailEditText.getText().toString();
-//    final String pass = passwordEditText.getText().toString();
-   String email = "Dolly@gmail.com";
-   String pass = "test";
+    String email = emailEditText.getText().toString();
+    String pass = passwordEditText.getText().toString();
 
     User user = setUserProperties(email, pass);
     service = RestService.getInstance();
-    Call<User> call = service.createUser(user);
-    call.enqueue(new Callback<User>() {
+    Call<TokenResponce> call = service.createUser(user);
+    call.enqueue(new Callback<TokenResponce>() {
       @Override
-      public void onResponse(Call<User> call, Response<User> response) {
-        Log.e("NEW USER", "SUCCESS");
+      public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
+        Log.e("NEW USER", String.valueOf(response.isSuccessful()));
+        token = response.body().getToken();
+        userRepo.getUser().setToken(token);
+        Log.e("NEW USER", userRepo.getUser().getToken());
+
+        Log.e("NEW USER", "STARTING NEW RENT MATE ACTIVITY");
+        Intent intent = RentMateActivity.newIntent(getActivity());
+        startActivity(intent);
       }
 
       @Override
-      public void onFailure(Call<User> call, Throwable t) {
-        Log.e("NEW USER", "FAILED");
+      public void onFailure(Call<TokenResponce> call, Throwable t) {
+        Log.e(Constants.TAG_ON_FAILURE, "NEW USER IS NOT CREATED");
       }
     });
-
-
   }
-
 
   private User setUserProperties(String email, String pass) {
     User user = new User();

@@ -51,10 +51,10 @@ public class MyApptMapDetailFragment extends SupportMapFragment {
     Geocoder geocoder = new Geocoder(getActivity());
     Address address = null;
 
-    String adrs = apartment.getStreet();
+    String longAddress = getLongAddress(apartment);
     List<Address> addressList = null;
     try {
-      addressList = geocoder.getFromLocationName(adrs, 1);
+      addressList = geocoder.getFromLocationName(longAddress, 1);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -89,5 +89,12 @@ public class MyApptMapDetailFragment extends SupportMapFragment {
     map.getUiSettings().setRotateGesturesEnabled(false);
     map.getUiSettings().setZoomControlsEnabled(true);
     map.getUiSettings().isMyLocationButtonEnabled();
+  }
+  public String getLongAddress(Apartment apartment) {
+    String longAddress = apartment.getStreet() +", "+
+        apartment.getZip() +", "+
+        apartment.getCity() +", "+
+        apartment.getCountry();
+    return longAddress;
   }
 }

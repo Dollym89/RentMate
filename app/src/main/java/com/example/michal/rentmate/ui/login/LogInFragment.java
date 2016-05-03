@@ -1,7 +1,6 @@
 package com.example.michal.rentmate.ui.login;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,16 +13,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
+import com.example.michal.rentmate.model.pojo.Apartment;
+import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.model.pojo.TokenRequest;
+import com.example.michal.rentmate.model.pojo.TokenResponce;
 import com.example.michal.rentmate.model.pojo.User;
+import com.example.michal.rentmate.model.repositories.ApartmentRepository;
+import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
+import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.activity.RentMateActivity;
-import com.example.michal.rentmate.util.DataLoader;
+import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.ValidUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LogInFragment extends Fragment {
 
@@ -32,10 +44,20 @@ public class LogInFragment extends Fragment {
   @Bind(R.id.password_edit_text) EditText passwordEditText;
 
   private String token;
-  private User user;
+  private UserRepository userRepo;
+  private ClaimRepository claimRepo;
+  private RentMateApi service;
+  private boolean isSuccess;
 
   public static LogInFragment newInstance() {
     return new LogInFragment();
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    userRepo = UserRepository.getInstance();
+    claimRepo = ClaimRepository.getInstance();
   }
 
   @Nullable
@@ -49,40 +71,136 @@ public class LogInFragment extends Fragment {
   //  Listener
   @OnClick(R.id.log_in_button)
   public void onLogInPressed() {
-
-    final String email = emailEditText.getText().toString();
-    final String pass = passwordEditText.getText().toString();
-
-    if (!ValidUtil.isValidEmail(email) || !ValidUtil.isValidPassword(pass)) {
-      if (!ValidUtil.isValidEmail(email)) {
-        emailEditText.setError("Invalid Email");
-      }
-      if (!ValidUtil.isValidPassword(pass)) {
-        passwordEditText.setError("Insert at least 4 characters");
-      }
-    } else {
+    if(validateInput()){
       TokenRequest request = createTokenRequest();
-      DataLoader.logIn(request);
-
-      if (DataLoader.logIn(request) == null) {
-        Toast.makeText(getContext(), "Wrong password or email", Toast.LENGTH_LONG).show();
-      } else {
-
-//      TODO set to sleep?
-        Intent intent = RentMateActivity.newIntent(getActivity());
-        startActivity(intent);
-      }
+      getToken(request);
+    } else {
+      Toast.makeText(getContext(),"Insert email and pass",Toast.LENGTH_SHORT).show();
     }
   }
 
+  private boolean validateInput() {
+    boolean isValidated = true;
+
+    String email = emailEditText.getText().toString();
+    if (!ValidUtil.isValidEmail(email)) {
+      emailEditText.setError("Invalid Email");
+      isValidated = false;
+    }
+    String pass = passwordEditText.getText().toString();
+    if (!ValidUtil.isValidPassword(pass)) {
+      passwordEditText.setError("Insert at least 4 characters");
+      isValidated = false;
+    }
+    return isValidated;
+  }
 
   public TokenRequest createTokenRequest() {
     TokenRequest request = new TokenRequest();
     request.setEmail(String.valueOf(emailEditText.getText()));
     request.setPassword(String.valueOf(passwordEditText.getText()));
-//    request.setEmail("admin@gmail.com");
-//    request.setPassword("test");
     return request;
+  }
+
+  public void getToken(TokenRequest request) {
+    service = RestService.getInstance();
+    Call<TokenResponce> callToken = service.getToken(request);
+    callToken.enqueue(new Callback<TokenResponce>() {
+      @Override
+      public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
+        if (response.isSuccessful()) {
+          isSuccess = response.isSuccessful();
+          Log.e("RESPONSE", String.valueOf(response.isSuccessful()));
+          Log.e(Constants.TAG_TOKEN, response.body().getToken());
+          token = response.body().getToken();
+        } else {
+          Log.e("RESPONCE", String.valueOf(response.isSuccessful()));
+          Toast.makeText(getContext(), "Wrong password or email", Toast.LENGTH_SHORT).show();
+        }
+
+        if (isSuccess) {
+          Log.e("USER", "LOADING USER");
+          getUser();
+        } else {
+          Log.e(Constants.TAG_TOKEN, "WRONG PASSWORD");
+        }
+      }
+
+      @Override
+      public void onFailure(Call<TokenResponce> call, Throwable t) {
+        Log.e(Constants.TAG_ON_FAILURE, "TOKEN IS NOT RECEIVED");
+      }
+    });
+  }
+
+  public void getUser() {
+    String header = Constants.AUTHENTICATION + token;
+    Call<User> callUser = service.getUser(header);
+    callUser.enqueue(new Callback<User>() {
+      @Override
+      public void onResponse(Call<User> call, Response<User> response) {
+        Log.e("USER", token);
+        Log.e("USER", String.valueOf(response.isSuccessful()));
+        if (response.isSuccessful()) {
+          Log.e(Constants.TAG_USER, response.body().getEmail());
+          userRepo.setUser(response.body());
+          userRepo.getUser().setToken(token);
+          getUSerClaims();
+          setUserApt(response.body().getApartments());
+          Intent intent = RentMateActivity.newIntent(getActivity());
+          startActivity(intent);
+        }
+      }
+
+      @Override
+      public void onFailure(Call<User> call, Throwable t) {
+        Log.e(Constants.TAG_ON_FAILURE, "USER IS NOT RECEIVED");
+      }
+    });
+  }
+
+  public void getUSerClaims() {
+    String header = Constants.AUTHENTICATION + token;
+    Call<List<Claim>> callUser = service.getClaims(header);
+    callUser.enqueue(new Callback<List<Claim>>() {
+      @Override
+      public void onResponse(Call<List<Claim>> call, Response<List<Claim>> response) {
+        if (response.isSuccessful()) {
+          List<Claim> claimList = response.body();
+          setUserClaims(userRepo.getUser(), claimList);
+        }
+      }
+
+      @Override
+      public void onFailure(Call<List<Claim>> call, Throwable t) {
+
+      }
+    });
+  }
+
+  public void setUserApt(List<Apartment> aptList) {
+    ApartmentRepository aptRepo = ApartmentRepository.getInstance();
+    aptRepo.setApartmentList(aptList);
+  }
+
+  public void setUserClaims(User user, List<Claim> claimList) {
+    List<Claim> userClaims = user.getUserClaims();
+    List<String> userClaimsID = new ArrayList<>();
+
+    for (int i = 0; i < user.getApartments().size(); i++) {
+      for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {
+        userClaimsID.add(user.getApartments().get(i).getClaims().get(j));
+      }
+    }
+    for (int i = 0; i < userClaimsID.size(); i++) {
+      String claimID = userClaimsID.get(i);
+      for (int j = 0; j < claimList.size(); j++) {
+        if (claimID.equals(claimList.get(j).getClaimId())) {
+          userClaims.add(claimList.get(j));
+        }
+      }
+    }
+    claimRepo.setClaimList(userClaims);
   }
 
 
