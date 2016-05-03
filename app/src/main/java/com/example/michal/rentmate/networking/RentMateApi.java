@@ -40,7 +40,7 @@ public interface RentMateApi {
   @POST("/api/apartments")
   Call<Apartment> createApartment(@Header("Authorization") String token,@Body Apartment apartment);
 
+  @Headers("Content-Type:application/json")
   @POST("/api/claims")
-  Call<Claim> createClaim(@Body Claim claim);
-
+  Call<Claim> createClaim(@Header("Authorization") String token,@Body Claim claim);
 }

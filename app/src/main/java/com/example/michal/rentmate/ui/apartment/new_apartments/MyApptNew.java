@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
-import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
@@ -90,9 +89,12 @@ public class MyApptNew extends Fragment {
 
   @OnClick(R.id.new_apt_save_button)
   public void onApartmentSaved() {
-    Apartment apartment = setApartmantProp();
-
     String header = setHeader();
+    Apartment apartment = setApartmantProp();
+    saveApartment(header, apartment);
+  }
+
+  private void saveApartment(String header,Apartment apartment) {
     service = RestService.getInstance();
     Call<Apartment> call = service.createApartment(header, apartment);
     call.enqueue(new Callback<Apartment>() {

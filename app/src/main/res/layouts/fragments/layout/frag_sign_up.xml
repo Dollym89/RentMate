@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:layout_marginTop="30dp"
               android:orientation="vertical"
-    >
+              android:padding="30dp">
 
-  <EditText
-      android:id="@+id/new_user_email_edit_text"
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/email_text_input_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
       android:layout_marginLeft="30dp"
       android:layout_marginRight="30dp"
-      android:layout_marginTop="70dp"
-      android:backgroundTint="@color/colorWhite"
-      android:drawableLeft="@drawable/ic_action_e_mail"
-      android:ems="10"
-      android:hint="@string/user_email_edit_text"
-      android:imeOptions="actionDone"
-      android:inputType="textEmailAddress"
-      android:textColor="#ffffff"
-      android:textColorHint="#ffffff"/>
+      app:counterOverflowTextAppearance="@style/counterOverride"
+      app:counterTextAppearance="@style/counterText">
 
-  <EditText
+    <EditText
+        android:id="@+id/new_user_email_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/colorWhite"
+        android:drawableLeft="@drawable/ic_action_e_mail"
+        android:hint="@string/user_email_edit_text"
+        android:imeOptions="actionDone"
+        android:inputType="textEmailAddress"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"/>
+  </android.support.design.widget.TextInputLayout>
 
-      android:id="@+id/new_user_password_edit_text"
+  <android.support.design.widget.TextInputLayout
+      android:id="@+id/pass_text_input_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
       android:layout_marginLeft="30dp"
       android:layout_marginRight="30dp"
-      android:backgroundTint="@color/colorWhite"
-      android:drawableLeft="@drawable/ic_action_password"
-      android:ems="10"
-      android:hint="@string/hint_password"
-      android:imeOptions="actionDone"
-      android:inputType="textPassword"
-      android:textColor="#ffffff"
-      android:textColorHint="#ffffff"/>
+      app:counterOverflowTextAppearance="@style/counterOverride"
+      app:counterTextAppearance="@style/counterText">
+
+
+    <EditText
+
+        android:id="@+id/new_user_password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:backgroundTint="@color/colorWhite"
+        android:drawableLeft="@drawable/ic_action_password"
+        android:hint="@string/hint_password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:textColor="#ffffff"
+        android:textColorHint="#ffffff"/>
+  </android.support.design.widget.TextInputLayout>
 
   <LinearLayout
       android:layout_width="match_parent"
@@ -76,7 +92,7 @@
       android:layout_height="wrap_content"
       android:layout_marginLeft="30dp"
       android:layout_marginRight="30dp"
-      android:layout_marginTop="40dp"
+      android:layout_marginTop="15dp"
       android:background="@drawable/ripple_button"
       android:text="@string/sign_up_button"
       android:textColor="#ffffff"

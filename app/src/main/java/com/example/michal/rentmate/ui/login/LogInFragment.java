@@ -3,7 +3,10 @@ package com.example.michal.rentmate.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +45,8 @@ public class LogInFragment extends Fragment {
   @Bind(R.id.log_in_button) Button logInButton;
   @Bind(R.id.user_email_edit_text) EditText emailEditText;
   @Bind(R.id.password_edit_text) EditText passwordEditText;
+  @Bind(R.id.email_text_input_layout) TextInputLayout emailInputLayout;
+  @Bind(R.id.pass_text_input_layout) TextInputLayout passInputLayout;
 
   private String token;
   private UserRepository userRepo;
@@ -71,26 +76,31 @@ public class LogInFragment extends Fragment {
   //  Listener
   @OnClick(R.id.log_in_button)
   public void onLogInPressed() {
-    if(validateInput()){
+    if (isInputValid()) {
       TokenRequest request = createTokenRequest();
       getToken(request);
     } else {
-      Toast.makeText(getContext(),"Insert email and pass",Toast.LENGTH_SHORT).show();
+      Toast.makeText(getContext(), "Insert email and pass", Toast.LENGTH_SHORT).show();
     }
   }
 
-  private boolean validateInput() {
+  private boolean isInputValid() {
     boolean isValidated = true;
-
     String email = emailEditText.getText().toString();
     if (!ValidUtil.isValidEmail(email)) {
-      emailEditText.setError("Invalid Email");
+      emailInputLayout.setError(getString(R.string.validation_wrong_email));
       isValidated = false;
+    } else {
+      emailInputLayout.setErrorEnabled(false);
+      isValidated = true;
     }
     String pass = passwordEditText.getText().toString();
     if (!ValidUtil.isValidPassword(pass)) {
-      passwordEditText.setError("Insert at least 4 characters");
+      passInputLayout.setError(getString(R.string.validation_wrong_pass));
       isValidated = false;
+    } else {
+      passInputLayout.setErrorEnabled(false);
+      isValidated = true;
     }
     return isValidated;
   }

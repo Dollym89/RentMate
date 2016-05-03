@@ -6,6 +6,9 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorWhite</item>
+    <!--<item name="colorControlNormal">@color/material_green_400</item>-->
+    <item name="colorControlActivated">@color/material_green_700</item>
+    <item name="colorControlHighlight">#f44336</item>
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   </style>
@@ -30,6 +33,14 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">1dp</item>
     <item name="android:background">?android:attr/listDivider</item>
+  </style>
+
+  <style name="counterText">
+    <item name="android:textColor">@color/colorOk</item>
+  </style>
+
+  <style name="counterOverride">
+    <item name="android:textColor">#ff0000</item>
   </style>
 
 </resources>

@@ -43,8 +43,10 @@
   <string name="claim_action_bar">Claims</string>
   <string name="new_claim_select_apt">Select Apartment</string>
   <string name="new_claim_title">Title</string>
-  <string name="new_claim_description">Describe your issue</string>
+  <string name="new_claim_description">Describtion of your issue here</string>
   <string name="new_claim_description_edit_text">Please describe your issue here</string>
+
+
 
   <!--Apartments-->
   <string name="add_first_apartment">Add your firs apartment</string>
@@ -82,5 +84,9 @@
   <!--Fonts-->
   <string name="font_roboto_thin">fonts/Roboto-Thin.ttf </string>
   <string name="font_roboto_regular">fonts/Roboto-Thin.ttf </string>
+
+  <!--Validations-->
+  <string name="validation_wrong_email">Invalid Email </string>
+  <string name="validation_wrong_pass">Insert At least 4 characters </string>
 
 </resources>

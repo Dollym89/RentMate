@@ -3,6 +3,7 @@ package com.example.michal.rentmate.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class SignUpFragment extends Fragment {
   @Bind(R.id.new_user_password_edit_text) EditText passwordEditText;
   @Bind(R.id.new_user_switch) Switch userSwitch;
   @Bind(R.id.sign_up_button) Button signUpButton;
+  @Bind(R.id.email_text_input_layout) TextInputLayout emailInputLayout;
+  @Bind(R.id.pass_text_input_layout) TextInputLayout passInputLayout;
 
   private String token;
   private UserRepository userRepo;
@@ -68,6 +71,15 @@ public class SignUpFragment extends Fragment {
     String email = emailEditText.getText().toString();
     String pass = passwordEditText.getText().toString();
 
+    if (isInputValid()) {
+      signUp(email, pass);
+    } else {
+      Toast.makeText(getContext(), "Insert email and pass", Toast.LENGTH_SHORT).show();
+    }
+  }
+
+
+  private void signUp(String email, String pass) {
     User user = setUserProperties(email, pass);
     service = RestService.getInstance();
     Call<TokenResponce> call = service.createUser(user);
@@ -89,6 +101,28 @@ public class SignUpFragment extends Fragment {
         Log.e(Constants.TAG_ON_FAILURE, "NEW USER IS NOT CREATED");
       }
     });
+  }
+
+  private boolean isInputValid() {
+    boolean isValidated = true;
+
+    String email = emailEditText.getText().toString();
+    if (!ValidUtil.isValidEmail(email)) {
+      emailInputLayout.setError(getString(R.string.validation_wrong_email));
+      isValidated = false;
+    }else {
+      emailInputLayout.setErrorEnabled(false);
+      isValidated = true;
+    }
+    String pass = passwordEditText.getText().toString();
+    if (!ValidUtil.isValidPassword(pass)) {
+      passInputLayout.setError(getString(R.string.validation_wrong_pass));
+      isValidated = false;
+    }else {
+      passInputLayout.setErrorEnabled(false);
+      isValidated = true;
+    }
+    return isValidated;
   }
 
   private User setUserProperties(String email, String pass) {
