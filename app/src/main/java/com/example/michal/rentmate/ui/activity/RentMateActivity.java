@@ -23,7 +23,6 @@ import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptDetailFragment;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptJoin;
-import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptListFragment;
 import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptTabFragment;
 import com.example.michal.rentmate.ui.apartment.new_apartments.MyApptNew;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
@@ -34,7 +33,6 @@ import com.example.michal.rentmate.ui.homescreen.DashBoardContract;
 import com.example.michal.rentmate.ui.homescreen.NoticeFragment;
 import com.example.michal.rentmate.ui.profile.ProfileFragment;
 import com.example.michal.rentmate.util.Constants;
-import com.example.michal.rentmate.util.DataLoader;
 
 import java.util.List;
 
@@ -53,9 +51,6 @@ public class RentMateActivity extends AppCompatActivity
 
   private ActionBarDrawerToggle toggle;
 
-  private List<Apartment> apartments;
-  private List<Claim> claims;
-
    public static Intent newIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, RentMateActivity.class);
     return intent;
@@ -67,8 +62,6 @@ public class RentMateActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     setToolbar();
-
-//    loadData();
     setFirstFragment();
     setDrawer();
   }
@@ -80,13 +73,7 @@ public class RentMateActivity extends AppCompatActivity
     }
   }
 
-  private void loadData() {
-
-    claims = DataLoader.loadClaimData();
-    DataLoader.updateClaimRepository(claims);
-  }
-
-  private void setDrawer() {
+   private void setDrawer() {
     toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
@@ -157,7 +144,6 @@ public class RentMateActivity extends AppCompatActivity
 //        TAG = FragmentUtil.SETTINGS_FRAG;
 //        break;
     }
-
     FragmentManager fm = getSupportFragmentManager();
     fm.beginTransaction()
         .addToBackStack(TAG)

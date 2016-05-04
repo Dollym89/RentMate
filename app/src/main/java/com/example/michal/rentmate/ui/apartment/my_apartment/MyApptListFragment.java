@@ -23,7 +23,6 @@ import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.util.Constants;
-import com.example.michal.rentmate.util.DataLoader;
 
 import java.util.List;
 
@@ -90,7 +89,6 @@ public class MyApptListFragment extends Fragment {
     updateUi();
   }
 
-
   private void reloadUserApartments() {
     service = RestService.getInstance();
 
@@ -110,7 +108,6 @@ public class MyApptListFragment extends Fragment {
 
       @Override
       public void onFailure(Call<User> call, Throwable t) {
-
       }
     });
   }

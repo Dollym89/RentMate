@@ -16,9 +16,7 @@ import butterknife.ButterKnife;
 
 public class ClaimMessageFragment extends Fragment {
 
-
   @Bind(R.id.detail_claim_message_textview)TextView detailMessage;
-
 
   public static ClaimMessageFragment newInstance(){
     return new ClaimMessageFragment();

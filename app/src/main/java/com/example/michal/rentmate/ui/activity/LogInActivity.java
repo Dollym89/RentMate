@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.ui.login.LogInFragment;
 import com.example.michal.rentmate.ui.login.SignUpFragment;
+import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.FontUtil;
 
 import butterknife.Bind;
@@ -25,7 +26,6 @@ public class LogInActivity extends AppCompatActivity {
   @Bind(R.id.welcome_textview) TextView welcomeText;
   @Bind(R.id.login_view_pager) ViewPager pager;
   @Bind(R.id.tab_login_layout) TabLayout tabLayout;
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +60,13 @@ public class LogInActivity extends AppCompatActivity {
 
     @Override
     public int getCount() {
-      return NUMBER_OF_TABS;
+      return Constants.NUMBER_OF_TABS;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
 
       return position == 0 ? getString(R.string.login_tab_login) : getString(R.string.login_tab_sign_up);
-
     }
-
   }
 }

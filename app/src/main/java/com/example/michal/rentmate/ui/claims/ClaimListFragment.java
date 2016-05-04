@@ -183,7 +183,6 @@ public class ClaimListFragment extends Fragment {
       return claimList.size();
     }
 
-
     public void setClaimList(List<Claim> claimList) {
       this.claimList = claimList;
     }

@@ -43,7 +43,6 @@ public class MyApptDetailFragment extends Fragment {
     super.onCreate(savedInstanceState);
     String apartmentId = (String) getArguments().getSerializable(Constants.ARG_APT);
     apartment = ApartmentRepository.getInstance().getApartment(apartmentId);
-
   }
 
   @Nullable
@@ -56,7 +55,6 @@ public class MyApptDetailFragment extends Fragment {
     return view;
   }
 //  Listeners
-
   @OnClick(R.id.apartment_ID_layout)
   public void sendApartmetID() {
     ShareCompat.IntentBuilder.from(getActivity())

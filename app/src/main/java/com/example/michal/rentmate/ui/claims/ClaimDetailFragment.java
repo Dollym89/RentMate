@@ -47,5 +47,4 @@ public class ClaimDetailFragment extends Fragment {
     ButterKnife.bind(this, view);
     return view;
   }
-
 }

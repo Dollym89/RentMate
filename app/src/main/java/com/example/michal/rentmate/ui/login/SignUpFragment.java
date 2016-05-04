@@ -78,7 +78,6 @@ public class SignUpFragment extends Fragment {
     }
   }
 
-
   private void signUp(String email, String pass) {
     User user = setUserProperties(email, pass);
     service = RestService.getInstance();
@@ -136,5 +135,4 @@ public class SignUpFragment extends Fragment {
     user.setPassword(pass);
     return user;
   }
-
 }
