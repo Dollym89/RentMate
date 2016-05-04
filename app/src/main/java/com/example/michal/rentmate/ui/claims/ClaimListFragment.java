@@ -1,6 +1,8 @@
 package com.example.michal.rentmate.ui.claims;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -87,16 +89,14 @@ public class ClaimListFragment extends Fragment {
     if (adapter == null) {
       adapter = new ClaimAdapter(claimList);
       claimRecyclerView.setAdapter(adapter);
-    }
-    else {
+    } else {
       adapter.setClaimList(claimList);
       adapter.notifyDataSetChanged();
       claimRecyclerView.setAdapter(adapter);
     }
     if (claimList.size() > 0) {
       addFirstClaimLayout.setVisibility(View.GONE);
-    }
-    else {
+    } else {
       addFirstClaimLayout.setVisibility(View.VISIBLE);
       addClaimButtonFAB.setOnClickListener(new View.OnClickListener() {
         @Override
@@ -131,7 +131,7 @@ public class ClaimListFragment extends Fragment {
       int color = setButtonColor(claim.getStatus());
       titleTextView.setText(claim.getTitle());
       dateTextView.setText(claim.getCreatedAt());
-      statusButton.setBackgroundColor(getResources().getColor(color));
+      statusButton.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.ADD);
       statusButton.setText(claim.getStatus());
     }
 
@@ -139,14 +139,17 @@ public class ClaimListFragment extends Fragment {
       int color;
 //      TODO set statuses!!!!!!!
       switch (status) {
-        case "OPEN":
+        case "active":
           color = R.color.colorProblem;
           break;
-        case "CLOSED":
+        case "pending":
           color = R.color.colorOpen;
           break;
-        case "PENDING":
+        case "resolved":
           color = R.color.colorOk;
+          break;
+        case "closed":
+          color = R.color.colorPrimary;
           break;
         default:
           color = R.color.colorOk;
