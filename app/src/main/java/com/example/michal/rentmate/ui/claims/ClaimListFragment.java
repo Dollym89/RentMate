@@ -44,14 +44,12 @@ public class ClaimListFragment extends Fragment {
   @Override
   public void onAttach(Context context) {
     super.onAttach(context);
-    Log.e("FRAGMENT ATTACHED", "FRAGMENT CLAIM LIST ATTACHED");
     callbacks = (ClaimContract.Callbacks) context;
   }
 
   @Override
   public void onDetach() {
     super.onDetach();
-    Log.e("FRAGMENT DETACHED", "FRAGMENT CLAIM LIST DETACHED");
     callbacks = null;
   }
 

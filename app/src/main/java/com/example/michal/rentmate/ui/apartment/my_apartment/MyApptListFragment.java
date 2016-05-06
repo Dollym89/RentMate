@@ -85,37 +85,7 @@ public class MyApptListFragment extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-    Log.e("ONRESUME", "ONRESUME");
     updateUi();
-  }
-
-  private void reloadUserApartments() {
-    service = RestService.getInstance();
-
-    Call<User> call = service.getUser(Constants.AUTHENTICATION + user.getToken());
-    call.enqueue(new Callback<User>() {
-      @Override
-      public void onResponse(Call<User> call, Response<User> response) {
-
-        if (response.isSuccessful()) {
-          isApartmentAdded = false;
-          Log.e(Constants.TAG_USER, "LOADING USER'S APARTMENTS");
-          user = response.body();
-          updateApartmentRepository(user.getApartments());
-          updateUi();
-        }
-      }
-
-      @Override
-      public void onFailure(Call<User> call, Throwable t) {
-      }
-    });
-  }
-
-  public static void updateApartmentRepository(List<Apartment> apartments) {
-    ApartmentRepository apartmentRepository = ApartmentRepository.getInstance();
-    apartmentRepository.getApartmentList().clear();
-    apartmentRepository.setApartmentList(apartments);
   }
 
   //  Listeners

@@ -70,7 +70,7 @@ public class ClaimNew extends Fragment {
           Log.e(Constants.TAG_ON_CREATED, String.valueOf(response.isSuccessful()));
           sendResult(Activity.RESULT_OK,true);
         } else {
-          Log.e(Constants.TAG_ON_CREATED, "APARTMENT IS NOT CREATED");
+          Log.e(Constants.TAG_ON_CREATED, "CLAIM IS NOT CREATED");
         }
       }
 

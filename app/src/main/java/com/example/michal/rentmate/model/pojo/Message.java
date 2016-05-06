@@ -9,17 +9,17 @@ import com.google.gson.annotations.SerializedName;
 @Generated("org.jsonschema2pojo")
 public class Message {
 
-  @SerializedName("msg") private String msg;
+  @SerializedName("msg") private String message;
   @SerializedName("posted_at") private String postedAt;
   @SerializedName("posted_by") private String postedBy;
   @SerializedName("_id") private String Id;
 
-  public String getMsg() {
-    return msg;
+  public String getMessage() {
+    return message;
   }
 
-  public void setMsg(String msg) {
-    this.msg = msg;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   public String getPostedAt() {

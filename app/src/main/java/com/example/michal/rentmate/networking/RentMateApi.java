@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 public interface RentMateApi {
 
@@ -23,6 +24,10 @@ public interface RentMateApi {
 
   @GET("/api/claims")
   Call<List<Claim>> getClaims(@Header("Authorization") String token);
+
+  @Headers("Content-Type:application/json")
+  @GET("api/claims/:{ID}")
+  Call<Claim> getClaim(@Header("Authorization") String token, @Part("ID")String claimID);
 
   @GET("/api/users/me")
   Call<User> getUser(@Header("Authorization") String token);

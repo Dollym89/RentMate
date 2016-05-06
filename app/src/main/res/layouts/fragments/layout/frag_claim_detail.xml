@@ -46,19 +46,22 @@
 
 
     <LinearLayout
-      android:layout_width="0dp"
-      android:layout_height="match_parent"
-      android:layout_gravity="right"
-      android:layout_weight="1"
-      android:gravity="center"
-      android:orientation="vertical"
-      >
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
 
       <Button
-        android:id="@+id/claim_detail_state_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+          android:id="@+id/state_claim_button"
+          android:background="@drawable/state_button"
+          android:layout_width="65dp"
+          android:layout_height="25dp"
+          android:layout_gravity="center"
+          android:text="@string/state_of_claim_button_name"
+          android:textColor="@color/colorWhite"
+          android:textSize="12sp"/>
     </LinearLayout>
 
 

@@ -6,7 +6,8 @@ public class Constants {
   public static final int SPLASH_SCREEN_DELAY = 2000;
   public static final int NUMBER_OF_TABS = 2;
   public static final int REQUEST_ADDRESS = 0;
-  public static final int REQUEST_NEW_APARTMENT = 0;
+  public static final int REQUEST_NEW_APARTMENT = 10;
+  public static final int REQUEST_NEW_CLAIM = 2;
   public static final String DIALOG_ADDRESS = "apartment_address";
   public static final String EXTRA_ADDRESS = "extra_address";
   public static final String EXTRA_NEW_APARTMENT = "extra_new_apartment";

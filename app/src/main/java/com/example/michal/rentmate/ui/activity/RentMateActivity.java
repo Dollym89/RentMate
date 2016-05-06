@@ -51,7 +51,7 @@ public class RentMateActivity extends AppCompatActivity
 
   private ActionBarDrawerToggle toggle;
 
-   public static Intent newIntent(Context packageContext) {
+  public static Intent newIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, RentMateActivity.class);
     return intent;
   }
@@ -73,7 +73,7 @@ public class RentMateActivity extends AppCompatActivity
     }
   }
 
-   private void setDrawer() {
+  private void setDrawer() {
     toggle = new ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawer.setDrawerListener(toggle);
@@ -186,9 +186,11 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void addNewClaim() {
     FragmentManager fm = getSupportFragmentManager();
+    Fragment targetFragment = fm.findFragmentByTag(Constants.CLAIM_TAB_FRAG);
     Fragment fragment = fm.findFragmentByTag(Constants.CLAIM_NEW_FRAG);
     if (fragment == null) {
       fragment = ClaimNew.newInstance();
+      fragment.setTargetFragment(targetFragment, Constants.REQUEST_NEW_CLAIM);
     }
     isDrawerEnable(false);
     fm.beginTransaction()
@@ -229,7 +231,7 @@ public class RentMateActivity extends AppCompatActivity
     Fragment fragment = fm.findFragmentByTag(Constants.APARTMENT_NEW_FRAG);
     if (fragment == null) {
       fragment = MyApptNew.newInstance();
-      fragment.setTargetFragment(targetFragment,Constants.REQUEST_ADDRESS);
+      fragment.setTargetFragment(targetFragment, Constants.REQUEST_ADDRESS);
     }
     isDrawerEnable(false);
     fm.beginTransaction()
