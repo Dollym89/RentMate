@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment.my_apartment;
+package com.example.michal.rentmate.ui.apartment.myApartment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,7 +21,6 @@ import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
-import com.example.michal.rentmate.ui.apartment.MyApptContract;
 import com.example.michal.rentmate.util.Constants;
 
 import java.util.List;

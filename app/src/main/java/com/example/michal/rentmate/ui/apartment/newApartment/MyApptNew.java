@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment.new_apartments;
+package com.example.michal.rentmate.ui.apartment.newApartment;
 
 import android.app.Activity;
 import android.content.Intent;

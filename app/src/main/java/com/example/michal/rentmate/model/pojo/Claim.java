@@ -2,6 +2,7 @@
 package com.example.michal.rentmate.model.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -13,7 +14,7 @@ import com.google.gson.annotations.SerializedName;
 public class Claim {
 
   @SerializedName("_id") private String Id;
-  @SerializedName("created_at") private String createdAt;
+  @SerializedName("created_at") private Date createdAt;
   @SerializedName("updated_at") private String updatedAt;
   @SerializedName("claim_id") private String claimId;
   @SerializedName("title") private String title;
@@ -30,11 +31,11 @@ public class Claim {
     this.Id = Id;
   }
 
-  public String getCreatedAt() {
+  public Date getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(Date createdAt) {
     this.createdAt = createdAt;
   }
 

@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment.my_apartment;
+package com.example.michal.rentmate.ui.apartment.myApartment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

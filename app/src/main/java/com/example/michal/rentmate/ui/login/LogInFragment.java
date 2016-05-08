@@ -26,6 +26,7 @@ import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.ui.activity.LogInActivity;
 import com.example.michal.rentmate.ui.activity.RentMateActivity;
 import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.ValidUtil;
@@ -79,6 +80,7 @@ public class LogInFragment extends Fragment {
     if (isInputValid()) {
       TokenRequest request = createTokenRequest();
       getToken(request);
+
     } else {
       Toast.makeText(getContext(), "Insert email and pass", Toast.LENGTH_SHORT).show();
     }
@@ -155,37 +157,45 @@ public class LogInFragment extends Fragment {
           Log.e(Constants.TAG_USER, response.body().getEmail());
           userRepo.setUser(response.body());
           userRepo.getUser().setToken(token);
-          getUSerClaims();
+          setUserClaims(userRepo.getUser());
           setUserApt(response.body().getApartments());
+          setUserClaims(response.body().getUserClaims());
           Intent intent = RentMateActivity.newIntent(getActivity());
           startActivity(intent);
+
         }
       }
 
       @Override
       public void onFailure(Call<User> call, Throwable t) {
+        Log.e(Constants.TAG_ON_FAILURE, t.getMessage());
         Log.e(Constants.TAG_ON_FAILURE, "USER IS NOT RECEIVED");
       }
     });
   }
+//
+//  public void getUSerClaims() {
+//    String header = Constants.AUTHENTICATION + token;
+//    Call<List<Claim>> callUser = service.getClaims(header);
+//    callUser.enqueue(new Callback<List<Claim>>() {
+//      @Override
+//      public void onResponse(Call<List<Claim>> call, Response<List<Claim>> response) {
+//        if (response.isSuccessful()) {
+//          List<Claim> claimList = response.body();
+//          setUserClaims(userRepo.getUser(), claimList);
+//        }
+//      }
+//
+//      @Override
+//      public void onFailure(Call<List<Claim>> call, Throwable t) {
+//
+//      }
+//    });
+//  }
 
-  public void getUSerClaims() {
-    String header = Constants.AUTHENTICATION + token;
-    Call<List<Claim>> callUser = service.getClaims(header);
-    callUser.enqueue(new Callback<List<Claim>>() {
-      @Override
-      public void onResponse(Call<List<Claim>> call, Response<List<Claim>> response) {
-        if (response.isSuccessful()) {
-          List<Claim> claimList = response.body();
-          setUserClaims(userRepo.getUser(), claimList);
-        }
-      }
-
-      @Override
-      public void onFailure(Call<List<Claim>> call, Throwable t) {
-
-      }
-    });
+  public void setUserClaims(List<Claim> claimList) {
+    ClaimRepository claimRepo = ClaimRepository.getInstance();
+    claimRepo.setClaimList(claimList);
   }
 
   public void setUserApt(List<Apartment> aptList) {
@@ -193,23 +203,29 @@ public class LogInFragment extends Fragment {
     aptRepo.setApartmentList(aptList);
   }
 
-  public void setUserClaims(User user, List<Claim> claimList) {
+  public void setUserClaims(User user) {
     List<Claim> userClaims = user.getUserClaims();
     List<String> userClaimsID = new ArrayList<>();
 
     for (int i = 0; i < user.getApartments().size(); i++) {
       for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {
-        userClaimsID.add(user.getApartments().get(i).getClaims().get(j));
+        userClaims.add(user.getApartments().get(i).getClaims().get(j));
       }
     }
-    for (int i = 0; i < userClaimsID.size(); i++) {
-      String claimID = userClaimsID.get(i);
-      for (int j = 0; j < claimList.size(); j++) {
-        if (claimID.equals(claimList.get(j).getClaimId())) {
-          userClaims.add(claimList.get(j));
-        }
-      }
-    }
+
+//    for (int i = 0; i < user.getApartments().size(); i++) {
+//      for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {
+//        userClaimsID.add(user.getApartments().get(i).getClaims().get(j));
+//      }
+//    }
+//    for (int i = 0; i < userClaimsID.size(); i++) {
+//      String claimID = userClaimsID.get(i);
+//      for (int j = 0; j < claimList.size(); j++) {
+//        if (claimID.equals(claimList.get(j).getClaimId())) {
+//          userClaims.add(claimList.get(j));
+//        }
+//      }
+//    }
     claimRepo.setClaimList(userClaims);
   }
 }

@@ -23,7 +23,7 @@ public class Apartment {
   @SerializedName("__v") private Integer V;
   @SerializedName("isOccupied") private Boolean isOccupied;
   @SerializedName("tenant") private String tenant;
-  @SerializedName("claims") private List<String> claims = new ArrayList<String>();
+  @SerializedName("claims") private List<Claim> claims = new ArrayList<Claim>();
 
   public String getId() {
     return Id;
@@ -121,11 +121,11 @@ public class Apartment {
     this.tenant = tenant;
   }
 
-  public List<String> getClaims() {
+  public List<Claim> getClaims() {
     return claims;
   }
 
-  public void setClaims(List<String> claims) {
+  public void setClaims(List<Claim> claims) {
     this.claims = claims;
   }
 }

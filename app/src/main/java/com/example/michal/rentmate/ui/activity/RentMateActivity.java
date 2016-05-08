@@ -2,11 +2,13 @@ package com.example.michal.rentmate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -21,10 +23,10 @@ import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
-import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptDetailFragment;
-import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptJoin;
-import com.example.michal.rentmate.ui.apartment.my_apartment.MyApptTabFragment;
-import com.example.michal.rentmate.ui.apartment.new_apartments.MyApptNew;
+import com.example.michal.rentmate.ui.apartment.myApartment.MyApptDetailFragment;
+import com.example.michal.rentmate.ui.apartment.myApartment.MyApptJoin;
+import com.example.michal.rentmate.ui.apartment.myApartment.MyApptTabFragment;
+import com.example.michal.rentmate.ui.apartment.newApartment.MyApptNew;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
 import com.example.michal.rentmate.ui.claims.ClaimListFragment;
 import com.example.michal.rentmate.ui.claims.ClaimNew;
@@ -33,8 +35,9 @@ import com.example.michal.rentmate.ui.homescreen.DashBoardContract;
 import com.example.michal.rentmate.ui.homescreen.NoticeFragment;
 import com.example.michal.rentmate.ui.profile.ProfileFragment;
 import com.example.michal.rentmate.util.Constants;
-
-import java.util.List;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -50,6 +53,11 @@ public class RentMateActivity extends AppCompatActivity
   @Bind(R.id.nav_view) NavigationView navigationView;
 
   private ActionBarDrawerToggle toggle;
+  /**
+   * ATTENTION: This was auto-generated to implement the App Indexing API.
+   * See https://g.co/AppIndexing/AndroidStudio for more information.
+   */
+  private GoogleApiClient client;
 
   public static Intent newIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, RentMateActivity.class);
@@ -64,6 +72,9 @@ public class RentMateActivity extends AppCompatActivity
     setToolbar();
     setFirstFragment();
     setDrawer();
+    // ATTENTION: This was auto-generated to implement the App Indexing API.
+    // See https://g.co/AppIndexing/AndroidStudio for more information.
+    client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
   }
 
   private void setToolbar() {
@@ -146,8 +157,12 @@ public class RentMateActivity extends AppCompatActivity
     }
     FragmentManager fm = getSupportFragmentManager();
     fm.beginTransaction()
-        .addToBackStack(TAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, TAG)
+        .addToBackStack(TAG)
         .commit();
 
     new Handler().postDelayed(new Runnable() {
@@ -155,7 +170,7 @@ public class RentMateActivity extends AppCompatActivity
       public void run() {
         drawer.closeDrawer(GravityCompat.START);
       }
-    }, 100);
+    }, 250);
     return true;
   }
 
@@ -165,14 +180,20 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void onClaimSelected(Claim claim) {
     FragmentManager fm = getSupportFragmentManager();
+    FragmentTransaction ft = fm.beginTransaction();
     Fragment fragment = fm.findFragmentByTag(Constants.CLAIM_TAB_FRAG);
     if (fragment == null) {
       fragment = ClaimTabFragment.newInstance(claim.getClaimId());
     }
     isDrawerEnable(false);
+
     fm.beginTransaction()
-        .addToBackStack(Constants.CLAIM_TAB_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.CLAIM_TAB_FRAG)
+        .addToBackStack(Constants.CLAIM_TAB_FRAG)
         .commit();
   }
 
@@ -194,8 +215,12 @@ public class RentMateActivity extends AppCompatActivity
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(Constants.CLAIM_NEW_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.CLAIM_NEW_FRAG)
+        .addToBackStack(Constants.CLAIM_NEW_FRAG)
         .commit();
   }
 
@@ -211,8 +236,12 @@ public class RentMateActivity extends AppCompatActivity
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(Constants.APARTMENT_DETAIL_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.APARTMENT_DETAIL_FRAG)
+        .addToBackStack(Constants.APARTMENT_DETAIL_FRAG)
         .commit();
   }
 
@@ -235,8 +264,12 @@ public class RentMateActivity extends AppCompatActivity
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(Constants.APARTMENT_NEW_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.APARTMENT_NEW_FRAG)
+        .addToBackStack(Constants.APARTMENT_NEW_FRAG)
         .commit();
   }
 
@@ -249,8 +282,12 @@ public class RentMateActivity extends AppCompatActivity
     }
     isDrawerEnable(false);
     fm.beginTransaction()
-        .addToBackStack(Constants.APARTMENT_JOIN_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.APARTMENT_JOIN_FRAG)
+        .addToBackStack(Constants.APARTMENT_JOIN_FRAG)
         .commit();
   }
 
@@ -267,8 +304,12 @@ public class RentMateActivity extends AppCompatActivity
     }
 
     manager.beginTransaction()
-        .addToBackStack(Constants.CLAIM_LIST_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.CLAIM_LIST_FRAG)
+        .addToBackStack(Constants.CLAIM_LIST_FRAG)
         .commit();
   }
 
@@ -282,8 +323,12 @@ public class RentMateActivity extends AppCompatActivity
     }
 
     manager.beginTransaction()
-        .addToBackStack(Constants.APARTMENT_TAB_FRAG)
+        .setCustomAnimations(R.anim.fragment_slide_left_enter,
+            R.anim.fragment_slide_left_exit,
+            R.anim.fragment_slide_right_enter,
+            R.anim.fragment_slide_right_exit)
         .replace(R.id.fragment_container, fragment, Constants.APARTMENT_TAB_FRAG)
+        .addToBackStack(Constants.APARTMENT_TAB_FRAG)
         .commit();
   }
 

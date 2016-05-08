@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.apartment.my_apartment;
+package com.example.michal.rentmate.ui.apartment.myApartment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +19,13 @@ import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
-import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.apartment.MyApptContract;
-import com.example.michal.rentmate.util.Constants;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class MyApptListFragment extends Fragment {

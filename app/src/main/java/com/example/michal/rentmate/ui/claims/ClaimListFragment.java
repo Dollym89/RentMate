@@ -128,7 +128,7 @@ public class ClaimListFragment extends Fragment {
 
       int color = setButtonColor(claim.getStatus());
       titleTextView.setText(claim.getTitle());
-      dateTextView.setText(claim.getCreatedAt());
+      dateTextView.setText(claim.getCreatedAt().toString());
       statusButton.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.ADD);
       statusButton.setText(claim.getStatus());
     }
