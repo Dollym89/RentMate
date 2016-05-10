@@ -34,6 +34,5 @@ public class MyApptJoin extends Fragment {
 //  Listeners
   @OnClick(R.id.join_apartment_button)
   public void onAptJoined(){
-
   }
 }

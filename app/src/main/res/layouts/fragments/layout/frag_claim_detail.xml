@@ -28,19 +28,21 @@
       android:orientation="vertical">
 
       <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/claim_detail_title"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:text="@string/claim_detail_title"
+          android:textSize="18sp"
+          android:textStyle="bold"
+          android:id="@+id/claim_title_textview"/>
 
       <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:text="@string/claim_detail_date"
-        android:textSize="14sp"/>
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:text="@string/claim_detail_date"
+          android:textSize="14sp"
+          android:id="@+id/claim_date_textview"/>
 
     </LinearLayout>
 

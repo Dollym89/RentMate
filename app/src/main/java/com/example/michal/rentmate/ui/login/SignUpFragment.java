@@ -31,7 +31,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
 public class SignUpFragment extends Fragment {
 
   @Bind(R.id.new_user_email_edit_text) EditText emailEditText;
@@ -93,6 +92,7 @@ public class SignUpFragment extends Fragment {
         Log.e("NEW USER", "STARTING NEW RENT MATE ACTIVITY");
         Intent intent = RentMateActivity.newIntent(getActivity());
         startActivity(intent);
+        getActivity().finish();
       }
 
       @Override

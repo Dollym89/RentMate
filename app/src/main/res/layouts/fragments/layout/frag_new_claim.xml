@@ -33,7 +33,9 @@
         <Spinner
             android:id="@+id/apartments_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@+id/claim_title_edit_text">
         </Spinner>
 
       </LinearLayout>
@@ -50,7 +52,9 @@
             android:id="@+id/claim_title_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/new_claim_title"/>
+            android:hint="@string/new_claim_title"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@+id/claim_detail_description"/>
       </android.support.design.widget.TextInputLayout>
 
       <android.support.design.widget.TextInputLayout
@@ -65,7 +69,8 @@
             android:id="@+id/claim_detail_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/new_claim_description"/>
+            android:hint="@string/new_claim_description"
+            android:imeOptions="actionDone"/>
       </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>

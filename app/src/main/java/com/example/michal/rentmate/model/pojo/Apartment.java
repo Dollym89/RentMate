@@ -128,4 +128,9 @@ public class Apartment {
   public void setClaims(List<Claim> claims) {
     this.claims = claims;
   }
+
+  @Override
+  public String toString() {
+    return Apartment.this.getName();
+  }
 }

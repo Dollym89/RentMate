@@ -23,6 +23,8 @@ public class Claim {
   @SerializedName("messages") private List<Message> messages = new ArrayList<Message>();
   @SerializedName("status") private String status;
 
+  private String relatedApt;
+
   public String getId() {
     return Id;
   }
@@ -93,5 +95,13 @@ public class Claim {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  public String getRelatedApt() {
+    return relatedApt;
+  }
+
+  public void setRelatedApt(String relatedApt) {
+    this.relatedApt = relatedApt;
   }
 }

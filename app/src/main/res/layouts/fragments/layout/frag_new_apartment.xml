@@ -29,9 +29,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_apartment_country_edit_text"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPostalAddress"
-            android:textSize="16sp"/>
+            android:nextFocusDown="@+id/new_apt_city_edit_text"
+            android:textSize="16sp"
+            />
       </android.support.design.widget.TextInputLayout>
 
       <android.support.design.widget.TextInputLayout
@@ -47,8 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_apartment_city_edit_text"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/new_apt_street_edit_text"
             android:textSize="16sp"/>
       </android.support.design.widget.TextInputLayout>
 
@@ -65,8 +68,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_apartment_street_edit_text"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
             android:inputType="textPostalAddress"
+            android:nextFocusDown="@+id/new_apt_zip_edit_text"
             android:textSize="16sp"/>
       </android.support.design.widget.TextInputLayout>
 

@@ -29,7 +29,6 @@ public class ClaimMessageFragment extends Fragment {
   private RentMateApi service;
   private User user;
 
-
   public static ClaimMessageFragment newInstance() {
     return new ClaimMessageFragment();
   }
@@ -54,8 +53,6 @@ public class ClaimMessageFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.frag_claim_messsage, container, false);
     ButterKnife.bind(this, view);
-
-
     return view;
   }
 

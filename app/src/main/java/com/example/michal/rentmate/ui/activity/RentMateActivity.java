@@ -2,7 +2,6 @@ package com.example.michal.rentmate.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
@@ -35,9 +34,6 @@ import com.example.michal.rentmate.ui.homescreen.DashBoardContract;
 import com.example.michal.rentmate.ui.homescreen.NoticeFragment;
 import com.example.michal.rentmate.ui.profile.ProfileFragment;
 import com.example.michal.rentmate.util.Constants;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -53,13 +49,8 @@ public class RentMateActivity extends AppCompatActivity
   @Bind(R.id.nav_view) NavigationView navigationView;
 
   private ActionBarDrawerToggle toggle;
-  /**
-   * ATTENTION: This was auto-generated to implement the App Indexing API.
-   * See https://g.co/AppIndexing/AndroidStudio for more information.
-   */
-  private GoogleApiClient client;
 
-  public static Intent newIntent(Context packageContext) {
+    public static Intent newIntent(Context packageContext) {
     Intent intent = new Intent(packageContext, RentMateActivity.class);
     return intent;
   }
@@ -72,10 +63,7 @@ public class RentMateActivity extends AppCompatActivity
     setToolbar();
     setFirstFragment();
     setDrawer();
-    // ATTENTION: This was auto-generated to implement the App Indexing API.
-    // See https://g.co/AppIndexing/AndroidStudio for more information.
-    client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-  }
+     }
 
   private void setToolbar() {
     setSupportActionBar(toolbar);

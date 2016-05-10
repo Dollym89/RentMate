@@ -21,8 +21,6 @@ import butterknife.ButterKnife;
 
 public class LogInActivity extends AppCompatActivity {
 
-  private static final int NUMBER_OF_TABS = 2;
-
   @Bind(R.id.welcome_textview) TextView welcomeText;
   @Bind(R.id.login_view_pager) ViewPager pager;
   @Bind(R.id.tab_login_layout) TabLayout tabLayout;

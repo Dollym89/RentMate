@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
@@ -21,6 +23,9 @@ import butterknife.ButterKnife;
 public class ClaimDetailFragment extends Fragment {
 
   @Bind(R.id.state_claim_button) Button stateButton;
+  @Bind(R.id.claim_detail_description)TextView detailTextView;
+  @Bind(R.id.claim_title_textview)TextView titleTextView;
+  @Bind(R.id.claim_date_textview)TextView dateTextView;
 
   private Claim claim;
 
@@ -51,12 +56,19 @@ public class ClaimDetailFragment extends Fragment {
     View view = inflater.inflate(R.layout.frag_claim_detail, container, false);
     ButterKnife.bind(this, view);
 
-    int color = setButtonColor(claim.getStatus());
-    stateButton.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.ADD);
+    setUI();
     return view;
   }
 
-  public int setButtonColor(String status) {
+  private void setUI(){
+    titleTextView.setText(claim.getTitle());
+    dateTextView.setText(claim.getCreatedAt().toString());
+    detailTextView.setText(claim.getDescription());
+    int color = setButtonColor(claim.getStatus());
+    stateButton.getBackground().setColorFilter(getResources().getColor(color), PorterDuff.Mode.ADD);
+  }
+
+  private int setButtonColor(String status) {
     int color;
 //      TODO set statuses!!!!!!!
     switch (status) {
