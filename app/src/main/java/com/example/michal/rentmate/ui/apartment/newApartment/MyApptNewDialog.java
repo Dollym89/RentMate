@@ -3,6 +3,7 @@ package com.example.michal.rentmate.ui.apartment.newApartment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -32,7 +33,6 @@ public class MyApptNewDialog extends DialogFragment {
   @Bind(R.id.correct_address_button) Button correctButton;
   @Bind(R.id.wrong_address_button) Button wrongButton;
 
-  private static final String ARG_ADDRESS = "address";
   private GoogleMap map;
   private LatLng position;
   private SupportMapFragment fragment;
@@ -40,7 +40,7 @@ public class MyApptNewDialog extends DialogFragment {
 
   public static MyApptNewDialog newInstance(LatLng position) {
     Bundle arg = new Bundle();
-    arg.putParcelable(ARG_ADDRESS, position);
+    arg.putParcelable(Constants.ARG_ADDRESS, position);
 
     MyApptNewDialog dialog = new MyApptNewDialog();
     dialog.setArguments(arg);
@@ -48,9 +48,14 @@ public class MyApptNewDialog extends DialogFragment {
   }
 
   @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    position = getArguments().getParcelable(Constants.ARG_ADDRESS);
+  }
+
+  @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
       savedInstanceState) {
-    position = getArguments().getParcelable(ARG_ADDRESS);
     View view = inflater.inflate(R.layout.frag_map_dialog, container, false);
     ButterKnife.bind(this, view);
     initMap();

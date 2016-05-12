@@ -17,6 +17,7 @@ public class Constants {
   public static final String ARG_APT_ID = "apartment_ID";
   public static final String ARG_CLAIM_DETAIL_ID = "claim_id_detail";
   public static final String ARG_CLAIM_MESSAGE_ID = "claim_message_ID";
+  public static final String ARG_ADDRESS = "address";
 
   public static final String AUTHENTICATION = "Bearer ";
   public static final String CONTENT_TYPE = "application/json";
