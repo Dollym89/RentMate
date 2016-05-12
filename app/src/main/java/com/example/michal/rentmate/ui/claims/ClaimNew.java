@@ -121,6 +121,7 @@ public class ClaimNew extends Fragment {
       public void onNothingSelected(AdapterView<?> parent) {
       }
     });
+    Log.e("CLAIM NEW", claim.toString());
     return claim;
   }
 

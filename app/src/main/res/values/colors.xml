@@ -12,6 +12,9 @@
   <color name="colorOpen">#f5a623</color>
   <color name="colorProblem">#d0021b</color>
 
+
+  <color name="colorCard">#C5CAE9</color>
+
   <!-- ANDROID MATERIAL DESIGN COLOR PALETTE -->
   <!-- ANDROID MATERIAL INDIGO BLUE -->
   <color name="material_indigo_50">#E8EAF6</color>

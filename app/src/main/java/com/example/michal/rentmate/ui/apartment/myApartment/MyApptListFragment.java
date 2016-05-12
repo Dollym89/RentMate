@@ -27,7 +27,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 public class MyApptListFragment extends Fragment {
 
   @Bind(R.id.recyclerView_apartment_list) RecyclerView recyclerView;
@@ -37,9 +36,6 @@ public class MyApptListFragment extends Fragment {
   private AptAdapter adapter;
   private User user;
   private MyApptContract.Callbacks callbacks;
-  private RentMateApi service;
-  private boolean isApartmentAdded;
-
 
   public static MyApptListFragment newInstance() {
     return new MyApptListFragment();

@@ -18,6 +18,7 @@ public class Claim {
   @SerializedName("updated_at") private String updatedAt;
   @SerializedName("claim_id") private String claimId;
   @SerializedName("title") private String title;
+  @SerializedName("created_by")private String createdBy;
   @SerializedName("description") private String description;
   @SerializedName("__v") private int V;
   @SerializedName("messages") private List<Message> messages = new ArrayList<Message>();
@@ -63,6 +64,14 @@ public class Claim {
 
   public void setTitle(String title) {
     this.title = title;
+  }
+
+  public String getCreatedBy() {
+    return createdBy;
+  }
+
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
   }
 
   public String getDescription() {

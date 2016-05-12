@@ -11,7 +11,7 @@ public class Message {
 
   @SerializedName("msg") private String message;
   @SerializedName("posted_at") private String postedAt;
-  @SerializedName("posted_by") private String postedBy;
+  @SerializedName("posted_by") private PostedBy postedBy;
   @SerializedName("_id") private String Id;
 
   public String getMessage() {
@@ -30,11 +30,11 @@ public class Message {
     this.postedAt = postedAt;
   }
 
-  public String getPostedBy() {
+  public PostedBy getPostedBy() {
     return postedBy;
   }
 
-  public void setPostedBy(String postedBy) {
+  public void setPostedBy(PostedBy postedBy) {
     this.postedBy = postedBy;
   }
 

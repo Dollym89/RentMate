@@ -138,7 +138,7 @@ public class ClaimTabFragment extends Fragment {
     @Override
     public Fragment getItem(int position) {
 
-      return position == 0 ? ClaimDetailFragment.newInstance(claim.getClaimId()) : ClaimMessageFragment.newInstance();
+      return position == 0 ? ClaimDetailFragment.newInstance(claim.getClaimId()) : ClaimMessageFragment.newInstance(claim.getClaimId());
     }
 
     @Override
