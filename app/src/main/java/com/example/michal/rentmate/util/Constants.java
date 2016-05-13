@@ -17,6 +17,7 @@ public class Constants {
   public static final String ARG_APT_ID = "apartment_ID";
   public static final String ARG_CLAIM_DETAIL_ID = "claim_id_detail";
   public static final String ARG_CLAIM_MESSAGE_ID = "claim_message_ID";
+  public static final String ARG_CLAIM_NEW_MESSAGE = "claim_new_message";
   public static final String ARG_ADDRESS = "address";
 
   public static final String AUTHENTICATION = "Bearer ";
@@ -51,6 +52,9 @@ public class Constants {
   public static final String CLAIM_LIST_FRAG = "CLAIM_LIST_FRAGMENT";
   public static final String CLAIM_TAB_FRAG = "CLAIM_TAB_FRAG";
   public static final String CLAIM_NEW_FRAG = "CLAIM_NEW_FRAG";
+  //  Claims message
+  public static final String MESSAGE_CRETAE = "CREATE";
+  public static final String MESSAGE_DELETE = "DELETE";
   //  MAP
   public static final String MAP_DETAIL_FRAGMENT = "MAP_DETAIL_FRAGMENT";
 

@@ -2,6 +2,7 @@ package com.example.michal.rentmate.networking;
 
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.pojo.Message;
 import com.example.michal.rentmate.model.pojo.TokenRequest;
 import com.example.michal.rentmate.model.pojo.TokenResponce;
 import com.example.michal.rentmate.model.pojo.User;
@@ -16,6 +17,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface RentMateApi {
 
@@ -28,7 +30,8 @@ public interface RentMateApi {
 
   @Headers("Content-Type:application/json")
   @GET("api/claims/{ID}")
-  Call<Claim> getClaim(@Header("Authorization") String token, @Part("ID")String claimID);
+  Call<Claim> getClaim(@Header("Authorization") String token,
+                       @Part("ID") String claimID);
 
   @GET("/api/users/me")
   Call<User> getUser(@Header("Authorization") String token);
@@ -44,9 +47,18 @@ public interface RentMateApi {
 
   @Headers("Content-Type:application/json")
   @POST("/api/apartments")
-  Call<Apartment> createApartment(@Header("Authorization") String token,@Body Apartment apartment);
+  Call<Apartment> createApartment(@Header("Authorization") String token,
+                                  @Body Apartment apartment);
 
   @Headers("Content-Type:application/json")
   @POST("/api/claims")
-  Call<Claim> createClaim(@Header("Authorization") String token,@Body Claim claim);
+  Call<Claim> createClaim(@Header("Authorization") String token,
+                          @Body Claim claim);
+
+  @Headers("Content-Type:application/json")
+  @POST("api/claims/{ID}/addmessage")
+  Call<Claim> createMessage(@Header("Authorization") String token,
+                            @Path("ID") String claimID,
+                            @Body Message message);
+
 }

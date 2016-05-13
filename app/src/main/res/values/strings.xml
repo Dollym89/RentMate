@@ -44,7 +44,10 @@
   <string name="new_claim_select_apt">Select Apartment</string>
   <string name="new_claim_title">Title</string>
   <string name="new_claim_description">Describtion of your issue here</string>
-  <string name="new_claim_description_edit_text">Please describe your issue here</string>
+  <string name="create_message">CREATE</string>
+  <string name="delete_message">DELETE</string>
+  <string name="new_message">NEW MESSAGE</string>
+
 
 
 

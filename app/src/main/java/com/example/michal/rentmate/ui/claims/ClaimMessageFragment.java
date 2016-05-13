@@ -72,7 +72,7 @@ public class ClaimMessageFragment extends Fragment {
   //  Listeners
   @OnClick(R.id.add_message_button)
   public void newMessage() {
-    ClaimMessageDialog.newInstance().show(getFragmentManager(),"BLABKA");
+    ClaimMessageDialog.newInstance(claimId).show(getFragmentManager(),"BLABKA");
   }
 
   private void updateUI() {
@@ -105,11 +105,11 @@ public class ClaimMessageFragment extends Fragment {
           CardView.LayoutParams.MATCH_PARENT,
           CardView.LayoutParams.WRAP_CONTENT
       );
-      params.setMargins(0, 0, 70, 0);
+      params.setMargins(0, 10, 70, 0);
       messageTextView.setText(message.getMessage());
       if (message.getPostedBy().getGroupId().equals("tenant")) {
         cardView.setCardBackgroundColor(getResources().getColor(R.color.material_green_300));
-        cardView.setLayoutParams(params);
+//        cardView.setLayoutParams(params);
         messageTextView.setTextColor(getResources().getColor(R.color.colorWhite));
       } else {
         cardView.setCardBackgroundColor(getResources().getColor(R.color.colorCard));
