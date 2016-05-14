@@ -97,12 +97,8 @@ public class ClaimMessageFragment extends Fragment {
   }
 
   private void updateUI(List<Message> msgList) {
-    if (adapter != null) {
-      adapter.notifyDataSetChanged();
-    } else {
-      adapter = new MsgAdapter(msgList);
-      recyclerView.setAdapter(adapter);
-    }
+    adapter = new MsgAdapter(msgList);
+    recyclerView.setAdapter(adapter);
   }
 
   private void newMessageDialog() {
