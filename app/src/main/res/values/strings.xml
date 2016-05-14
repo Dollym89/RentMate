@@ -7,7 +7,6 @@
   <string name="action_search_menu">Search</string>
   <string name="splash_screen_text_view">RentMate</string>
 
-
   <!--Log In -->
   <string name="welcome_textview_rentmate">Welcome to RentMate</string>
   <string name="hint_password">Password</string>
@@ -38,7 +37,7 @@
   <string name="claim_detail_title">Claim detail Title</string>
   <string name="claim_detail_date">Claim detail date</string>
   <string name="claim_detail_description">Description</string>
-   <string name="claim_tab_detail">DETAILS</string>
+  <string name="claim_tab_detail">DETAILS</string>
   <string name="claim_tab_message">MESSAGE</string>
   <string name="claim_action_bar">Claims</string>
   <string name="new_claim_select_apt">Select Apartment</string>
@@ -47,8 +46,8 @@
   <string name="create_message">CREATE</string>
   <string name="delete_message">DELETE</string>
   <string name="new_message">NEW MESSAGE</string>
-
-
+  <string name="new_message_created_toast">Message was created</string>
+  <string name="new_message_failure_toast">Message was not created</string>
 
 
   <!--Apartments-->

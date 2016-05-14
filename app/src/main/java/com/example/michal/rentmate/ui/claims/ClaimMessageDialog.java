@@ -1,7 +1,9 @@
 package com.example.michal.rentmate.ui.claims;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,13 +35,11 @@ public class ClaimMessageDialog extends DialogFragment {
 
   @Bind(R.id.new_dialog_message_edit_text) EditText messageEditText;
 
-  //  TODO set target fragment
   private RentMateApi service;
   private User user;
   private UserRepository userRepo;
   private String claimID;
-
-//  private EditText messageEditText;
+  private boolean isMessageCreated = true;
 
   public static ClaimMessageDialog newInstance(String claimID) {
     Bundle arg = new Bundle();
@@ -64,7 +65,6 @@ public class ClaimMessageDialog extends DialogFragment {
     AlertDialog.Builder msgDialog = new AlertDialog.Builder(getActivity());
     LayoutInflater inflater = getActivity().getLayoutInflater();
     View view = inflater.inflate(R.layout.frag_message_dilaog, null);
-//    messageEditText = (EditText) view.findViewById(R.id.new_dialog_message_edit_text);
     ButterKnife.bind(this, view);
     msgDialog.setView(view)
         .setTitle(R.string.new_message)
@@ -77,7 +77,7 @@ public class ClaimMessageDialog extends DialogFragment {
         .setNegativeButton(R.string.delete_message, new DialogInterface.OnClickListener() {
           @Override
           public void onClick(DialogInterface dialog, int which) {
-
+            dialog.cancel();
           }
         });
 
@@ -86,11 +86,15 @@ public class ClaimMessageDialog extends DialogFragment {
 
   private void createMessage(String claimID) {
     service = RestService.getInstance();
-    Call<Claim> call = service.createMessage(getHeader(user), claimID, getMessage());
+    Call<Claim> call = service.createMessage(Helper.getHeader(user), claimID, getMessage());
     call.enqueue(new Callback<Claim>() {
       @Override
       public void onResponse(Call<Claim> call, Response<Claim> response) {
-        Log.e("MSG RESPONCE", response.body().toString());
+        if (response.isSuccessful()) {
+          sendResult(Activity.RESULT_OK, isMessageCreated);
+        } else {
+          sendResult(Activity.RESULT_OK, !isMessageCreated);
+        }
       }
 
       @Override
@@ -100,14 +104,19 @@ public class ClaimMessageDialog extends DialogFragment {
     });
   }
 
-  private String getHeader(User user) {
-    return Constants.AUTHENTICATION + user.getToken();
-  }
-
   private Message getMessage() {
     Message message = new Message();
     String msg = messageEditText.getText().toString();
     message.setMessage(msg);
     return message;
+  }
+
+  private void sendResult(int resultCode, Boolean isMessageCreated) {
+    if (getTargetFragment() == null) {
+      return;
+    }
+    Intent intent = new Intent();
+    intent.putExtra(Constants.EXTRA_MESSAGE, isMessageCreated);
+    getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
   }
 }

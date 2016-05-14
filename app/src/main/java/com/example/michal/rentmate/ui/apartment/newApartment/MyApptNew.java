@@ -23,6 +23,7 @@ import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -46,12 +47,10 @@ public class MyApptNew extends Fragment {
   @Bind(R.id.new_apt_street_edit_text) EditText streetEditText;
   @Bind(R.id.new_apt_zip_edit_text) EditText zipEditText;
 
-  private GoogleMap map;
-  private Apartment apartment;
-  private LatLng position;
+   private LatLng position;
   private RentMateApi service;
   private UserRepository userRepo;
-  private boolean isApartmentAdded = false;
+  private boolean isApartmentAdded = true;
 
   public static MyApptNew newInstance() {
     return new MyApptNew();
@@ -89,12 +88,12 @@ public class MyApptNew extends Fragment {
 
   @OnClick(R.id.new_apt_save_button)
   public void onApartmentSaved() {
-    String header = setHeader();
+    String header = Helper.getHeader(userRepo.getUser());
     Apartment apartment = setApartmantProp();
     saveApartment(header, apartment);
   }
 
-  private void saveApartment(String header,Apartment apartment) {
+  private void saveApartment(String header, Apartment apartment) {
     service = RestService.getInstance();
     Call<Apartment> call = service.createApartment(header, apartment);
     call.enqueue(new Callback<Apartment>() {
@@ -104,8 +103,9 @@ public class MyApptNew extends Fragment {
         if (response.isSuccessful()) {
           userRepo.getUser().getApartments().add(response.body());
           Log.e(Constants.TAG_ON_CREATED, String.valueOf(response.isSuccessful()));
-          sendResult(Activity.RESULT_OK,true);
+          sendResult(Activity.RESULT_OK, isApartmentAdded);
         } else {
+          sendResult(Activity.RESULT_OK, !isApartmentAdded);
           Log.e(Constants.TAG_ON_CREATED, "APARTMENT IS NOT CREATED");
         }
       }
@@ -118,13 +118,7 @@ public class MyApptNew extends Fragment {
     Toast.makeText(getActivity(), "HA you just saved apt", Toast.LENGTH_LONG).show();
   }
 
-  private String setHeader() {
-    userRepo = UserRepository.getInstance();
-    String token = userRepo.getUser().getToken();
-    return Constants.AUTHENTICATION + token;
-  }
-
-  private Apartment setApartmantProp() {
+   private Apartment setApartmantProp() {
     Apartment apartment = new Apartment();
     String country = String.valueOf(countryEditText.getText());
     String street = String.valueOf(streetEditText.getText());
@@ -197,6 +191,7 @@ public class MyApptNew extends Fragment {
     dialog.setTargetFragment(MyApptNew.this, Constants.REQUEST_ADDRESS);
     dialog.show(manager, Constants.DIALOG_ADDRESS);
   }
+
   private void sendResult(int resultCode, Boolean isApartmentAdded) {
     if (getTargetFragment() == null) {
       return;

@@ -24,6 +24,7 @@ import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 
 import java.util.List;
 
@@ -96,7 +97,7 @@ public class ClaimTabFragment extends Fragment {
 
   private void reloadClaimList() {
     service = RestService.getInstance();
-    Call<User> call = service.getUser(Constants.AUTHENTICATION + user.getToken());
+    Call<User> call = service.getUser(Helper.getHeader(user));
     call.enqueue(new Callback<User>() {
       @Override
       public void onResponse(Call<User> call, Response<User> response) {

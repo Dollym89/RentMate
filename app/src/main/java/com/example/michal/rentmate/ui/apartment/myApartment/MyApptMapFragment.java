@@ -65,7 +65,7 @@ public class MyApptMapFragment extends SupportMapFragment {
   public void drawApartments(List<Apartment> apartmentList, Geocoder geocoder) {
     ListOfAddressList = new ArrayList<List<Address>>();
     for (int i = 0; i < apartmentList.size(); i++) {
-      String address = getLongAddress(apartmentList,i);
+      String address = getLongAddress(apartmentList, i);
       List<Address> addresses = null;
       try {
         addresses = geocoder.getFromLocationName(address, 1);
@@ -96,9 +96,9 @@ public class MyApptMapFragment extends SupportMapFragment {
   }
 
   public String getLongAddress(List<Apartment> apartmentList, int i) {
-    String longAddress = apartmentList.get(i).getStreet() +", "+
-        apartmentList.get(i).getZip() +", "+
-        apartmentList.get(i).getCity() +", "+
+    String longAddress = apartmentList.get(i).getStreet() + ", " +
+        apartmentList.get(i).getZip() + ", " +
+        apartmentList.get(i).getCity() + ", " +
         apartmentList.get(i).getCountry();
     return longAddress;
   }

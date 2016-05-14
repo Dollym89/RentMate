@@ -23,6 +23,7 @@ import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class ClaimNew extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    userRepo = UserRepository.getInstance();
     aptRepo = ApartmentRepository.getInstance();
   }
 
@@ -68,9 +70,8 @@ public class ClaimNew extends Fragment {
   //  Listeners
   @OnClick(R.id.create_claim_button)
   public void onClaimSaved() {
-    String header = setHeader();
     Claim claim = setClaimProp();
-    saveClaim(header, claim);
+    saveClaim(Helper.getHeader(userRepo.getUser()), claim);
   }
 
   private void saveClaim(String header, Claim claim) {
@@ -95,12 +96,6 @@ public class ClaimNew extends Fragment {
 
       }
     });
-  }
-
-  private String setHeader() {
-    userRepo = UserRepository.getInstance();
-    String token = userRepo.getUser().getToken();
-    return Constants.AUTHENTICATION + token;
   }
 
   private Claim setClaimProp() {

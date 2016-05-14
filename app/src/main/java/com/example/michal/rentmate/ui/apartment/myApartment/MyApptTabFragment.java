@@ -67,9 +67,9 @@ public class MyApptTabFragment extends Fragment {
     super.onResume();
     if (isApartmentAdded) {
       reloadUserApartments();
-      Log.e(Constants.TAG_ON_CREATED,"APARTMENT IS CREATED");
-    }else{
-      Log.e(Constants.TAG_ON_FAILURE,"APARTMENT IS NOT CREATED");
+      Log.e(Constants.TAG_ON_CREATED, "APARTMENT IS CREATED");
+    } else {
+      Log.e(Constants.TAG_ON_FAILURE, "APARTMENT IS NOT CREATED");
     }
     initLayout();
   }

@@ -8,8 +8,9 @@ public class Constants {
   public static final int REQUEST_ADDRESS = 0;
   public static final int REQUEST_NEW_APARTMENT = 10;
   public static final int REQUEST_NEW_CLAIM = 2;
-  public static final String DIALOG_ADDRESS = "apartment_address";
+  public static final int REQUEST_MESSAGE = 3;
   public static final String EXTRA_ADDRESS = "extra_address";
+  public static final String EXTRA_MESSAGE = "extra_message";
   public static final String EXTRA_NEW_APARTMENT = "extra_new_apartment";
   public static final String EXTRA_NEW_CLAIM = "extra_new_claim";
 
@@ -41,6 +42,7 @@ public class Constants {
   public static final String APARTMENT_JOIN_FRAG = "APARTMENT_JOIN_FRAG";
   public static final String APARTMENT_LIST_FRAG = "APARTMENT_LIST_FRAG";
   public static final String APARTMENT_MAP_FRAG = "APARTMENT_MAP_FRAG";
+  public static final String DIALOG_ADDRESS = "apartment_address";
 
   //  Profile fragments
   public static final String PROFILE_FRAG = "PROFILE_FRAG";
@@ -53,8 +55,9 @@ public class Constants {
   public static final String CLAIM_TAB_FRAG = "CLAIM_TAB_FRAG";
   public static final String CLAIM_NEW_FRAG = "CLAIM_NEW_FRAG";
   //  Claims message
-  public static final String MESSAGE_CRETAE = "CREATE";
-  public static final String MESSAGE_DELETE = "DELETE";
+  public static final String CLAIM_NEW_MESSAGE = "NEW_MESSAGE_FRAGMENT";
+  public static final String DIALOG_MESSAGE = "claim_new_message";
+
   //  MAP
   public static final String MAP_DETAIL_FRAGMENT = "MAP_DETAIL_FRAGMENT";
 

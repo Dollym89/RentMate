@@ -43,12 +43,10 @@ public class SignUpFragment extends Fragment {
   private String token;
   private UserRepository userRepo;
   private RentMateApi service;
-  private boolean isSuccess;
 
   public static SignUpFragment newInstance() {
     return new SignUpFragment();
   }
-
 
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,15 +82,14 @@ public class SignUpFragment extends Fragment {
     call.enqueue(new Callback<TokenResponce>() {
       @Override
       public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
-        Log.e("NEW USER", String.valueOf(response.isSuccessful()));
-        token = response.body().getToken();
-        userRepo.getUser().setToken(token);
-        Log.e("NEW USER", userRepo.getUser().getToken());
+        if (response.isSuccessful()) {
+          token = response.body().getToken();
+          userRepo.getUser().setToken(token);
 
-        Log.e("NEW USER", "STARTING NEW RENT MATE ACTIVITY");
-        Intent intent = RentMateActivity.newIntent(getActivity());
-        startActivity(intent);
-        getActivity().finish();
+          Intent intent = RentMateActivity.newIntent(getActivity());
+          startActivity(intent);
+          getActivity().finish();
+        }
       }
 
       @Override
@@ -109,7 +106,7 @@ public class SignUpFragment extends Fragment {
     if (!ValidUtil.isValidEmail(email)) {
       emailInputLayout.setError(getString(R.string.validation_wrong_email));
       isValidated = false;
-    }else {
+    } else {
       emailInputLayout.setErrorEnabled(false);
       isValidated = true;
     }
@@ -117,7 +114,7 @@ public class SignUpFragment extends Fragment {
     if (!ValidUtil.isValidPassword(pass)) {
       passInputLayout.setError(getString(R.string.validation_wrong_pass));
       isValidated = false;
-    }else {
+    } else {
       passInputLayout.setErrorEnabled(false);
       isValidated = true;
     }

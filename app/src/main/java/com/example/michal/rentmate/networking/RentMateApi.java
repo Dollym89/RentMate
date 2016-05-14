@@ -31,7 +31,7 @@ public interface RentMateApi {
   @Headers("Content-Type:application/json")
   @GET("api/claims/{ID}")
   Call<Claim> getClaim(@Header("Authorization") String token,
-                       @Part("ID") String claimID);
+                       @Path("ID") String claimID);
 
   @GET("/api/users/me")
   Call<User> getUser(@Header("Authorization") String token);

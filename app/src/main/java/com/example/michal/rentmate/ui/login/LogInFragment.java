@@ -29,9 +29,12 @@ import com.example.michal.rentmate.networking.RestService;
 import com.example.michal.rentmate.ui.activity.LogInActivity;
 import com.example.michal.rentmate.ui.activity.RentMateActivity;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 import com.example.michal.rentmate.util.ValidUtil;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -126,7 +129,6 @@ public class LogInFragment extends Fragment {
           Log.e("RESPONCE", String.valueOf(response.isSuccessful()));
           Toast.makeText(getContext(), "Wrong password or email", Toast.LENGTH_SHORT).show();
         }
-
         if (isSuccess) {
           Log.e("USER", "LOADING USER");
           getUser();
@@ -143,8 +145,7 @@ public class LogInFragment extends Fragment {
   }
 
   public void getUser() {
-    String header = Constants.AUTHENTICATION + token;
-    Call<User> callUser = service.getUser(header);
+    Call<User> callUser = service.getUser(Helper.getHeader(userRepo.getUser()));
     callUser.enqueue(new Callback<User>() {
       @Override
       public void onResponse(Call<User> call, Response<User> response) {
@@ -183,7 +184,6 @@ public class LogInFragment extends Fragment {
 
   public void setUserClaims(User user) {
     List<Claim> userClaims = user.getUserClaims();
-    List<String> userClaimsID = new ArrayList<>();
 
     for (int i = 0; i < user.getApartments().size(); i++) {
       for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {

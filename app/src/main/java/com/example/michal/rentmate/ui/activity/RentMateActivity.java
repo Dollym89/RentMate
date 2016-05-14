@@ -286,11 +286,9 @@ public class RentMateActivity extends AppCompatActivity
   public void openClaimList() {
     FragmentManager manager = getSupportFragmentManager();
     Fragment fragment = manager.findFragmentByTag(Constants.CLAIM_LIST_FRAG);
-
     if (fragment == null) {
       fragment = ClaimListFragment.newInstance();
     }
-
     manager.beginTransaction()
         .setCustomAnimations(R.anim.fragment_slide_left_enter,
             R.anim.fragment_slide_left_exit,

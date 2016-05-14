@@ -90,10 +90,11 @@ public class MyApptMapDetailFragment extends SupportMapFragment {
     map.getUiSettings().setZoomControlsEnabled(true);
     map.getUiSettings().isMyLocationButtonEnabled();
   }
+
   public String getLongAddress(Apartment apartment) {
-    String longAddress = apartment.getStreet() +", "+
-        apartment.getZip() +", "+
-        apartment.getCity() +", "+
+    String longAddress = apartment.getStreet() + ", " +
+        apartment.getZip() + ", " +
+        apartment.getCity() + ", " +
         apartment.getCountry();
     return longAddress;
   }

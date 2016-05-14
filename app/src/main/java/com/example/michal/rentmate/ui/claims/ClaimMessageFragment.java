@@ -1,17 +1,23 @@
 package com.example.michal.rentmate.ui.claims;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
@@ -20,13 +26,19 @@ import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.ui.apartment.newApartment.MyApptNewDialog;
 import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ClaimMessageFragment extends Fragment {
 
@@ -39,15 +51,9 @@ public class ClaimMessageFragment extends Fragment {
   private List<Message> msgList;
   private String claimId;
 
-
-  public static ClaimMessageFragment newInstance() {
-    return new ClaimMessageFragment();
-  }
-
   public static ClaimMessageFragment newInstance(String claimID) {
     Bundle arg = new Bundle();
     arg.putSerializable(Constants.ARG_CLAIM_MESSAGE_ID, claimID);
-
     ClaimMessageFragment messageFragment = new ClaimMessageFragment();
     messageFragment.setArguments(arg);
     return messageFragment;
@@ -56,37 +62,73 @@ public class ClaimMessageFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Log.e("onCreate", "run");
     claimId = (String) getArguments().getSerializable(Constants.ARG_CLAIM_MESSAGE_ID);
+    Claim claim = ClaimRepository.getInstance().getClaim(claimId);
+    msgList = claim.getMessages();
     user = UserRepository.getInstance().getUser();
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    Log.e("onCreateView", "run");
     View view = inflater.inflate(R.layout.frag_claim_messsage, container, false);
     ButterKnife.bind(this, view);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    updateUI();
+    updateUI(msgList);
     return view;
   }
 
   //  Listeners
   @OnClick(R.id.add_message_button)
   public void newMessage() {
-    ClaimMessageDialog.newInstance(claimId).show(getFragmentManager(),"BLABKA");
+    newMessageDialog();
   }
 
-  private void updateUI() {
-    ClaimRepository claimRepo = ClaimRepository.getInstance();
-    Claim claim = claimRepo.getClaim(claimId);
-    msgList = claim.getMessages();
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    if (adapter == null) {
+    if (resultCode == Activity.RESULT_OK) {
+      switch (requestCode) {
+        case Constants.REQUEST_MESSAGE:
+          reloadMessages();
+      }
+    }
+  }
+
+  private void updateUI(List<Message> msgList) {
+    if (adapter != null) {
+      adapter.notifyDataSetChanged();
+    } else {
       adapter = new MsgAdapter(msgList);
       recyclerView.setAdapter(adapter);
-    } else {
-      adapter.notifyDataSetChanged();
-      recyclerView.setAdapter(adapter);
     }
+  }
+
+  private void newMessageDialog() {
+    FragmentManager manager = getFragmentManager();
+    ClaimMessageDialog msgDialog = ClaimMessageDialog.newInstance(claimId);
+    msgDialog.setTargetFragment(ClaimMessageFragment.this, Constants.REQUEST_MESSAGE);
+    msgDialog.show(manager, Constants.DIALOG_MESSAGE);
+  }
+
+  private void reloadMessages() {
+    service = RestService.getInstance();
+    Call<Claim> call = service.getClaim(Helper.getHeader(user), claimId);
+    call.enqueue(new Callback<Claim>() {
+      @Override
+      public void onResponse(Call<Claim> call, Response<Claim> response) {
+        if (response.isSuccessful()) {
+          msgList = response.body().getMessages();
+          updateUI(msgList);
+        }
+      }
+
+      @Override
+      public void onFailure(Call<Claim> call, Throwable t) {
+
+      }
+    });
   }
 
   public class MsgHolder extends RecyclerView.ViewHolder {
@@ -109,7 +151,7 @@ public class ClaimMessageFragment extends Fragment {
       messageTextView.setText(message.getMessage());
       if (message.getPostedBy().getGroupId().equals("tenant")) {
         cardView.setCardBackgroundColor(getResources().getColor(R.color.material_green_300));
-//        cardView.setLayoutParams(params);
+        cardView.setLayoutParams(params);
         messageTextView.setTextColor(getResources().getColor(R.color.colorWhite));
       } else {
         cardView.setCardBackgroundColor(getResources().getColor(R.color.colorCard));

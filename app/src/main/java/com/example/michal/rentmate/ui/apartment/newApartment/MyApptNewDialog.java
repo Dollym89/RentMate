@@ -99,7 +99,6 @@ public class MyApptNewDialog extends DialogFragment {
   }
 
   private void sendResult(int resultCode, Boolean isAddressCorrect) {
-
     if (getTargetFragment() == null) {
       return;
     }
