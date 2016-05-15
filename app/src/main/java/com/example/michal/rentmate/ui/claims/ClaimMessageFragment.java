@@ -62,7 +62,6 @@ public class ClaimMessageFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.e("onCreate", "run");
     claimId = (String) getArguments().getSerializable(Constants.ARG_CLAIM_MESSAGE_ID);
     Claim claim = ClaimRepository.getInstance().getClaim(claimId);
     msgList = claim.getMessages();
@@ -71,7 +70,6 @@ public class ClaimMessageFragment extends Fragment {
 
   @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    Log.e("onCreateView", "run");
     View view = inflater.inflate(R.layout.frag_claim_messsage, container, false);
     ButterKnife.bind(this, view);
     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

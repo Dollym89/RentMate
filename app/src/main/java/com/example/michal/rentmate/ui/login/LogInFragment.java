@@ -122,15 +122,13 @@ public class LogInFragment extends Fragment {
       public void onResponse(Call<TokenResponce> call, Response<TokenResponce> response) {
         if (response.isSuccessful()) {
           isSuccess = response.isSuccessful();
-          Log.e("RESPONSE", String.valueOf(response.isSuccessful()));
           Log.e(Constants.TAG_TOKEN, response.body().getToken());
           token = response.body().getToken();
+          userRepo.getUser().setToken(token);
         } else {
-          Log.e("RESPONCE", String.valueOf(response.isSuccessful()));
           Toast.makeText(getContext(), "Wrong password or email", Toast.LENGTH_SHORT).show();
         }
         if (isSuccess) {
-          Log.e("USER", "LOADING USER");
           getUser();
         } else {
           Log.e(Constants.TAG_TOKEN, "WRONG PASSWORD");
@@ -149,8 +147,6 @@ public class LogInFragment extends Fragment {
     callUser.enqueue(new Callback<User>() {
       @Override
       public void onResponse(Call<User> call, Response<User> response) {
-        Log.e("USER", token);
-        Log.e("USER", String.valueOf(response.isSuccessful()));
         if (response.isSuccessful()) {
           Log.e(Constants.TAG_USER, response.body().getEmail());
           userRepo.setUser(response.body());
@@ -184,7 +180,6 @@ public class LogInFragment extends Fragment {
 
   public void setUserClaims(User user) {
     List<Claim> userClaims = user.getUserClaims();
-
     for (int i = 0; i < user.getApartments().size(); i++) {
       for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {
         userClaims.add(user.getApartments().get(i).getClaims().get(j));
