@@ -27,9 +27,9 @@ import com.example.michal.rentmate.ui.apartment.myApartment.MyApptJoin;
 import com.example.michal.rentmate.ui.apartment.myApartment.MyApptTabFragment;
 import com.example.michal.rentmate.ui.apartment.newApartment.MyApptNew;
 import com.example.michal.rentmate.ui.claims.ClaimContract;
-import com.example.michal.rentmate.ui.claims.ClaimListFragment;
-import com.example.michal.rentmate.ui.claims.ClaimNew;
-import com.example.michal.rentmate.ui.claims.ClaimTabFragment;
+import com.example.michal.rentmate.ui.claims.myClaim.ClaimListFragment;
+import com.example.michal.rentmate.ui.claims.myClaim.ClaimNew;
+import com.example.michal.rentmate.ui.claims.newClaimDetail.ClaimTabFragment;
 import com.example.michal.rentmate.ui.homescreen.DashBoardContract;
 import com.example.michal.rentmate.ui.homescreen.NoticeFragment;
 import com.example.michal.rentmate.ui.profile.ProfileFragment;
@@ -195,7 +195,7 @@ public class RentMateActivity extends AppCompatActivity
   @Override
   public void addNewClaim() {
     FragmentManager fm = getSupportFragmentManager();
-    Fragment targetFragment = fm.findFragmentByTag(Constants.CLAIM_TAB_FRAG);
+    Fragment targetFragment = fm.findFragmentByTag(Constants.CLAIM_LIST_FRAG);
     Fragment fragment = fm.findFragmentByTag(Constants.CLAIM_NEW_FRAG);
     if (fragment == null) {
       fragment = ClaimNew.newInstance();

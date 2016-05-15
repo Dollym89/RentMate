@@ -16,29 +16,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
-      <LinearLayout
+      <Spinner
+          android:id="@+id/apartments_spinner"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:gravity="start"
-          android:orientation="vertical"
-          android:paddingBottom="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/new_claim_select_apt"
-            android:textSize="12sp"/>
-
-        <Spinner
-            android:id="@+id/apartments_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
-            android:nextFocusDown="@+id/claim_title_edit_text">
-        </Spinner>
-
-      </LinearLayout>
+          android:imeOptions="actionNext"
+          android:nextFocusDown="@+id/claim_title_edit_text"/>
 
       <android.support.design.widget.TextInputLayout
           android:layout_width="match_parent"
@@ -54,6 +37,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/new_claim_title"
             android:imeOptions="actionNext"
+            android:inputType="text"
             android:nextFocusDown="@+id/claim_detail_description"/>
       </android.support.design.widget.TextInputLayout>
 
@@ -70,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/new_claim_description"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:inputType="text"/>
       </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>

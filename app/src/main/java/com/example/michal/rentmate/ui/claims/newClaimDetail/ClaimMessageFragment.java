@@ -1,7 +1,6 @@
-package com.example.michal.rentmate.ui.claims;
+package com.example.michal.rentmate.ui.claims.newClaimDetail;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,13 +10,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
@@ -27,7 +23,6 @@ import com.example.michal.rentmate.model.repositories.ClaimRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
 import com.example.michal.rentmate.networking.RestService;
-import com.example.michal.rentmate.ui.apartment.newApartment.MyApptNewDialog;
 import com.example.michal.rentmate.util.Constants;
 import com.example.michal.rentmate.util.Helper;
 

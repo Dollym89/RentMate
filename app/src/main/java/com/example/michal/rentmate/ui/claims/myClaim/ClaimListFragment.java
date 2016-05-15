@@ -1,7 +1,8 @@
-package com.example.michal.rentmate.ui.claims;
+package com.example.michal.rentmate.ui.claims.myClaim;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,13 +20,23 @@ import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ClaimRepository;
+import com.example.michal.rentmate.model.repositories.UserRepository;
+import com.example.michal.rentmate.networking.RentMateApi;
+import com.example.michal.rentmate.networking.RestService;
+import com.example.michal.rentmate.ui.claims.ClaimContract;
+import com.example.michal.rentmate.util.Constants;
+import com.example.michal.rentmate.util.Helper;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ClaimListFragment extends Fragment {
 
@@ -36,6 +47,9 @@ public class ClaimListFragment extends Fragment {
   private ClaimAdapter adapter;
   private ClaimContract.Callbacks callbacks;
   private List<Claim> claimList;
+  private User user;
+  private RentMateApi service;
+  private boolean isClaimCreated;
 
   public static ClaimListFragment newInstance() {
     return new ClaimListFragment();
@@ -56,6 +70,7 @@ public class ClaimListFragment extends Fragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    user = UserRepository.getInstance().getUser();
     ClaimRepository repository = ClaimRepository.getInstance();
     claimList = repository.getClaimList();
 //    new FetchClaims().execute();
@@ -72,6 +87,17 @@ public class ClaimListFragment extends Fragment {
     updateUi();
 
     return view;
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if (isClaimCreated) {
+      reloadClaimList();
+      Log.e(Constants.TAG_ON_CREATED, "CLAIM IS CREATED");
+    } else {
+      Log.e(Constants.TAG_ON_FAILURE, "CLAIM IS NOT CREATED");
+    }
   }
 
   //  Listeners
@@ -103,6 +129,53 @@ public class ClaimListFragment extends Fragment {
         }
       });
     }
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (resultCode == Activity.RESULT_OK) {
+      switch (requestCode) {
+        case Constants.REQUEST_NEW_CLAIM:
+          isClaimCreated = (boolean) data.getSerializableExtra(Constants.EXTRA_NEW_CLAIM);
+      }
+    }
+  }
+
+  private void reloadClaimList() {
+    service = RestService.getInstance();
+    Call<User> call = service.getUser(Helper.getHeader(user));
+    call.enqueue(new Callback<User>() {
+      @Override
+      public void onResponse(Call<User> call, Response<User> response) {
+        if (response.isSuccessful()) {
+          Log.e(Constants.TAG_USER, "LOADING USER'S CLAIMS");
+          user = response.body();
+          updateClaimRepository(setUserClaims(user));
+          updateUi();
+        }
+      }
+
+      @Override
+      public void onFailure(Call<User> call, Throwable t) {
+      }
+    });
+  }
+
+  public List<Claim> setUserClaims(User user) {
+    List<Claim> userClaims = user.getUserClaims();
+    for (int i = 0; i < user.getApartments().size(); i++) {
+      for (int j = 0; j < user.getApartments().get(i).getClaims().size(); j++) {
+        userClaims.add(user.getApartments().get(i).getClaims().get(j));
+      }
+    }
+    claimList = userClaims;
+    return userClaims;
+  }
+
+  public static void updateClaimRepository(List<Claim> claims) {
+    ClaimRepository claimRepository = ClaimRepository.getInstance();
+    claimRepository.getClaimList().clear();
+    claimRepository.setClaimList(claims);
   }
 
   public class ClaimHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

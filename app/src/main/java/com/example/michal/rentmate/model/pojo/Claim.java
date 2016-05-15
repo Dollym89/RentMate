@@ -24,7 +24,7 @@ public class Claim {
   @SerializedName("messages") private List<Message> messages = new ArrayList<Message>();
   @SerializedName("status") private String status;
 
-  private String relatedApt;
+  @SerializedName("apartment_id")private String relatedApt;
 
   public String getId() {
     return Id;

@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.claims;
+package com.example.michal.rentmate.ui.claims.newClaimDetail;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Claim;

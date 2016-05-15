@@ -81,7 +81,7 @@ public class MyApptListFragment extends Fragment {
   //  Listeners
   @OnClick(R.id.add_first_apartment_button)
   public void newApartment() {
-    if (user.getGroupId().equals("Tenant")) {
+    if (user.getGroupId().equals("tenant")) {
       callbacks.joinApartment();
     } else {
       callbacks.addNewApartment();

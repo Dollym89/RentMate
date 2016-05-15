@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.claims;
+package com.example.michal.rentmate.ui.claims.myClaim;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import com.example.michal.rentmate.R;
 import com.example.michal.rentmate.model.pojo.Apartment;
 import com.example.michal.rentmate.model.pojo.Claim;
+import com.example.michal.rentmate.model.pojo.User;
 import com.example.michal.rentmate.model.repositories.ApartmentRepository;
 import com.example.michal.rentmate.model.repositories.UserRepository;
 import com.example.michal.rentmate.networking.RentMateApi;
@@ -30,11 +31,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class ClaimNew extends Fragment {
 
@@ -44,7 +43,7 @@ public class ClaimNew extends Fragment {
   @Bind(R.id.create_claim_button) Button saveButton;
 
   private RentMateApi service;
-  private UserRepository userRepo;
+  private User user;
   private ApartmentRepository aptRepo;
 
   public static ClaimNew newInstance() {
@@ -54,7 +53,7 @@ public class ClaimNew extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    userRepo = UserRepository.getInstance();
+    user = UserRepository.getInstance().getUser();
     aptRepo = ApartmentRepository.getInstance();
   }
 
@@ -71,7 +70,7 @@ public class ClaimNew extends Fragment {
   @OnClick(R.id.create_claim_button)
   public void onClaimSaved() {
     Claim claim = setClaimProp();
-    saveClaim(Helper.getHeader(userRepo.getUser()), claim);
+    saveClaim(Helper.getHeader(user), claim);
   }
 
   private void saveClaim(String header, Claim claim) {
@@ -82,9 +81,7 @@ public class ClaimNew extends Fragment {
       @Override
       public void onResponse(Call<Claim> call, Response<Claim> response) {
         if (response.isSuccessful()) {
-//          TODO add claim to user after backend fix
-          userRepo.getUser();
-          Log.e(Constants.TAG_ON_CREATED, String.valueOf(response.isSuccessful()));
+          Log.e(Constants.TAG_ON_CREATED, String.valueOf(response));
           sendResult(Activity.RESULT_OK, true);
         } else {
           Log.e(Constants.TAG_ON_CREATED, "CLAIM IS NOT CREATED");
@@ -102,21 +99,10 @@ public class ClaimNew extends Fragment {
     final Claim claim = new Claim();
     String title = String.valueOf(titleEditText.getText());
     String description = String.valueOf(descriptionEditText.getText());
+    Apartment apt = (Apartment) aptSpinner.getSelectedItem();
+    claim.setRelatedApt(apt.getApartmentId());
     claim.setTitle(title);
     claim.setDescription(description);
-
-    aptSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-      @Override
-      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        Apartment selectedApartment = (Apartment) parent.getItemAtPosition(position);
-        claim.setRelatedApt(selectedApartment.getApartmentId());
-      }
-
-      @Override
-      public void onNothingSelected(AdapterView<?> parent) {
-      }
-    });
-    Log.e("CLAIM NEW", claim.toString());
     return claim;
   }
 

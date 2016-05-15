@@ -1,4 +1,4 @@
-package com.example.michal.rentmate.ui.claims;
+package com.example.michal.rentmate.ui.claims.newClaimDetail;
 
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.michal.rentmate.R;
