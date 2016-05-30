@@ -47,7 +47,7 @@ public class MyApptNew extends Fragment {
   @Bind(R.id.new_apt_street_edit_text) EditText streetEditText;
   @Bind(R.id.new_apt_zip_edit_text) EditText zipEditText;
 
-   private LatLng position;
+  private LatLng position;
   private RentMateApi service;
   private UserRepository userRepo;
   private boolean isApartmentAdded = true;
@@ -62,6 +62,12 @@ public class MyApptNew extends Fragment {
     View view = inflater.inflate(R.layout.frag_new_apartment, container, false);
     ButterKnife.bind(this, view);
     return view;
+  }
+
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    userRepo = UserRepository.getInstance();
   }
 
   @Override
@@ -118,7 +124,7 @@ public class MyApptNew extends Fragment {
     Toast.makeText(getActivity(), "HA you just saved apt", Toast.LENGTH_LONG).show();
   }
 
-   private Apartment setApartmantProp() {
+  private Apartment setApartmantProp() {
     Apartment apartment = new Apartment();
     String country = String.valueOf(countryEditText.getText());
     String street = String.valueOf(streetEditText.getText());
